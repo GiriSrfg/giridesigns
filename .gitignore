@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.agents/
+scratch/
+gif-frames/
+vite-dev.log
+vite-dev.err.log
