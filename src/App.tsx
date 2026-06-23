@@ -86,7 +86,7 @@ const projects = [
     category: 'UI/UX',
     name: 'FUTURE FITNESS',
     year: '2025',
-    banner: null,
+    banner: '/work/future-fitness-banner.png',
     cardClass: 'bg-[#2f3a38] text-[#b5ffd0]',
     metaClass: 'border-[#b5ffd0]/25 text-[#b5ffd0]',
     images: [
