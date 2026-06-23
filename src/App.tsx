@@ -257,9 +257,9 @@ function AnimatedText({ text }: { text: string }) {
 
   return (
     <p ref={ref} className='text-center text-[clamp(1rem,2vw,1.35rem)] font-medium leading-relaxed text-[#D7E2EA]'>
-      {text.split('').map((char, index) => (
+      {text.split(' ').map((word, index) => (
         <motion.span
-          key={`${char}-${index}`}
+          key={`${word}-${index}`}
           initial={{ opacity: 0.2 }}
           style={{
             opacity: useTransform(
@@ -268,9 +268,9 @@ function AnimatedText({ text }: { text: string }) {
               [0.2, 1]
             )
           }}
-          className='inline-block'
+          className='inline-block mr-[0.25em] last:mr-0'
         >
-          {char === ' ' ? '\u00A0' : char}
+          {word}
         </motion.span>
       ))}
     </p>
