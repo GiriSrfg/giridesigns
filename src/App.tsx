@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
+import { AnimatePresence, motion, useScroll, useTransform, useMotionValue, useSpring, useVelocity } from 'framer-motion'
 import {
   ArrowRight,
   ArrowUpRight,
@@ -48,7 +48,7 @@ const repeatMarqueeImages = (images: string[]) => [...images, ...images, ...imag
 const siteNavLinks = [
   { label: 'projects', href: '#projects' },
   { label: 'about', href: '#about' },
-  { label: 'notes', href: '#notes' },
+  { label: 'focus', href: '#focus' },
   { label: 'contact', href: '#contact' }
 ] as const
 
@@ -349,6 +349,1017 @@ function Magnet({
   )
 }
 
+interface FocusItem {
+  title: string
+  subtitle: string
+  image: string
+}
+
+const focusItems: FocusItem[] = [
+  {
+    title: 'AI Workforce Insights',
+    subtitle: 'Exploring proactive workforce management',
+    image: '/work/ai-workforce-insights.jpg'
+  },
+  {
+    title: 'Design Trade-offs',
+    subtitle: 'Balancing user needs with business goals through real-world product observations.',
+    image: '/work/design-tradeoffs.png'
+  },
+  {
+    title: 'Design Systems',
+    subtitle: 'Building scalable SaaS interfaces inspired by Untitled UI',
+    image: '/work/design-systems.png'
+  }
+]
+
+function CurrentFocusSection({
+  onSelectItem
+}: {
+  onSelectItem: (itemTitle: string) => void
+}) {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const isAnyRowHovered = hoveredIndex !== null
+
+  return (
+    <section
+      id="focus"
+      ref={containerRef}
+      className="relative bg-transparent py-24 text-white overflow-hidden"
+    >
+      <div className="relative z-10 px-6 sm:px-8 lg:px-[8.5vw]">
+        {/* Section Header */}
+        <div className="flex items-center gap-4 w-full mb-12">
+          <span className="font-mono text-xs lowercase text-white/45 shrink-0">.current focus</span>
+          <div className="h-px bg-white/10 flex-grow" />
+        </div>
+
+        {/* List Items */}
+        <div className="flex flex-col">
+          {focusItems.map((item, index) => {
+            const isHovered = hoveredIndex === index
+            const isDimmed = isAnyRowHovered && !isHovered
+
+            return (
+              <div
+                key={index}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                onClick={() => {
+                  onSelectItem(item.title)
+                }}
+                className="group relative grid grid-cols-8 items-center py-12 border-b border-white/10 cursor-pointer select-none transition-opacity duration-300"
+                style={{
+                  opacity: isDimmed ? 0.6 : 1,
+                }}
+              >
+                {/* Title & Subtitle: Column 1 to 4 */}
+                <div className="col-span-4 flex flex-col gap-2">
+                  <h3
+                    className="text-[clamp(1.5rem,3.2vw,2.5rem)] font-light tracking-tight transition-colors duration-300 leading-tight"
+                    style={{
+                      color: isHovered ? '#ffffff' : '#a3a3a3'
+                    }}
+                  >
+                    {item.title}
+                  </h3>
+                  
+                  {/* Subtitle animated reveal */}
+                  <motion.p
+                    initial={false}
+                    animate={{
+                      height: isHovered ? 'auto' : 0,
+                      opacity: isHovered ? 1 : 0,
+                      marginTop: isHovered ? 8 : 0
+                    }}
+                    transition={{
+                      duration: 0.6,
+                      ease: [0.22, 1, 0.36, 1]
+                    }}
+                    className="text-xs sm:text-sm text-neutral-400 font-light overflow-hidden pr-4"
+                  >
+                    {item.subtitle}
+                  </motion.p>
+                </div>
+
+                {/* Column 5: Empty */}
+                <div className="col-span-1" />
+
+                {/* Column 6 & 7: Slide-in Preview Image (Spans 2 columns) */}
+                <div className="col-span-2 relative aspect-[3/2] w-full overflow-visible flex items-center justify-center">
+                  <AnimatePresence>
+                    {isHovered && (
+                      <motion.div
+                        initial={{ opacity: 0, x: '-50%', scale: 0.95 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        exit={{ opacity: 0, x: '-50%', scale: 0.95 }}
+                        transition={{
+                          duration: 0.6,
+                          ease: [0.22, 1, 0.36, 1]
+                        }}
+                        className="absolute inset-0 w-full h-full rounded-lg overflow-hidden border border-white/10 bg-neutral-900 shadow-2xl"
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Column 8: Arrow Icon */}
+                <div className="col-span-1 flex justify-end">
+                  <motion.div
+                    animate={{
+                      rotate: isHovered ? 0 : -45,
+                      x: isHovered ? 8 : 0,
+                      color: isHovered ? '#ffffff' : '#525252'
+                    }}
+                    transition={{
+                      duration: 0.6,
+                      ease: [0.22, 1, 0.36, 1]
+                    }}
+                  >
+                    <ArrowRight className="h-6 w-6 sm:h-8 sm:w-8" />
+                  </motion.div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ContactSection({ onContactClick }: { onContactClick?: () => void }) {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <section
+      id="contact"
+      className="relative bg-transparent py-32 text-white overflow-hidden"
+    >
+      <div className="relative z-10 px-6 sm:px-8 lg:px-[8.5vw]">
+        {/* Section Header */}
+        <div className="flex items-center gap-4 w-full mb-16">
+          <span className="font-mono text-xs lowercase text-white/45 shrink-0">.say hello</span>
+          <div className="h-px bg-white/10 flex-grow" />
+        </div>
+
+        {/* Content & Button */}
+        <div className="flex flex-col gap-16">
+          {/* Large Title Text */}
+          <h2 className="text-[clamp(1.4rem,3.4vw,2.6rem)] font-light leading-[1.25] tracking-tight max-w-[90%] font-sans text-neutral-200">
+            Have an idea, product, or design challenge?
+            <br />
+            <br />
+            Let's discuss how thoughtful design can create
+            <br />
+            better experiences.
+          </h2>
+
+          {/* Button Area aligned to columns 5 to 6 */}
+          <div className="grid grid-cols-8 w-full">
+            <div className="col-span-8 md:col-start-5 md:col-span-2">
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  if (onContactClick) {
+                    e.preventDefault()
+                    onContactClick()
+                  }
+                }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                className="relative flex items-center justify-center py-6 px-10 border border-white/20 overflow-hidden select-none transition-colors duration-300 w-full"
+              >
+                {/* Filling white background from bottom */}
+                <motion.div
+                  initial={false}
+                  animate={{
+                    scaleY: isHovered ? 1 : 0
+                  }}
+                  transition={{
+                    duration: 0.3,
+                    ease: [0.22, 1, 0.36, 1]
+                  }}
+                  style={{
+                    originY: 1
+                  }}
+                  className="absolute inset-0 bg-white z-0"
+                />
+
+                {/* Button Text & Arrow */}
+                <div className="relative z-10 flex items-center gap-3 font-mono text-sm tracking-wider uppercase">
+                  <motion.span
+                    animate={{
+                      color: isHovered ? '#000000' : '#ffffff'
+                    }}
+                    transition={{
+                      duration: 0.3,
+                      ease: [0.22, 1, 0.36, 1]
+                    }}
+                  >
+                    contact me
+                  </motion.span>
+                  <motion.div
+                    animate={{
+                      rotate: isHovered ? 0 : -45,
+                      x: isHovered ? 4 : 0,
+                      color: isHovered ? '#000000' : '#ffffff'
+                    }}
+                    transition={{
+                      duration: 0.3,
+                      ease: [0.22, 1, 0.36, 1]
+                    }}
+                  >
+                    <ArrowRight className="h-4 w-4" />
+                  </motion.div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function SiteFooter({
+  onLinkClick
+}: {
+  onLinkClick?: (href: string) => void
+}) {
+  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!onLinkClick) return
+    event.preventDefault()
+    onLinkClick(href)
+  }
+
+  const footerLinks = [
+    { label: 'projects', href: '#projects' },
+    { label: 'about', href: '#about' },
+    { label: 'notes', href: '#projects' },
+    { label: 'contact', href: '#contact' }
+  ]
+
+  return (
+    <footer className="relative bg-transparent py-16 text-white overflow-hidden font-sans">
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="relative z-10 px-6 sm:px-8 lg:px-[8.5vw] w-full"
+      >
+        <div className="flex flex-col md:grid md:grid-cols-8 items-center w-full gap-y-10 md:gap-y-6">
+          {/* Left: Brand (Column 1-2) */}
+          <div className="col-span-8 md:col-span-2 flex justify-center md:justify-start">
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault()
+                if (onLinkClick) onLinkClick('#')
+              }}
+              className="font-mono text-sm tracking-widest text-neutral-500 hover:text-neutral-200 transition-colors duration-300 uppercase"
+            >
+              giri.design
+            </a>
+          </div>
+
+          {/* Center: Links (Column 3-6) */}
+          <div className="col-span-8 md:col-span-4 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 font-sans text-sm lowercase">
+            {footerLinks.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={(e) => handleLinkClick(e, item.href)}
+                className="text-neutral-500 hover:text-neutral-200 transition-colors duration-300 relative py-1 group"
+              >
+                {item.label}
+                <span className="absolute bottom-0 left-0 w-0 h-px bg-neutral-200 transition-all duration-300 group-hover:w-full" />
+              </a>
+            ))}
+          </div>
+
+          {/* Right: Socials (Column 7-8) */}
+          <div className="col-span-8 md:col-span-2 flex justify-center md:justify-end gap-6 text-neutral-500">
+            <a href="https://www.behance.net/frontendmesu" target="_blank" rel="noreferrer" className="hover:text-neutral-200 transition-colors duration-300">
+              <BehanceIcon />
+            </a>
+            <a href="https://www.linkedin.com/in/giri-s-97388b227" target="_blank" rel="noreferrer" className="hover:text-neutral-200 transition-colors duration-300">
+              <LinkedinCustomIcon />
+            </a>
+            <a href="https://wa.me/917975021897" target="_blank" rel="noreferrer" className="hover:text-neutral-200 transition-colors duration-300">
+              <WhatsappCustomIcon />
+            </a>
+          </div>
+        </div>
+      </motion.div>
+    </footer>
+  )
+}
+
+const BehanceIcon = () => (
+  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
+    <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+    <g transform="translate(3.5, 2.7) scale(0.72)">
+      <path 
+        fill="currentColor" 
+        d="M22 7h-7v1.25h7v-1.25zm-2.88 3.593c-.947 0-1.688.337-2.146.994-.458.656-.69 1.579-.69 2.756h5.698c-.015-1.127-.245-2.023-.715-2.67-.47-.648-1.19-.98-2.147-.98zm-6.223 3.633c.36-.188.63-.448.81-.781.18-.333.27-.723.27-1.17 0-.583-.16-.967-.48-1.15-.32-.183-.87-.275-1.65-.275h-2.91v3.375h2.96zm-.43 3.036c.49-.072.86-.217 1.11-.433.25-.216.375-.544.375-.984 0-.41-.122-.721-.365-.933-.243-.212-.665-.318-1.265-.318h-2.82v2.668h2.965zm-1.875 1.738h-4.32v-11h4.635c1.47 0 2.505.292 3.105.875.6.583.9 1.375.9 2.375 0 .8-.205 1.455-.615 1.965-.41.51-1.025.84-1.845.99.98.15 1.725.565 2.235 1.245.51.68.765 1.57.765 2.67 0 1.25-.395 2.21-1.185 2.88-.79.67-1.925 1.005-3.405 1.005zm11.39-7.25c-.07-1.86-.495-3.245-1.275-4.155-.78-.91-1.91-1.365-3.39-1.365-1.46 0-2.58.465-3.36 1.395-.78.93-1.17 2.285-1.17 4.065 0 1.8.395 3.165 1.185 4.095.79.93 1.94 1.395 3.45 1.395 1.31 0 2.33-.305 3.06-.915.73-.61 1.205-1.5 1.425-2.67h-2.1c-.13.56-.395.99-.795 1.29-.4.3-.925.45-1.575.45-.85 0-1.49-.24-1.92-.72-.43-.48-.685-1.25-.765-2.31h7.83c.02-.31.03-.59.03-.81z"
+      />
+    </g>
+  </svg>
+)
+
+const LinkedinCustomIcon = () => (
+  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+  </svg>
+)
+
+const WhatsappCustomIcon = () => (
+  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.5-5.739-1.446L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.403.002 9.803-4.394 9.806-9.799.002-2.595-1.002-5.035-2.825-6.858-1.823-1.824-4.267-2.827-6.861-2.829-5.41 0-9.81 4.402-9.813 9.808-.001 1.57.418 3.102 1.21 4.461l-.988 3.605 3.696-.97c1.365.808 2.85 1.232 4.15 1.232zm10.742-5.834c-.267-.134-1.58-.78-1.823-.867-.243-.088-.42-.132-.596.134-.176.265-.678.837-.83 1.012-.153.176-.305.198-.572.064-.267-.134-1.127-.415-2.148-1.326-.794-.709-1.33-1.584-1.486-1.85-.156-.265-.017-.409.117-.541.12-.119.267-.309.4-.463.133-.154.178-.264.267-.44.088-.176.044-.331-.022-.463-.066-.132-.596-1.432-.816-1.962-.214-.516-.45-.446-.618-.454-.16-.008-.344-.01-.528-.01-.184 0-.485.069-.739.344-.254.275-.97.948-.97 2.311 0 1.363.992 2.68 1.113 2.846.121.166 1.953 2.982 4.731 4.183.661.286 1.177.457 1.58.587.663.21 1.266.18 1.742.11.53-.08 1.58-.646 1.802-1.238.22-.593.22-1.102.154-1.21-.066-.108-.243-.176-.51-.31z"/>
+  </svg>
+)
+
+function SocialMediaRow({ item }: { item: { title: string; handle: string; url: string; icon: React.ComponentType } }) {
+  const [isHovered, setIsHovered] = useState(false)
+  return (
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={() => window.open(item.url, '_blank')}
+      className="flex items-center gap-6 cursor-pointer group py-4 border-b border-white/5 last:border-b-0 w-full"
+    >
+      <div className="relative w-[60px] h-[60px] border border-white/20 overflow-hidden flex items-center justify-center shrink-0">
+        <motion.div
+          initial={false}
+          animate={{
+            scaleY: isHovered ? 1 : 0
+          }}
+          transition={{
+            duration: 0.3,
+            ease: [0.22, 1, 0.36, 1]
+          }}
+          style={{
+            originY: 1
+          }}
+          className="absolute inset-0 bg-white z-0"
+        />
+        <div className="relative z-10">
+          <motion.div
+            animate={{
+              color: isHovered ? '#000000' : '#ffffff'
+            }}
+            transition={{
+              duration: 0.3,
+              ease: [0.22, 1, 0.36, 1]
+            }}
+          >
+            <item.icon />
+          </motion.div>
+        </div>
+      </div>
+      <div className="flex flex-col gap-0.5">
+        <span className="text-base font-medium text-neutral-300 group-hover:text-white transition duration-300 lowercase">
+          {item.title}
+        </span>
+        <span className="font-mono text-xs text-neutral-500">
+          {item.handle}
+        </span>
+      </div>
+    </div>
+  )
+}
+
+function ContactPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  const socialMedia = [
+    {
+      title: 'Behance',
+      handle: '@frontendmesu',
+      url: 'https://www.behance.net/frontendmesu',
+      icon: BehanceIcon
+    },
+    {
+      title: 'Linkedin',
+      handle: '@giri-s-97388b227',
+      url: 'https://www.linkedin.com/in/giri-s-97388b227',
+      icon: LinkedinCustomIcon
+    },
+    {
+      title: 'Whatsapp',
+      handle: '+91 79750 21897',
+      url: 'https://wa.me/917975021897',
+      icon: WhatsappCustomIcon
+    }
+  ]
+
+  return (
+    <div className="relative bg-transparent min-h-screen text-white pt-[140px] pb-24 overflow-hidden font-sans">
+      <div className="relative z-10 px-6 sm:px-8 lg:px-[8.5vw] flex flex-col gap-20">
+        {/* Header Block */}
+        <div className="flex items-center gap-4 w-full mt-4">
+          <span className="font-mono text-xs lowercase text-white/45 shrink-0">.say hello</span>
+          <div className="h-px bg-white/10 flex-grow" />
+        </div>
+
+        {/* Hero Title Block */}
+        <div className="grid grid-cols-8 w-full gap-y-6">
+          <div className="col-span-8">
+            <h1 className="text-[clamp(2.5rem,8vw,5.5rem)] font-light leading-none tracking-tight text-white font-sans">
+              say hello
+            </h1>
+          </div>
+          <div className="col-span-8 md:col-start-3 md:col-span-6">
+            <h2 className="text-[clamp(1.8rem,4vw,3.2rem)] font-light leading-snug tracking-tight text-neutral-300 max-w-[95%] font-sans">
+              let&apos;s collaborate. feel free to drop me a line about your project or follow me on social networks
+            </h2>
+          </div>
+        </div>
+
+        {/* Content splits into Form and Socials */}
+        <div className="grid grid-cols-8 w-full gap-y-16 pt-8 md:gap-x-12">
+          {/* Form Container: Column 1 to 5 */}
+          <div className="col-span-8 md:col-span-5 flex flex-col gap-8">
+            <form className="flex flex-col gap-6 w-full" onSubmit={(e) => e.preventDefault()}>
+              <div className="flex flex-col gap-2">
+                <input
+                  type="text"
+                  required
+                  placeholder="Name"
+                  className="w-full bg-[#121212] border border-white/10 rounded-none py-5 px-6 text-white placeholder-white/40 focus:outline-none focus:border-white/30 transition duration-300"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <input
+                  type="email"
+                  required
+                  placeholder="Email"
+                  className="w-full bg-[#121212] border border-white/10 rounded-none py-5 px-6 text-white placeholder-white/40 focus:outline-none focus:border-white/30 transition duration-300"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <textarea
+                  rows={6}
+                  required
+                  placeholder="Message"
+                  className="w-full bg-[#121212] border border-white/10 rounded-none py-5 px-6 text-white placeholder-white/40 focus:outline-none focus:border-white/30 transition duration-300 resize-none"
+                />
+              </div>
+              
+              {/* Submit button */}
+              <button
+                type="submit"
+                className="w-full bg-white text-black font-semibold uppercase tracking-wider py-5 hover:bg-neutral-200 transition duration-300 mt-4 text-sm rounded-none"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+
+          {/* Socials Container: Column 6 to 8 */}
+          <div className="col-span-8 md:col-start-6 md:col-span-3 flex flex-col gap-6 md:border-l md:border-white/5 md:pl-10">
+            <span className="font-mono text-xs text-white/40 lowercase mb-2">social channels</span>
+            <div className="flex flex-col gap-2 w-full">
+              {socialMedia.map((item) => (
+                <SocialMediaRow key={item.title} item={item} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ProjectsListPage({
+  onSelectProject
+}: {
+  onSelectProject: (project: typeof projects[number]) => void
+}) {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  const descriptions: Record<string, string> = {
+    'Sports ERP': 'A unified digital ecosystem for athletic training, competition tracking, and wellness analytics.',
+    'Quick Notes': 'A markdown-supported note-taking application built for immediate, distraction-free capture.',
+    'FUTURE FITNESS': 'A workout tracking and trainer dashboard that uses biometric visualization to prevent overtraining.'
+  }
+
+  return (
+    <div className="relative bg-transparent min-h-screen text-white pt-[140px] pb-24 overflow-hidden font-sans">
+
+      <div className="relative z-10 px-6 sm:px-8 lg:px-[8.5vw] flex flex-col gap-20">
+        {/* Header Block */}
+        <div className="flex items-center gap-4 w-full mt-4">
+          <span className="font-mono text-xs lowercase text-white/45 shrink-0">.projects</span>
+          <div className="h-px bg-white/10 flex-grow" />
+        </div>
+
+        {/* Hero Title Block */}
+        <div className="grid grid-cols-8 w-full">
+          <div className="col-span-8 md:col-start-3 md:col-span-6">
+            <h1 className="text-[clamp(1.8rem,4vw,3.2rem)] font-light leading-snug tracking-tight text-white max-w-[90%] font-sans">
+              Designing smarter workforce experiences through data-driven insights, proactive decision making, and human-centered design.
+            </h1>
+          </div>
+        </div>
+
+        {/* Projects List */}
+        <div className="flex flex-col gap-24 w-full mt-8">
+          {projects.map((project) => {
+            const desc = descriptions[project.name] || ''
+            const imageSrc = project.banner ?? project.images[0]
+
+            return (
+              <div
+                key={project.name}
+                className="grid grid-cols-8 w-full gap-y-8 items-start border-b border-white/5 pb-16 last:border-b-0"
+              >
+                {/* Column 1 to 6: Card Container */}
+                <div className="col-span-8 md:col-span-6">
+                  <div
+                    onClick={() => onSelectProject(project)}
+                    className={`group cursor-pointer rounded-xl p-6 sm:p-9 shadow-2xl transition-transform duration-500 hover:-translate-y-1 ${project.cardClass}`}
+                  >
+                    {/* Meta info */}
+                    <div className={`border-b pb-4 font-mono text-xs sm:text-sm flex items-center justify-between ${project.metaClass}`}>
+                      <span>{project.year}</span>
+                      <span>{project.category}</span>
+                    </div>
+
+                    {/* Title & Arrow */}
+                    <div className="mt-6 flex items-center justify-between gap-4">
+                      <h3 className="text-[clamp(2rem,6vw,4rem)] font-light leading-none tracking-tight">
+                        {project.name}
+                      </h3>
+                      <div className="flex h-10 w-10 sm:h-14 sm:w-14 items-center justify-center transition-transform duration-500 group-hover:rotate-45">
+                        <ArrowRight className="h-6 w-6 sm:h-8 sm:w-8" strokeWidth={1.5} />
+                      </div>
+                    </div>
+
+                    {/* Image */}
+                    <div className="mt-8 overflow-hidden rounded-lg bg-black/10 aspect-[16/10] w-full">
+                      <img
+                        src={imageSrc}
+                        alt={project.name}
+                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Column 7 to 8: Description Block (Desktop) */}
+                <div className="col-span-8 md:col-start-7 md:col-span-2 md:pl-8 flex flex-col gap-2">
+                  <p className="font-mono text-xs sm:text-sm leading-relaxed tracking-wider text-[#ff5900] uppercase font-semibold">
+                    {project.category}
+                  </p>
+                  <p className="font-sans text-sm sm:text-base leading-relaxed text-neutral-400 font-light">
+                    {desc}
+                  </p>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+interface DetailPageData {
+  title: string
+  subtitle: string
+  image: string
+  date: string
+  readingTime: string
+  sections: Array<
+    | { type: 'text'; title: string; paragraphs: string[] }
+    | { type: 'bullets'; title: string; items: string[]; bulletChar?: string }
+    | { type: 'highlight'; title: string; text: string }
+  >
+  seeAlso: Array<{ title: string; subtitle: string; image: string }>
+}
+
+const detailPagesData: Record<'design-systems' | 'employee-retention' | 'ai-workforce', DetailPageData> = {
+  'design-systems': {
+    title: 'Design Systems',
+    subtitle: 'Building scalable interfaces through consistency.',
+    image: '/work/design-systems.png',
+    date: 'June 26, 2026',
+    readingTime: '3 min',
+    sections: [
+      {
+        type: 'text',
+        title: 'Why Design Systems Matter',
+        paragraphs: [
+          'As products grow, maintaining consistency becomes increasingly challenging.',
+          'Design systems provide reusable foundations that improve collaboration between designers and developers.'
+        ]
+      },
+      {
+        type: 'bullets',
+        title: 'What I Explored',
+        items: [
+          'Design Tokens',
+          'Component Libraries',
+          'Typography Systems',
+          'Layout Principles',
+          'Reusable Patterns'
+        ],
+        bulletChar: '•'
+      },
+      {
+        type: 'highlight',
+        title: 'Key Learning',
+        text: 'Strong design systems are not collections of components. They are frameworks that help teams design, build and scale products efficiently.'
+      }
+    ],
+    seeAlso: [
+      {
+        title: 'AI Workforce Insights',
+        subtitle: 'Exploring proactive workforce management',
+        image: '/work/ai-workforce-insights.jpg'
+      },
+      {
+        title: 'Design Trade-offs',
+        subtitle: 'Balancing user needs with business goals through real-world product observations.',
+        image: '/work/design-tradeoffs.png'
+      }
+    ]
+  },
+  'employee-retention': {
+    title: 'Design Trade-offs',
+    subtitle: 'Balancing user needs with business goals through real-world product observations.',
+    image: '/work/design-tradeoffs.png',
+    date: 'June 26, 2026',
+    readingTime: '3 min',
+    sections: [
+      {
+        type: 'text',
+        title: 'Looking beyond the interface',
+        paragraphs: [
+          'While working at a coworking space, I witnessed an interesting product decision that changed the way I think about UX.'
+        ]
+      },
+      {
+        type: 'text',
+        title: 'The Observation',
+        paragraphs: [
+          'A visitor purchased a day pass through the booking app, but when they arrived, every desk was already occupied.',
+          'The customer expected a guaranteed seat because the booking had been confirmed, which led to frustration and a difficult conversation with the staff.',
+          'This made me wonder: Why didn\'t the app simply show that the workspace was full before allowing the booking?'
+        ]
+      },
+      {
+        type: 'text',
+        title: 'Looking Beyond UX',
+        paragraphs: [
+          'At first, the answer seemed obvious—showing "Fully Booked" would prevent a poor user experience.',
+          'But after exploring the problem from a business perspective, I realized there could be another side to the decision.',
+          'Some customers don\'t occupy their reserved seats, some leave early, and managers can often rearrange seating or allocate alternative workspaces.',
+          'Keeping bookings open may increase occupancy and revenue while giving operations teams flexibility to manage availability manually.'
+        ]
+      },
+      {
+        type: 'bullets',
+        title: 'Better User Experience',
+        items: [
+          'Clear seat availability',
+          'Fewer booking surprises',
+          'Higher user trust'
+        ],
+        bulletChar: '•'
+      },
+      {
+        type: 'bullets',
+        title: 'Business Flexibility',
+        items: [
+          'Better occupancy utilization',
+          'More booking opportunities',
+          'Manual seat allocation when possible'
+        ],
+        bulletChar: '•'
+      },
+      {
+        type: 'highlight',
+        title: 'My Takeaway',
+        text: 'This experience taught me that product design isn\'t always about choosing the best user experience in isolation. Great products balance user needs, business goals, and operational realities. Instead of asking, "Is this good UX?", I now ask, "Why might the product team have made this decision?"'
+      }
+    ],
+    seeAlso: [
+      {
+        title: 'AI Workforce Insights',
+        subtitle: 'Exploring proactive workforce management',
+        image: '/work/ai-workforce-insights.jpg'
+      },
+      {
+        title: 'Design Systems',
+        subtitle: 'Building scalable SaaS interfaces inspired by Untitled UI',
+        image: '/work/design-systems.png'
+      }
+    ]
+  },
+  'ai-workforce': {
+    title: 'AI Workforce Insights',
+    subtitle: 'Turning workforce data into proactive decisions.',
+    image: '/work/ai-workforce-insights.jpg',
+    date: 'June 26, 2026',
+    readingTime: '3 min',
+    sections: [
+      {
+        type: 'text',
+        title: 'The Problem',
+        paragraphs: [
+          'Managers often receive large amounts of workforce data but lack actionable insights.',
+          'Attendance records, grievances, overtime logs and employee activities are available, but identifying patterns requires manual analysis.',
+          'This results in delayed decisions, higher employee attrition and operational inefficiencies.'
+        ]
+      },
+      {
+        type: 'text',
+        title: 'Opportunity',
+        paragraphs: [
+          'What if the system could identify risks automatically?',
+          'Instead of presenting raw data, workforce platforms can surface meaningful insights, helping managers take action before issues escalate.'
+        ]
+      },
+      {
+        type: 'text',
+        title: 'Proposed Solution',
+        paragraphs: [
+          'An AI-powered insights layer that continuously analyzes attendance trends, grievances and workforce behavior.',
+          'The system highlights anomalies, predicts risks and recommends actions that improve workforce efficiency.'
+        ]
+      },
+      {
+        type: 'bullets',
+        title: 'Potential Outcomes',
+        items: [
+          'Faster decision making',
+          'Reduced absenteeism',
+          'Improved employee satisfaction',
+          'Better workforce planning'
+        ],
+        bulletChar: '✓'
+      }
+    ],
+    seeAlso: [
+      {
+        title: 'Design Trade-offs',
+        subtitle: 'Balancing user needs with business goals through real-world product observations.',
+        image: '/work/design-tradeoffs.png'
+      },
+      {
+        title: 'Design Systems',
+        subtitle: 'Building scalable SaaS interfaces inspired by Untitled UI',
+        image: '/work/design-systems.png'
+      }
+    ]
+  }
+}
+
+function FocusDetailPage({
+  itemId,
+  onGoHome
+}: {
+  itemId: 'design-systems' | 'employee-retention' | 'ai-workforce'
+  onGoHome: (target?: string) => void
+}) {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [itemId])
+
+  const [hoveredSeeAlsoIndex, setHoveredSeeAlsoIndex] = useState<number | null>(null)
+  const data = detailPagesData[itemId]
+
+  return (
+    <div className="relative bg-transparent min-h-screen text-white pt-[140px] pb-24 overflow-hidden font-sans">
+
+      <div className="relative z-10 px-6 sm:px-8 lg:px-[8.5vw] flex flex-col gap-16">
+        
+        {/* Title Block */}
+        <div className="grid grid-cols-8 w-full gap-y-6">
+          <div className="col-span-8 lg:col-span-6 flex flex-col gap-6">
+            <h1 className="text-[clamp(2.5rem,6vw,5.5rem)] font-light leading-[1.05] tracking-tight">
+              {data.title}
+            </h1>
+            <p className="text-[clamp(1.2rem,2.5vw,1.8rem)] text-neutral-400 font-light leading-relaxed max-w-[90%]">
+              {data.subtitle}
+            </p>
+            
+            {/* Outlined Badge */}
+            <div className="mt-2">
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 border border-white/20 text-xs font-mono lowercase text-white/60 tracking-wider">
+                in focus ↗
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Hero Image */}
+        <div className="grid grid-cols-8 w-full">
+          <div className="col-span-8 md:col-start-3 md:col-span-6 aspect-[16/9] w-full overflow-hidden rounded-xl border border-white/10 bg-neutral-900">
+            <img
+              src={data.image}
+              alt={`${data.title} Cover`}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+
+        {/* Article Body + Metadata columns */}
+        <div className="grid grid-cols-8 w-full gap-y-12 pt-6">
+          {/* Main Article Content: spans columns 1-8 on mobile, cols 3-6 on desktop */}
+          <div className="col-span-8 md:col-start-3 md:col-span-4 flex flex-col gap-12 text-neutral-300 font-light text-base sm:text-lg leading-relaxed">
+            
+            {data.sections.map((sec, idx) => {
+              if (sec.type === 'text') {
+                return (
+                  <div key={idx} className="flex flex-col gap-4">
+                    <h2 className="text-xl sm:text-2xl font-normal text-white tracking-tight">
+                      {sec.title}
+                    </h2>
+                    {sec.paragraphs.map((p, pIdx) => (
+                      <p key={pIdx}>{p}</p>
+                    ))}
+                  </div>
+                )
+              } else if (sec.type === 'bullets') {
+                return (
+                  <div key={idx} className="flex flex-col gap-4">
+                    <h2 className="text-xl sm:text-2xl font-normal text-white tracking-tight">
+                      {sec.title}
+                    </h2>
+                    <ul className="flex flex-col gap-3 font-mono text-sm tracking-wider text-neutral-400">
+                      {sec.items.map((item, itemIdx) => (
+                        <li key={itemIdx} className="flex items-center gap-2">
+                          <span className="text-white/60 mr-1">{sec.bulletChar || '•'}</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )
+              } else if (sec.type === 'highlight') {
+                return (
+                  <div key={idx} className="flex flex-col gap-4 p-6 sm:p-8 bg-white/[0.02] border border-white/5 rounded-none">
+                    <h2 className="text-lg font-normal text-white tracking-tight">
+                      {sec.title}
+                    </h2>
+                    <p className="italic text-neutral-400">
+                      "{sec.text}"
+                    </p>
+                  </div>
+                )
+              }
+              return null
+            })}
+
+          </div>
+
+          {/* Metadata Block: spans columns 1-8 on mobile, cols 7-8 on desktop */}
+          <div className="col-span-8 md:col-start-7 md:col-span-2 flex flex-row md:flex-col gap-8 md:gap-6 border-t md:border-t-0 md:border-l border-white/10 pt-8 md:pt-0 md:pl-8">
+            <div className="flex flex-col gap-1">
+              <span className="font-mono text-xs text-white/40 lowercase">date published</span>
+              <span className="text-sm font-medium text-white/80">{data.date}</span>
+            </div>
+            <div className="flex flex-col gap-1">
+              <span className="font-mono text-xs text-white/40 lowercase">reading time</span>
+              <span className="text-sm font-medium text-white/80">{data.readingTime}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* See Also Divider & Header */}
+        <div className="flex items-center gap-4 w-full mt-12">
+          <span className="font-mono text-xs lowercase text-white/45 shrink-0">.see also</span>
+          <div className="h-px bg-white/10 flex-grow" />
+        </div>
+
+        {/* See Also List */}
+        <div className="flex flex-col relative z-10 w-full mb-12">
+          {data.seeAlso.map((item, index) => {
+            const isHovered = hoveredSeeAlsoIndex === index
+            const isDimmed = hoveredSeeAlsoIndex !== null && !isHovered
+
+            return (
+              <a
+                key={index}
+                href="#focus"
+                onClick={(e) => {
+                  e.preventDefault()
+                  if (item.title === 'Design Systems') {
+                    onGoHome('design-systems')
+                  } else if (item.title === 'Design Trade-offs' || item.title === 'Employee Retention Prediction') {
+                    onGoHome('employee-retention')
+                  } else if (item.title === 'AI Workforce Insights') {
+                    onGoHome('ai-workforce')
+                  } else {
+                    onGoHome('#focus')
+                  }
+                }}
+                onMouseEnter={() => setHoveredSeeAlsoIndex(index)}
+                onMouseLeave={() => setHoveredSeeAlsoIndex(null)}
+                className="group relative grid grid-cols-8 items-center py-12 border-b border-white/10 cursor-pointer select-none transition-opacity duration-300"
+                style={{
+                  opacity: isDimmed ? 0.6 : 1
+                }}
+              >
+                {/* Title & Subtitle: Column 1 to 4 */}
+                <div className="col-span-4 flex flex-col gap-2">
+                  <h3
+                    className="text-[clamp(1.5rem,3.2vw,2.5rem)] font-light tracking-tight transition-colors duration-300 leading-tight"
+                    style={{
+                      color: isHovered ? '#ffffff' : '#a3a3a3'
+                    }}
+                  >
+                    {item.title}
+                  </h3>
+                  
+                  {/* Subtitle animated reveal */}
+                  <motion.p
+                    initial={false}
+                    animate={{
+                      height: isHovered ? 'auto' : 0,
+                      opacity: isHovered ? 1 : 0,
+                      marginTop: isHovered ? 8 : 0
+                    }}
+                    transition={{
+                      duration: 0.6,
+                      ease: [0.22, 1, 0.36, 1]
+                    }}
+                    className="text-xs sm:text-sm text-neutral-400 font-light overflow-hidden pr-4"
+                  >
+                    {item.subtitle}
+                  </motion.p>
+                </div>
+
+                {/* Column 5: Empty */}
+                <div className="col-span-1" />
+
+                {/* Column 6 & 7: Slide-in Preview Image */}
+                <div className="col-span-2 relative aspect-[3/2] w-full overflow-visible flex items-center justify-center">
+                  <AnimatePresence>
+                    {isHovered && (
+                      <motion.div
+                        initial={{ opacity: 0, x: '-50%', scale: 0.95 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        exit={{ opacity: 0, x: '-50%', scale: 0.95 }}
+                        transition={{
+                          duration: 0.6,
+                          ease: [0.22, 1, 0.36, 1]
+                        }}
+                        className="absolute inset-0 w-full h-full rounded-lg overflow-hidden border border-white/10 bg-neutral-900 shadow-2xl"
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Column 8: Arrow Icon */}
+                <div className="col-span-1 flex justify-end">
+                  <motion.div
+                    animate={{
+                      rotate: isHovered ? 0 : -45,
+                      x: isHovered ? 8 : 0,
+                      color: isHovered ? '#ffffff' : '#525252'
+                    }}
+                    transition={{
+                      duration: 0.6,
+                      ease: [0.22, 1, 0.36, 1]
+                    }}
+                  >
+                    <ArrowRight className="h-6 w-6 sm:h-8 sm:w-8" />
+                  </motion.div>
+                </div>
+              </a>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function App() {
   const { scrollY, scrollYProgress } = useScroll()
   const [sectionTop, setSectionTop] = useState(0)
@@ -357,7 +1368,20 @@ function App() {
   const containerRef = useRef<HTMLDivElement>(null)
   const pinWrapperRef = useRef<HTMLDivElement>(null)
   const [activeProject, setActiveProject] = useState<typeof projects[number] | null>(null)
-  const [currentPage, setCurrentPage] = useState<'home' | 'project-details'>('home')
+  const [currentPage, setCurrentPage] = useState<'home' | 'project-details' | 'design-systems-detail' | 'employee-retention-detail' | 'ai-workforce-detail' | 'projects-list' | 'contact-page'>('home')
+
+  const scrollToSection = (targetId: string) => {
+    const target = document.getElementById(targetId)
+    if (target) {
+      const headerOffset = 96
+      const elementPosition = target.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
+  }
 
   useEffect(() => {
     if (currentPage !== 'home') return
@@ -372,12 +1396,9 @@ function App() {
     if (currentPage !== 'home' || !pendingAnchor) return
 
     const targetId = pendingAnchor.startsWith('#') ? pendingAnchor.slice(1) : pendingAnchor
-    const target = document.getElementById(targetId)
 
     const raf = window.requestAnimationFrame(() => {
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }
+      scrollToSection(targetId)
       setPendingAnchor(null)
     })
 
@@ -490,21 +1511,40 @@ function App() {
     setPendingAnchor(anchor ?? null)
     window.scrollTo({ top: 0, behavior: 'auto' })
   }
-
   return (
-    <main className='overflow-x-clip bg-[#0C0C0C]'>
+    <main className='overflow-x-clip bg-[#050505] relative min-h-screen'>
+      {/* Global Background Grid Lines */}
+      <div className="absolute inset-y-0 left-0 right-0 grid grid-cols-8 pointer-events-none z-0 px-6 sm:px-8 lg:px-[8.5vw]">
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            className={`h-full w-full ${i > 0 ? 'border-l border-white/[0.08]' : ''}`}
+          />
+        ))}
+      </div>
+
       <SiteHeader
         scrollProgress={scrollYProgress}
-        onBrandClick={currentPage === 'home' ? undefined : () => goHome()}
-        onLinkClick={currentPage === 'home' ? undefined : (href) => goHome(href)}
+        onBrandClick={() => goHome()}
+        onLinkClick={(href) => {
+          if (href === '#contact') {
+            setCurrentPage('contact-page')
+            window.scrollTo({ top: 0 })
+          } else if (href === '#projects') {
+            setCurrentPage('projects-list')
+            window.scrollTo({ top: 0 })
+          } else if (currentPage === 'home') {
+            const targetId = href.startsWith('#') ? href.slice(1) : href
+            scrollToSection(targetId)
+          } else {
+            goHome(href)
+          }
+        }}
       />
 
       {currentPage === 'home' ? (
         <>
-          <section className='relative min-h-screen overflow-hidden bg-black px-6 pb-8 pt-[96px] text-white sm:px-8 sm:pt-[90px] lg:px-[8.5vw]'>
-            <div className='pointer-events-none absolute inset-y-[96px] left-6 right-6 opacity-45 sm:inset-y-[90px] sm:left-8 sm:right-8 lg:left-[8.5vw] lg:right-[8.5vw]'>
-              <div className='h-full w-full bg-[linear-gradient(90deg,rgba(255,255,255,0.16)_1px,transparent_1px)] bg-[length:12.5%_100%]' />
-            </div>
+          <section className='relative min-h-screen overflow-hidden bg-transparent px-6 pb-8 pt-[96px] text-white sm:px-8 sm:pt-[90px] lg:px-[8.5vw]'>
 
             <div className='relative z-10 flex min-h-[calc(100vh-96px)] flex-col sm:min-h-[calc(100vh-96px)]'>
               <div className='flex items-center justify-between gap-5 pt-3 font-mono text-[clamp(0.75rem,2.6vw,1.35rem)] leading-none text-white/45 sm:items-start sm:pt-3 sm:text-base sm:text-white/55'>
@@ -590,7 +1630,7 @@ function App() {
             </div>
           </section>
 
-          <section id='projects' ref={containerRef} className='relative z-10 bg-black'>
+          <section id='projects' ref={containerRef} className='relative z-10 bg-transparent'>
             <div ref={pinWrapperRef} className='grid grid-cols-1 grid-rows-1 place-items-center h-screen w-full relative overflow-hidden'>
               {projects.map((project, index) => (
                 <ProjectCard 
@@ -607,11 +1647,20 @@ function App() {
             </div>
           </section>
 
-          <section id='contact' className='flex items-center justify-center bg-[#0C0C0C] px-5 pb-24 pt-8'>
-            <ContactButton />
-          </section>
+          <CurrentFocusSection 
+            onSelectItem={(title) => {
+              if (title === 'Design Systems') {
+                setCurrentPage('design-systems-detail')
+              } else if (title === 'Design Trade-offs' || title === 'Employee Retention Prediction') {
+                setCurrentPage('employee-retention-detail')
+              } else if (title === 'AI Workforce Insights') {
+                setCurrentPage('ai-workforce-detail')
+              }
+              window.scrollTo({ top: 0 })
+            }}
+          />
         </>
-      ) : (
+      ) : currentPage === 'project-details' ? (
         <ProjectDetailsPage 
           project={activeProject!}
           onSelectProject={(project) => {
@@ -619,7 +1668,63 @@ function App() {
             window.scrollTo({ top: 0 })
           }}
         />
+      ) : currentPage === 'projects-list' ? (
+        <ProjectsListPage 
+          onSelectProject={(project) => {
+            setActiveProject(project)
+            setCurrentPage('project-details')
+            window.scrollTo({ top: 0 })
+          }}
+        />
+      ) : currentPage === 'contact-page' ? (
+        <ContactPage />
+      ) : (
+        <FocusDetailPage 
+          itemId={
+            currentPage === 'design-systems-detail'
+              ? 'design-systems'
+              : currentPage === 'employee-retention-detail'
+              ? 'employee-retention'
+              : 'ai-workforce'
+          }
+          onGoHome={(target) => {
+            if (target === 'design-systems') {
+              setCurrentPage('design-systems-detail')
+              window.scrollTo({ top: 0 })
+            } else if (target === 'employee-retention') {
+              setCurrentPage('employee-retention-detail')
+              window.scrollTo({ top: 0 })
+            } else if (target === 'ai-workforce') {
+              setCurrentPage('ai-workforce-detail')
+              window.scrollTo({ top: 0 })
+            } else {
+              goHome(target)
+            }
+          }}
+        />
       )}
+      {currentPage !== 'contact-page' && (
+        <ContactSection onContactClick={() => {
+          setCurrentPage('contact-page')
+          window.scrollTo({ top: 0 })
+        }} />
+      )}
+      <SiteFooter 
+        onLinkClick={(href) => {
+          if (href === '#contact') {
+            setCurrentPage('contact-page')
+            window.scrollTo({ top: 0 })
+          } else if (href === '#projects') {
+            setCurrentPage('projects-list')
+            window.scrollTo({ top: 0 })
+          } else if (currentPage === 'home') {
+            const targetId = href.startsWith('#') ? href.slice(1) : href
+            scrollToSection(targetId)
+          } else {
+            goHome(href)
+          }
+        }} 
+      />
     </main>
   )
 }
