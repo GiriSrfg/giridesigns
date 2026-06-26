@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useScroll, useTransform, useMotionValue, useSpring, useVelocity } from 'framer-motion'
 import {
   ArrowRight,
+  ArrowLeft,
   ArrowUpRight,
   Menu,
   X,
@@ -108,11 +109,13 @@ function ContactButton() {
 function SiteHeader({
   scrollProgress,
   onBrandClick,
-  onLinkClick
+  onLinkClick,
+  activeLabel
 }: {
   scrollProgress: any
   onBrandClick?: () => void
   onLinkClick?: (href: string) => void
+  activeLabel?: string
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -155,19 +158,31 @@ function SiteHeader({
         </button>
 
         <div className='hidden items-center gap-10 text-base font-light lowercase text-white/55 md:flex xl:gap-14'>
-          {siteNavLinks.map((item, index) => (
-            <motion.a
-              key={item.label}
-              href={item.href}
-              onClick={(event) => handleLinkClick(event, item.href)}
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05 * index, duration: 0.55 }}
-              className='transition hover:text-white'
-            >
-              {item.label}
-            </motion.a>
-          ))}
+          {siteNavLinks.map((item, index) => {
+            const isActive = activeLabel === item.label
+            return (
+              <motion.a
+                key={item.label}
+                href={item.href}
+                onClick={(event) => handleLinkClick(event, item.href)}
+                initial={{ opacity: 0, y: -12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05 * index, duration: 0.55 }}
+                className={`transition duration-300 relative py-1 hover:text-white ${
+                  isActive ? 'text-white font-medium' : 'text-white/55'
+                }`}
+              >
+                {item.label}
+                {isActive && (
+                  <motion.span 
+                    layoutId="activeHeaderNav"
+                    className="absolute bottom-0 left-0 w-full h-[2px] bg-white"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
+              </motion.a>
+            )
+          })}
         </div>
       </div>
 
@@ -196,16 +211,21 @@ function SiteHeader({
             </div>
 
             <div className='relative ml-auto flex w-fit flex-col items-end gap-16 pt-8'>
-              {siteNavLinks.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={(event) => handleLinkClick(event, item.href)}
-                  className='text-[clamp(3rem,10vw,4.8rem)] font-light lowercase leading-none tracking-[-0.07em] text-white/55 transition hover:text-white'
-                >
-                  {item.label}
-                </a>
-              ))}
+              {siteNavLinks.map((item) => {
+                const isActive = activeLabel === item.label
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={(event) => handleLinkClick(event, item.href)}
+                    className={`text-[clamp(3rem,10vw,4.8rem)] font-light lowercase leading-none tracking-[-0.07em] transition hover:text-white ${
+                      isActive ? 'text-white font-medium' : 'text-white/55'
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                )
+              })}
             </div>
           </motion.div>
         ) : null}
@@ -387,7 +407,7 @@ function CurrentFocusSection({
     <section
       id="focus"
       ref={containerRef}
-      className="relative bg-transparent py-24 text-white overflow-hidden"
+      className="relative bg-transparent py-14 sm:py-16 text-white overflow-hidden"
     >
       <div className="relative z-10 px-6 sm:px-8 lg:px-[8.5vw]">
         {/* Section Header */}
@@ -410,7 +430,7 @@ function CurrentFocusSection({
                 onClick={() => {
                   onSelectItem(item.title)
                 }}
-                className="group relative grid grid-cols-8 items-center py-12 border-b border-white/10 cursor-pointer select-none transition-opacity duration-300"
+                className="group relative grid grid-cols-8 items-center py-8 sm:py-12 border-b border-white/10 cursor-pointer select-none transition-opacity duration-300"
                 style={{
                   opacity: isDimmed ? 0.6 : 1,
                 }}
@@ -444,17 +464,17 @@ function CurrentFocusSection({
                   </motion.p>
                 </div>
 
-                {/* Column 5: Empty */}
-                <div className="col-span-1" />
+                {/* Column 5: Empty (Hidden on mobile to save space) */}
+                <div className="hidden md:block col-span-1" />
 
-                {/* Column 6 & 7: Slide-in Preview Image (Spans 2 columns) */}
-                <div className="col-span-2 relative aspect-[3/2] w-full overflow-visible flex items-center justify-center">
+                {/* Column 6 & 7: Slide-in Preview Image (Spans 3 columns on mobile, 2 columns on desktop) */}
+                <div className="col-span-3 md:col-span-2 relative aspect-[3/2] w-full overflow-visible flex items-center justify-center">
                   <AnimatePresence>
                     {isHovered && (
                       <motion.div
-                        initial={{ opacity: 0, x: '-50%', scale: 0.95 }}
+                        initial={{ opacity: 0, x: '-55%', scale: 0.95 }}
                         animate={{ opacity: 1, x: 0, scale: 1 }}
-                        exit={{ opacity: 0, x: '-50%', scale: 0.95 }}
+                        exit={{ opacity: 0, x: '-55%', scale: 0.95 }}
                         transition={{
                           duration: 0.6,
                           ease: [0.22, 1, 0.36, 1]
@@ -502,11 +522,11 @@ function ContactSection({ onContactClick }: { onContactClick?: () => void }) {
   return (
     <section
       id="contact"
-      className="relative bg-transparent py-32 text-white overflow-hidden"
+      className="relative bg-transparent py-20 sm:py-24 text-white overflow-hidden"
     >
       <div className="relative z-10 px-6 sm:px-8 lg:px-[8.5vw]">
         {/* Section Header */}
-        <div className="flex items-center gap-4 w-full mb-16">
+        <div className="flex items-center gap-4 w-full mb-12">
           <span className="font-mono text-xs lowercase text-white/45 shrink-0">.say hello</span>
           <div className="h-px bg-white/10 flex-grow" />
         </div>
@@ -604,7 +624,7 @@ function SiteFooter({
   const footerLinks = [
     { label: 'projects', href: '#projects' },
     { label: 'about', href: '#about' },
-    { label: 'notes', href: '#projects' },
+    { label: 'focus', href: '#focus' },
     { label: 'contact', href: '#contact' }
   ]
 
@@ -935,6 +955,159 @@ function ProjectsListPage({
             )
           })}
         </div>
+      </div>
+    </div>
+  )
+}
+
+function FocusListPage({
+  onSelectItem
+}: {
+  onSelectItem: (itemId: 'design-systems' | 'employee-retention' | 'ai-workforce') => void
+}) {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  const items = [
+    {
+      id: 'ai-workforce' as const,
+      title: 'AI Workforce Insights',
+      subtitle: 'Exploring proactive workforce management',
+      image: '/work/ai-workforce-insights.jpg',
+      date: 'June 26, 2026'
+    },
+    {
+      id: 'employee-retention' as const,
+      title: 'Design Trade-offs',
+      subtitle: 'Balancing user needs with business goals through real-world product observations.',
+      image: '/work/design-tradeoffs.png',
+      date: 'June 26, 2026'
+    },
+    {
+      id: 'design-systems' as const,
+      title: 'Design Systems',
+      subtitle: 'Building scalable SaaS interfaces inspired by Untitled UI',
+      image: '/work/design-systems.png',
+      date: 'June 26, 2026'
+    }
+  ]
+
+  const featuredItem = items[0]
+  const listItems = items.slice(1)
+
+  return (
+    <div className="relative bg-transparent min-h-screen text-white pt-[140px] pb-24 overflow-hidden font-sans">
+      <div className="relative z-10 px-6 sm:px-8 lg:px-[8.5vw] flex flex-col gap-16">
+        
+        {/* Title Block */}
+        <div className="grid grid-cols-8 w-full gap-y-6 relative">
+          <div className="col-span-8 lg:col-span-6 flex flex-col gap-6">
+            <h1 className="text-[clamp(4.2rem,10vw,8.5rem)] font-light tracking-[-0.05em] text-white select-none leading-none">
+              focus
+            </h1>
+          </div>
+          
+          {/* Decorative crosshair target at the top right header area */}
+          <div className="absolute right-0 top-1/2 hidden md:flex items-center justify-center pointer-events-none transform translate-x-1/2 -translate-y-1/2">
+            <svg width="24" height="24" viewBox="0 0 24 24" className="text-white/20">
+              <line x1="12" y1="0" x2="12" y2="24" stroke="currentColor" strokeWidth="0.5" />
+              <line x1="0" y1="12" x2="24" y2="12" stroke="currentColor" strokeWidth="0.5" />
+              <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="0.5" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Featured Item (AI Workforce Insights) */}
+        <div className="grid grid-cols-8 w-full gap-y-6 relative border-b border-white/5 pb-16">
+          {/* Cover Image */}
+          <div 
+            onClick={() => onSelectItem(featuredItem.id)}
+            className="col-span-8 md:col-span-6 aspect-[16/9] w-full overflow-hidden rounded-xl border border-white/10 bg-neutral-900 cursor-pointer group"
+          >
+            <img
+              src={featuredItem.image}
+              alt={featuredItem.title}
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+            />
+          </div>
+
+          {/* "latest post" label on the right (desktop only) */}
+          <div className="hidden md:flex col-span-2 pl-8 flex-col justify-start pt-4 relative">
+            {/* Horizontal line extending from the left to cross the grid line */}
+            <div className="absolute top-[28px] left-0 right-1/2 h-px bg-white/20" />
+            <span className="font-mono text-xs text-white/45 tracking-wider lowercase pt-1.5 pl-6 self-start whitespace-nowrap">
+              latest post
+            </span>
+            
+            {/* Decorative crosshair target aligned with horizontal marker */}
+            <div className="absolute right-0 top-[28px] flex items-center justify-center pointer-events-none transform translate-x-1/2 -translate-y-1/2">
+              <svg width="24" height="24" viewBox="0 0 24 24" className="text-white/20">
+                <line x1="12" y1="0" x2="12" y2="24" stroke="currentColor" strokeWidth="0.5" />
+                <line x1="0" y1="12" x2="24" y2="12" stroke="currentColor" strokeWidth="0.5" />
+                <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="0.5" />
+              </svg>
+            </div>
+          </div>
+
+          {/* Title and Date below image */}
+          <div className="col-span-8 md:col-span-6 flex flex-col gap-3 mt-4">
+            <h2 
+              onClick={() => onSelectItem(featuredItem.id)}
+              className="text-[clamp(1.8rem,4vw,3.2rem)] font-light leading-snug tracking-tight text-white cursor-pointer hover:text-neutral-300 transition-colors duration-300"
+            >
+              {featuredItem.title}
+            </h2>
+            <span className="font-mono text-xs lowercase text-white/45">
+              {featuredItem.date}
+            </span>
+          </div>
+        </div>
+
+        {/* Remaining List Items */}
+        <div className="flex flex-col gap-16 w-full">
+          {listItems.map((item) => (
+            <div 
+              key={item.id}
+              className="grid grid-cols-8 w-full gap-y-8 items-start border-b border-white/5 pb-16 last:border-b-0 relative"
+            >
+              {/* Image: Column 1 to 3 */}
+              <div 
+                onClick={() => onSelectItem(item.id)}
+                className="col-span-8 md:col-span-3 aspect-[16/10] w-full overflow-hidden rounded-lg border border-white/10 bg-neutral-900 cursor-pointer group"
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                />
+              </div>
+
+              {/* Title & Date: Column 5 to 8 */}
+              <div className="col-span-8 md:col-start-5 md:col-span-4 flex flex-col gap-3 md:pt-4">
+                <h3 
+                  onClick={() => onSelectItem(item.id)}
+                  className="text-[clamp(1.5rem,3vw,2.2rem)] font-light leading-snug tracking-tight text-white cursor-pointer hover:text-neutral-300 transition-colors duration-300"
+                >
+                  {item.title}
+                </h3>
+                <span className="font-mono text-xs lowercase text-white/45">
+                  {item.date}
+                </span>
+              </div>
+
+              {/* Decorative crosshair target on the divider intersection */}
+              <div className="absolute right-0 bottom-0 hidden md:flex items-center justify-center pointer-events-none transform translate-x-1/2 translate-y-1/2">
+                <svg width="24" height="24" viewBox="0 0 24 24" className="text-white/20">
+                  <line x1="12" y1="0" x2="12" y2="24" stroke="currentColor" strokeWidth="0.5" />
+                  <line x1="0" y1="12" x2="24" y2="12" stroke="currentColor" strokeWidth="0.5" />
+                  <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                </svg>
+              </div>
+            </div>
+          ))}
+        </div>
+
       </div>
     </div>
   )
@@ -1368,7 +1541,21 @@ function App() {
   const containerRef = useRef<HTMLDivElement>(null)
   const pinWrapperRef = useRef<HTMLDivElement>(null)
   const [activeProject, setActiveProject] = useState<typeof projects[number] | null>(null)
-  const [currentPage, setCurrentPage] = useState<'home' | 'project-details' | 'design-systems-detail' | 'employee-retention-detail' | 'ai-workforce-detail' | 'projects-list' | 'contact-page'>('home')
+  const [currentPage, setCurrentPage] = useState<'home' | 'project-details' | 'design-systems-detail' | 'employee-retention-detail' | 'ai-workforce-detail' | 'projects-list' | 'focus-list' | 'contact-page'>('home')
+
+  let activeLabel = ''
+  if (currentPage === 'projects-list' || currentPage === 'project-details') {
+    activeLabel = 'projects'
+  } else if (currentPage === 'contact-page') {
+    activeLabel = 'contact'
+  } else if (
+    currentPage === 'focus-list' ||
+    currentPage === 'design-systems-detail' ||
+    currentPage === 'employee-retention-detail' ||
+    currentPage === 'ai-workforce-detail'
+  ) {
+    activeLabel = 'focus'
+  }
 
   const scrollToSection = (targetId: string) => {
     const target = document.getElementById(targetId)
@@ -1514,17 +1701,24 @@ function App() {
   return (
     <main className='overflow-x-clip bg-[#050505] relative min-h-screen'>
       {/* Global Background Grid Lines */}
-      <div className="absolute inset-y-0 left-0 right-0 grid grid-cols-8 pointer-events-none z-0 px-6 sm:px-8 lg:px-[8.5vw]">
+      <div 
+        className="absolute inset-y-0 left-0 right-0 grid grid-cols-8 pointer-events-none z-0 px-6 sm:px-8 lg:px-[8.5vw]"
+        style={{
+          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.5) 8%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0.5) 92%, rgba(0,0,0,0.12) 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.5) 8%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0.5) 92%, rgba(0,0,0,0.12) 100%)'
+        }}
+      >
         {[...Array(8)].map((_, i) => (
           <div
             key={i}
-            className={`h-full w-full ${i > 0 ? 'border-l border-white/[0.08]' : ''}`}
+            className={`h-full w-full border-l border-white/[0.08] ${i === 7 ? 'border-r border-white/[0.08]' : ''}`}
           />
         ))}
       </div>
 
       <SiteHeader
         scrollProgress={scrollYProgress}
+        activeLabel={activeLabel}
         onBrandClick={() => goHome()}
         onLinkClick={(href) => {
           if (href === '#contact') {
@@ -1532,6 +1726,9 @@ function App() {
             window.scrollTo({ top: 0 })
           } else if (href === '#projects') {
             setCurrentPage('projects-list')
+            window.scrollTo({ top: 0 })
+          } else if (href === '#focus') {
+            setCurrentPage('focus-list')
             window.scrollTo({ top: 0 })
           } else if (currentPage === 'home') {
             const targetId = href.startsWith('#') ? href.slice(1) : href
@@ -1588,7 +1785,7 @@ function App() {
             </div>
           </section>
 
-          <section id='marquee-section' className='bg-[#0C0C0C] pb-10 pt-24 sm:pt-32 md:pt-40'>
+          <section id='marquee-section' className='bg-[#0C0C0C] pb-6 pt-16 sm:pt-20 md:pt-24'>
             <div className='flex flex-col gap-3'>
               <motion.div style={{ x: row1X }} className='flex w-max gap-3 will-change-transform'>
                 {repeatMarqueeImages(topMarqueeImages).map((src, index) => (
@@ -1603,7 +1800,7 @@ function App() {
             </div>
           </section>
 
-          <section id='about' className='relative min-h-screen px-5 py-20 sm:px-8 md:px-10'>
+          <section id='about' className='relative min-h-screen px-5 py-12 sm:py-16 md:px-10'>
             <FadeIn delay={0.1} x={-80} y={0} duration={0.9}>
               <img src='https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/moon_icon.11395d36.png' alt='' className='absolute left-[1%] top-[4%] w-[120px] sm:left-[2%] sm:w-[160px] md:left-[4%] md:w-[210px]' />
             </FadeIn>
@@ -1617,16 +1814,14 @@ function App() {
               <img src='https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png' alt='' className='absolute bottom-[8%] right-[3%] w-[130px] sm:right-[6%] sm:w-[170px] md:right-[10%] md:w-[220px]' />
             </FadeIn>
 
-            <div className='flex min-h-[80vh] flex-col items-center justify-center gap-10 sm:gap-14 md:gap-16'>
+            <div className='flex min-h-[65vh] flex-col items-center justify-center gap-8 sm:gap-12 md:gap-14'>
               <FadeIn delay={0} y={40} duration={0.8}>
                 <h2 className='hero-heading text-center text-[clamp(3rem,12vw,160px)] font-black uppercase leading-none tracking-tight'>About me</h2>
               </FadeIn>
               <div className='max-w-[560px] text-center'>
                 <AnimatedText text="I'm a UI/UX designer passionate about creating simple, intuitive, and user-friendly digital experiences. I enjoy turning ideas into clean interfaces that solve real problems and create meaningful experiences." />
               </div>
-              <FadeIn delay={0.1} y={20}>
-                <ContactButton />
-              </FadeIn>
+
             </div>
           </section>
 
@@ -1676,6 +1871,19 @@ function App() {
             window.scrollTo({ top: 0 })
           }}
         />
+      ) : currentPage === 'focus-list' ? (
+        <FocusListPage 
+          onSelectItem={(itemId) => {
+            if (itemId === 'design-systems') {
+              setCurrentPage('design-systems-detail')
+            } else if (itemId === 'employee-retention') {
+              setCurrentPage('employee-retention-detail')
+            } else if (itemId === 'ai-workforce') {
+              setCurrentPage('ai-workforce-detail')
+            }
+            window.scrollTo({ top: 0 })
+          }}
+        />
       ) : currentPage === 'contact-page' ? (
         <ContactPage />
       ) : (
@@ -1716,6 +1924,9 @@ function App() {
             window.scrollTo({ top: 0 })
           } else if (href === '#projects') {
             setCurrentPage('projects-list')
+            window.scrollTo({ top: 0 })
+          } else if (href === '#focus') {
+            setCurrentPage('focus-list')
             window.scrollTo({ top: 0 })
           } else if (currentPage === 'home') {
             const targetId = href.startsWith('#') ? href.slice(1) : href
