@@ -100,7 +100,10 @@ const projects = [
 
 function ContactButton() {
   return (
-    <button className='inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#18011F] via-[#B600A8] to-[#BE4C00] px-8 py-3 text-xs font-medium uppercase tracking-[0.35em] text-white shadow-[0_4px_12px_rgba(181,1,167,0.25)] outline outline-2 outline-white/80 outline-offset-[-3px] sm:px-10 sm:py-3.5 sm:text-sm md:px-12 md:py-4 md:text-base'>
+    <button
+      type='button'
+      className='inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#18011F] via-[#B600A8] to-[#BE4C00] px-8 py-3 text-xs font-medium uppercase tracking-[0.35em] text-white shadow-[0_4px_12px_rgba(181,1,167,0.25)] outline outline-2 outline-white/80 outline-offset-[-3px] transition hover:brightness-110 sm:px-10 sm:py-3.5 sm:text-sm md:px-12 md:py-4 md:text-base'
+    >
       Contact Me
     </button>
   )
@@ -128,8 +131,8 @@ function SiteHeader({
   }
 
   return (
-    <nav className='fixed left-0 right-0 top-0 z-50 bg-black/60 backdrop-blur-lg'>
-      <div className='flex items-center justify-between border-b border-white/20 px-6 pb-7 pt-8 sm:px-8 lg:px-[8.5vw]'>
+    <nav className='fixed left-0 right-0 top-0 z-50 bg-black/85 backdrop-blur-md border-b border-white/10'>
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between pb-4 pt-5 sm:pb-5 sm:pt-6'>
         <motion.a
           href='#'
           onClick={(event) => {
@@ -141,7 +144,7 @@ function SiteHeader({
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55 }}
-          className='text-[2rem] font-light leading-none tracking-[-0.06em] text-white sm:text-2xl sm:tracking-[-0.03em]'
+          className='text-2xl font-light leading-none tracking-[-0.03em] text-white transition hover:text-white/80 focus-visible:ring-2 focus-visible:ring-[#00ff84]'
         >
           Portfolio
         </motion.a>
@@ -151,32 +154,33 @@ function SiteHeader({
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={isMenuOpen}
           onClick={() => setIsMenuOpen((current) => !current)}
-          className='inline-flex items-center gap-5 text-[2rem] font-light leading-none tracking-[-0.06em] text-white/50 md:hidden'
+          className='inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-3 text-xl font-light leading-none tracking-[-0.03em] text-white/80 hover:text-white md:hidden focus-visible:ring-2 focus-visible:ring-[#00ff84]'
         >
           <span>{isMenuOpen ? 'close' : 'menu'}</span>
-          {isMenuOpen ? <X size={34} strokeWidth={1.7} /> : <Menu size={34} strokeWidth={1.6} />}
+          {isMenuOpen ? <X size={28} strokeWidth={1.7} /> : <Menu size={28} strokeWidth={1.6} />}
         </button>
 
-        <div className='hidden items-center gap-10 text-base font-light lowercase text-white/55 md:flex xl:gap-14'>
+        <div className='hidden items-center gap-8 text-base font-light lowercase text-white/70 md:flex xl:gap-12'>
           {siteNavLinks.map((item, index) => {
             const isActive = activeLabel === item.label
             return (
               <motion.a
                 key={item.label}
                 href={item.href}
+                aria-current={isActive ? 'page' : undefined}
                 onClick={(event) => handleLinkClick(event, item.href)}
                 initial={{ opacity: 0, y: -12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 * index, duration: 0.55 }}
-                className={`transition duration-300 relative py-1 hover:text-white ${
-                  isActive ? 'text-white font-medium' : 'text-white/55'
+                className={`transition duration-300 relative py-1.5 hover:text-white ${
+                  isActive ? 'text-white font-medium' : 'text-white/70'
                 }`}
               >
                 {item.label}
                 {isActive && (
                   <motion.span 
                     layoutId="activeHeaderNav"
-                    className="absolute bottom-0 left-0 w-full h-[2px] bg-white"
+                    className="absolute bottom-0 left-0 w-full h-[2px] bg-[#00ff84]"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -188,7 +192,7 @@ function SiteHeader({
 
       <div className='relative h-px w-full bg-white/15'>
         <motion.div
-          className='absolute left-0 top-0 h-full bg-white'
+          className='absolute left-0 top-0 h-full bg-[#00ff84]'
           style={{ scaleX: scrollProgress, transformOrigin: 'left' }}
         />
       </div>
@@ -200,26 +204,26 @@ function SiteHeader({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.22 }}
-            className='fixed inset-x-0 top-[96px] z-[-1] min-h-[calc(100vh-96px)] overflow-hidden bg-black px-6 pb-10 pt-24 md:hidden'
+            className='fixed inset-x-0 top-[73px] z-50 h-[calc(100vh-73px)] overflow-y-auto bg-black/95 px-6 pb-12 pt-12 backdrop-blur-xl md:hidden'
           >
-            <div className='pointer-events-none absolute inset-0 opacity-35 blur-md'>
+            <div className='pointer-events-none absolute inset-0 opacity-20 blur-md'>
               <div className='absolute left-6 top-20 h-8 w-[68%] rounded-full bg-white/10' />
               <div className='absolute left-6 top-[34%] h-14 w-[46%] rounded-full bg-white/15' />
               <div className='absolute left-6 top-[47%] h-12 w-[70%] rounded-full bg-white/12' />
               <div className='absolute left-6 top-[60%] h-11 w-[58%] rounded-full bg-white/10' />
-              <div className='absolute left-6 top-[73%] h-11 w-[62%] rounded-full bg-white/10' />
             </div>
 
-            <div className='relative ml-auto flex w-fit flex-col items-end gap-16 pt-8'>
+            <div className='relative max-w-7xl mx-auto flex flex-col items-end gap-8 pt-6'>
               {siteNavLinks.map((item) => {
                 const isActive = activeLabel === item.label
                 return (
                   <a
                     key={item.label}
                     href={item.href}
+                    aria-current={isActive ? 'page' : undefined}
                     onClick={(event) => handleLinkClick(event, item.href)}
-                    className={`text-[clamp(3rem,10vw,4.8rem)] font-light lowercase leading-none tracking-[-0.07em] transition hover:text-white ${
-                      isActive ? 'text-white font-medium' : 'text-white/55'
+                    className={`text-[clamp(2.2rem,7vw,3.5rem)] font-light lowercase leading-none tracking-[-0.05em] transition hover:text-white ${
+                      isActive ? 'text-[#00ff84] font-medium' : 'text-white/70'
                     }`}
                   >
                     {item.label}
@@ -240,26 +244,26 @@ function RotatingWord({ words }: { words: string[] }) {
   useEffect(() => {
     const interval = window.setInterval(() => {
       setIndex((current) => (current + 1) % words.length)
-    }, 2000)
+    }, 2400)
 
     return () => window.clearInterval(interval)
   }, [words.length])
 
   return (
     <span
-      className='relative mt-2 block h-[2.25em] w-full max-w-full overflow-hidden align-bottom sm:inline-block sm:h-[1.05em] sm:min-w-[20ch] sm:w-auto sm:whitespace-nowrap'
+      className='relative mt-1 block h-[1.3em] w-full max-w-full overflow-hidden align-bottom sm:ml-3 sm:mt-0 sm:inline-block sm:h-[1.1em] sm:w-auto sm:whitespace-nowrap font-bold text-[#00ff84]'
     >
-      <AnimatePresence initial={false} mode='sync'>
+      <AnimatePresence initial={false} mode='wait'>
         <motion.span
           key={words[index]}
           initial={{ y: '100%', opacity: 0 }}
           animate={{ y: '0%', opacity: 1 }}
           exit={{ y: '-100%', opacity: 0 }}
           transition={{
-            duration: 0.3,
-            ease: [0.44, 0, 0.56, 1]
+            duration: 0.35,
+            ease: [0.22, 1, 0.36, 1]
           }}
-          className='absolute inset-0 block max-w-full whitespace-normal break-words sm:whitespace-nowrap'
+          className='absolute inset-0 block max-w-full whitespace-normal break-words text-[#00ff84] sm:whitespace-nowrap font-bold tracking-tight'
         >
           {words[index]}
         </motion.span>
@@ -407,13 +411,13 @@ function CurrentFocusSection({
     <section
       id="focus"
       ref={containerRef}
-      className="relative bg-transparent py-14 sm:py-16 text-white overflow-hidden"
+      className="relative bg-transparent py-20 sm:py-24 lg:py-28 text-white overflow-hidden"
     >
-      <div className="relative z-10 px-6 sm:px-8 lg:px-[8.5vw]">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex items-center gap-4 w-full mb-12">
-          <span className="font-mono text-xs lowercase text-white/45 shrink-0">.current focus</span>
-          <div className="h-px bg-white/10 flex-grow" />
+        <div className="flex items-center gap-4 w-full mb-10 sm:mb-12">
+          <span className="font-mono text-xs lowercase text-white/70 shrink-0">.current focus</span>
+          <div className="h-px bg-white/15 flex-grow" />
         </div>
 
         {/* List Items */}
@@ -430,7 +434,7 @@ function CurrentFocusSection({
                 onClick={() => {
                   onSelectItem(item.title)
                 }}
-                className="group relative grid grid-cols-8 items-center py-8 sm:py-12 border-b border-white/10 cursor-pointer select-none transition-opacity duration-300"
+                className="group relative grid grid-cols-8 items-center py-7 sm:py-9 lg:py-11 border-b border-white/10 cursor-pointer select-none transition-opacity duration-300 focus-visible:ring-2 focus-visible:ring-[#00ff84]"
                 style={{
                   opacity: isDimmed ? 0.6 : 1,
                 }}
@@ -440,7 +444,7 @@ function CurrentFocusSection({
                   <h3
                     className="text-[clamp(1.5rem,3.2vw,2.5rem)] font-light tracking-tight transition-colors duration-300 leading-tight"
                     style={{
-                      color: isHovered ? '#ffffff' : '#a3a3a3'
+                      color: isHovered ? '#ffffff' : '#d4d4d4'
                     }}
                   >
                     {item.title}
@@ -455,10 +459,10 @@ function CurrentFocusSection({
                       marginTop: isHovered ? 8 : 0
                     }}
                     transition={{
-                      duration: 0.6,
+                      duration: 0.5,
                       ease: [0.22, 1, 0.36, 1]
                     }}
-                    className="text-xs sm:text-sm text-neutral-400 font-light overflow-hidden pr-4"
+                    className="text-xs sm:text-sm text-neutral-300 font-light overflow-hidden pr-4"
                   >
                     {item.subtitle}
                   </motion.p>
@@ -467,19 +471,19 @@ function CurrentFocusSection({
                 {/* Column 5: Empty (Hidden on mobile to save space) */}
                 <div className="hidden md:block col-span-1" />
 
-                {/* Column 6 & 7: Slide-in Preview Image (Spans 3 columns on mobile, 2 columns on desktop) */}
+                {/* Column 6 & 7: Slide-in Preview Image */}
                 <div className="col-span-3 md:col-span-2 relative aspect-[3/2] w-full overflow-visible flex items-center justify-center">
                   <AnimatePresence>
                     {isHovered && (
                       <motion.div
-                        initial={{ opacity: 0, x: '-55%', scale: 0.95 }}
+                        initial={{ opacity: 0, x: '-40%', scale: 0.95 }}
                         animate={{ opacity: 1, x: 0, scale: 1 }}
-                        exit={{ opacity: 0, x: '-55%', scale: 0.95 }}
+                        exit={{ opacity: 0, x: '-40%', scale: 0.95 }}
                         transition={{
-                          duration: 0.6,
+                          duration: 0.45,
                           ease: [0.22, 1, 0.36, 1]
                         }}
-                        className="absolute inset-0 w-full h-full rounded-lg overflow-hidden border border-white/10 bg-neutral-900 shadow-2xl"
+                        className="absolute inset-0 w-full h-full rounded-lg overflow-hidden border border-white/15 bg-neutral-900 shadow-2xl"
                       >
                         <img
                           src={item.image}
@@ -497,10 +501,10 @@ function CurrentFocusSection({
                     animate={{
                       rotate: isHovered ? 0 : -45,
                       x: isHovered ? 8 : 0,
-                      color: isHovered ? '#ffffff' : '#525252'
+                      color: isHovered ? '#ffffff' : '#737373'
                     }}
                     transition={{
-                      duration: 0.6,
+                      duration: 0.5,
                       ease: [0.22, 1, 0.36, 1]
                     }}
                   >
@@ -522,30 +526,27 @@ function ContactSection({ onContactClick }: { onContactClick?: () => void }) {
   return (
     <section
       id="contact"
-      className="relative bg-transparent py-14 sm:py-16 text-white overflow-hidden"
+      className="relative bg-transparent py-20 sm:py-24 lg:py-28 text-white overflow-hidden"
     >
-      <div className="relative z-10 px-6 sm:px-8 lg:px-[8.5vw]">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex items-center gap-4 w-full mb-12">
-          <span className="font-mono text-xs lowercase text-white/45 shrink-0">.say hello</span>
-          <div className="h-px bg-white/10 flex-grow" />
+        <div className="flex items-center gap-4 w-full mb-10 sm:mb-12">
+          <span className="font-mono text-xs lowercase text-white/70 shrink-0">.say hello</span>
+          <div className="h-px bg-white/15 flex-grow" />
         </div>
 
         {/* Content & Button */}
-        <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-10 sm:gap-14">
           {/* Large Title Text */}
-          <h2 className="text-[clamp(1.4rem,3.4vw,2.6rem)] font-light leading-[1.25] tracking-tight max-w-[90%] font-sans text-neutral-200">
+          <h2 className="text-[clamp(1.5rem,3.4vw,2.75rem)] font-light leading-[1.25] tracking-tight max-w-4xl font-sans text-neutral-100">
             Have an idea, product, or design challenge?
-            <br />
-            <br />
-            Let's discuss how thoughtful design can create
-            <br />
-            better experiences.
+            <br className="hidden sm:block" />
+            Let's discuss how thoughtful design can create better experiences.
           </h2>
 
-          {/* Button Area aligned to columns 5 to 6 */}
-          <div className="grid grid-cols-8 w-full">
-            <div className="col-span-8 md:col-start-5 md:col-span-2">
+          {/* Button Area */}
+          <div className="flex flex-col sm:flex-row items-start w-full">
+            <div className="w-full sm:w-auto sm:min-w-[240px]">
               <a
                 href="#contact"
                 onClick={(e) => {
@@ -556,7 +557,7 @@ function ContactSection({ onContactClick }: { onContactClick?: () => void }) {
                 }}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
-                className="relative flex items-center justify-center py-6 px-10 border border-white/20 overflow-hidden select-none transition-colors duration-300 w-full"
+                className="relative flex items-center justify-center min-h-[48px] py-4 px-8 border border-white/20 overflow-hidden select-none transition-colors duration-300 w-full rounded-sm focus-visible:ring-2 focus-visible:ring-[#00ff84]"
               >
                 {/* Filling white background from bottom */}
                 <motion.div
@@ -629,54 +630,54 @@ function SiteFooter({
   ]
 
   return (
-    <footer className="relative bg-transparent py-16 text-white overflow-hidden font-sans">
+    <footer className="relative bg-transparent py-16 sm:py-20 text-white overflow-hidden font-sans border-t border-white/10">
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-10 px-6 sm:px-8 lg:px-[8.5vw] w-full"
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full"
       >
-        <div className="flex flex-col md:grid md:grid-cols-8 items-center w-full gap-y-10 md:gap-y-6">
-          {/* Left: Brand (Column 1-2) */}
-          <div className="col-span-8 md:col-span-2 flex justify-center md:justify-start">
+        <div className="flex flex-col md:flex-row items-center justify-between w-full gap-8">
+          {/* Left: Brand */}
+          <div className="flex justify-center md:justify-start">
             <a
               href="#"
               onClick={(e) => {
                 e.preventDefault()
                 if (onLinkClick) onLinkClick('#')
               }}
-              className="font-mono text-sm tracking-widest text-neutral-500 hover:text-neutral-200 transition-colors duration-300 uppercase"
+              className="font-mono text-sm tracking-widest text-neutral-400 hover:text-white transition-colors duration-300 uppercase"
             >
               giri.design
             </a>
           </div>
 
-          {/* Center: Links (Column 3-6) */}
-          <div className="col-span-8 md:col-span-4 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 font-sans text-sm lowercase">
+          {/* Center: Links */}
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 font-sans text-sm lowercase">
             {footerLinks.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleLinkClick(e, item.href)}
-                className="text-neutral-500 hover:text-neutral-200 transition-colors duration-300 relative py-1 group"
+                className="text-neutral-400 hover:text-white transition-colors duration-300 relative py-1 group"
               >
                 {item.label}
-                <span className="absolute bottom-0 left-0 w-0 h-px bg-neutral-200 transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
           </div>
 
-          {/* Right: Socials (Column 7-8) */}
-          <div className="col-span-8 md:col-span-2 flex justify-center md:justify-end gap-6 text-neutral-500">
-            <a href="https://www.behance.net/frontendmesu" target="_blank" rel="noreferrer" className="hover:text-neutral-200 transition-colors duration-300">
+          {/* Right: Socials */}
+          <div className="flex items-center gap-6 text-neutral-400">
+            <a href="https://www.behance.net/frontendmesu" target="_blank" rel="noreferrer" className="hover:text-white transition-colors duration-300" aria-label="Behance">
               <BehanceIcon />
             </a>
-            <a href="https://www.linkedin.com/in/giri-s-97388b227" target="_blank" rel="noreferrer" className="hover:text-neutral-200 transition-colors duration-300">
+            <a href="https://www.linkedin.com/in/giri-s-97388b227" target="_blank" rel="noreferrer" className="hover:text-white transition-colors duration-300" aria-label="LinkedIn">
               <LinkedinCustomIcon />
             </a>
-            <a href="https://wa.me/917975021897" target="_blank" rel="noreferrer" className="hover:text-neutral-200 transition-colors duration-300">
+            <a href="https://wa.me/917975021897" target="_blank" rel="noreferrer" className="hover:text-white transition-colors duration-300" aria-label="WhatsApp">
               <WhatsappCustomIcon />
             </a>
           </div>
@@ -787,72 +788,78 @@ function ContactPage() {
   ]
 
   return (
-    <div className="relative bg-transparent min-h-screen text-white pt-[140px] pb-24 overflow-hidden font-sans">
-      <div className="relative z-10 px-6 sm:px-8 lg:px-[8.5vw] flex flex-col gap-20">
+    <div className="relative bg-transparent min-h-screen text-white pt-[110px] sm:pt-[130px] pb-20 sm:pb-24 lg:pb-28 overflow-hidden font-sans">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-12 sm:gap-16">
         {/* Header Block */}
-        <div className="flex items-center gap-4 w-full mt-4">
-          <span className="font-mono text-xs lowercase text-white/45 shrink-0">.say hello</span>
-          <div className="h-px bg-white/10 flex-grow" />
+        <div className="flex items-center gap-4 w-full mt-2">
+          <span className="font-mono text-xs lowercase text-white/70 shrink-0">.say hello</span>
+          <div className="h-px bg-white/15 flex-grow" />
         </div>
 
         {/* Hero Title Block */}
-        <div className="grid grid-cols-8 w-full gap-y-6">
-          <div className="col-span-8">
+        <div className="flex flex-col gap-6 w-full">
+          <div>
             <h1 className="text-[clamp(2.5rem,8vw,5.5rem)] font-light leading-none tracking-tight text-white font-sans">
               say hello
             </h1>
           </div>
-          <div className="col-span-8 md:col-start-3 md:col-span-6">
-            <h2 className="text-[clamp(1.8rem,4vw,3.2rem)] font-light leading-snug tracking-tight text-neutral-300 max-w-[95%] font-sans">
+          <div className="max-w-3xl">
+            <h2 className="text-[clamp(1.4rem,3.2vw,2.5rem)] font-light leading-snug tracking-tight text-neutral-200 font-sans">
               let&apos;s collaborate. feel free to drop me a line about your project or follow me on social networks
             </h2>
           </div>
         </div>
 
         {/* Content splits into Form and Socials */}
-        <div className="grid grid-cols-8 w-full gap-y-16 pt-8 md:gap-x-12">
-          {/* Form Container: Column 1 to 5 */}
-          <div className="col-span-8 md:col-span-5 flex flex-col gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 w-full gap-10 sm:gap-14 pt-4">
+          {/* Form Container */}
+          <div className="md:col-span-7 flex flex-col gap-8">
             <form className="flex flex-col gap-6 w-full" onSubmit={(e) => e.preventDefault()}>
               <div className="flex flex-col gap-2">
+                <label htmlFor="contact-name" className="sr-only">Name</label>
                 <input
+                  id="contact-name"
                   type="text"
                   required
                   placeholder="Name"
-                  className="w-full bg-[#121212] border border-white/10 rounded-none py-5 px-6 text-white placeholder-white/40 focus:outline-none focus:border-white/30 transition duration-300"
+                  className="w-full bg-[#121212] border border-white/15 rounded-sm py-4 px-6 text-white placeholder-white/40 focus:outline-none focus:border-[#00ff84] focus:ring-2 focus:ring-[#00ff84] transition duration-300"
                 />
               </div>
               <div className="flex flex-col gap-2">
+                <label htmlFor="contact-email" className="sr-only">Email</label>
                 <input
+                  id="contact-email"
                   type="email"
                   required
                   placeholder="Email"
-                  className="w-full bg-[#121212] border border-white/10 rounded-none py-5 px-6 text-white placeholder-white/40 focus:outline-none focus:border-white/30 transition duration-300"
+                  className="w-full bg-[#121212] border border-white/15 rounded-sm py-4 px-6 text-white placeholder-white/40 focus:outline-none focus:border-[#00ff84] focus:ring-2 focus:ring-[#00ff84] transition duration-300"
                 />
               </div>
               <div className="flex flex-col gap-2">
+                <label htmlFor="contact-message" className="sr-only">Message</label>
                 <textarea
+                  id="contact-message"
                   rows={6}
                   required
                   placeholder="Message"
-                  className="w-full bg-[#121212] border border-white/10 rounded-none py-5 px-6 text-white placeholder-white/40 focus:outline-none focus:border-white/30 transition duration-300 resize-none"
+                  className="w-full bg-[#121212] border border-white/15 rounded-sm py-4 px-6 text-white placeholder-white/40 focus:outline-none focus:border-[#00ff84] focus:ring-2 focus:ring-[#00ff84] transition duration-300 resize-none"
                 />
               </div>
               
               {/* Submit button */}
               <button
                 type="submit"
-                className="w-full bg-white text-black font-semibold uppercase tracking-wider py-5 hover:bg-neutral-200 transition duration-300 mt-4 text-sm rounded-none"
+                className="w-full min-h-[48px] bg-white text-black font-semibold uppercase tracking-wider py-4 hover:bg-[#00ff84] transition duration-300 mt-2 text-sm rounded-sm focus-visible:ring-2 focus-visible:ring-[#00ff84]"
               >
                 Submit
               </button>
             </form>
           </div>
 
-          {/* Socials Container: Column 6 to 8 */}
-          <div className="col-span-8 md:col-start-6 md:col-span-3 flex flex-col gap-6 md:border-l md:border-white/5 md:pl-10">
-            <span className="font-mono text-xs text-white/40 lowercase mb-2">social channels</span>
-            <div className="flex flex-col gap-2 w-full">
+          {/* Socials Container */}
+          <div className="md:col-span-5 flex flex-col gap-6 md:border-l md:border-white/10 md:pl-10">
+            <span className="font-mono text-xs text-white/70 lowercase mb-2">social channels</span>
+            <div className="flex flex-col gap-3 w-full">
               {socialMedia.map((item) => (
                 <SocialMediaRow key={item.title} item={item} />
               ))}
@@ -880,26 +887,23 @@ function ProjectsListPage({
   }
 
   return (
-    <div className="relative bg-transparent min-h-screen text-white pt-[140px] pb-24 overflow-hidden font-sans">
-
-      <div className="relative z-10 px-6 sm:px-8 lg:px-[8.5vw] flex flex-col gap-20">
+    <div className="relative bg-transparent min-h-screen text-white pt-[110px] sm:pt-[130px] pb-20 sm:pb-24 lg:pb-28 overflow-hidden font-sans">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-12 sm:gap-16">
         {/* Header Block */}
-        <div className="flex items-center gap-4 w-full mt-4">
-          <span className="font-mono text-xs lowercase text-white/45 shrink-0">.projects</span>
-          <div className="h-px bg-white/10 flex-grow" />
+        <div className="flex items-center gap-4 w-full mt-2">
+          <span className="font-mono text-xs lowercase text-white/70 shrink-0">.projects</span>
+          <div className="h-px bg-white/15 flex-grow" />
         </div>
 
         {/* Hero Title Block */}
-        <div className="grid grid-cols-8 w-full">
-          <div className="col-span-8 md:col-start-3 md:col-span-6">
-            <h1 className="text-[clamp(1.8rem,4vw,3.2rem)] font-light leading-snug tracking-tight text-white max-w-[90%] font-sans">
-              Designing smarter workforce experiences through data-driven insights, proactive decision making, and human-centered design.
-            </h1>
-          </div>
+        <div className="max-w-4xl">
+          <h1 className="text-[clamp(1.8rem,4vw,3.2rem)] font-light leading-snug tracking-tight text-white font-sans">
+            Designing smarter workforce experiences through data-driven insights, proactive decision making, and human-centered design.
+          </h1>
         </div>
 
         {/* Projects List */}
-        <div className="flex flex-col gap-24 w-full mt-8">
+        <div className="flex flex-col gap-16 sm:gap-20 lg:gap-24 w-full mt-4">
           {projects.map((project) => {
             const desc = descriptions[project.name] || ''
             const imageSrc = project.banner ?? project.images[0]
@@ -907,13 +911,13 @@ function ProjectsListPage({
             return (
               <div
                 key={project.name}
-                className="grid grid-cols-8 w-full gap-y-8 items-start border-b border-white/5 pb-16 last:border-b-0"
+                className="grid grid-cols-1 md:grid-cols-12 w-full gap-8 items-start border-b border-white/10 pb-16 last:border-b-0"
               >
-                {/* Column 1 to 6: Card Container */}
-                <div className="col-span-8 md:col-span-6">
+                {/* Main Card Container */}
+                <div className="md:col-span-8">
                   <div
                     onClick={() => onSelectProject(project)}
-                    className={`group cursor-pointer rounded-xl p-6 sm:p-9 shadow-2xl transition-transform duration-500 hover:-translate-y-1 ${project.cardClass}`}
+                    className={`group cursor-pointer rounded-xl p-6 sm:p-9 shadow-2xl transition-transform duration-500 hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-[#00ff84] ${project.cardClass}`}
                   >
                     {/* Meta info */}
                     <div className={`border-b pb-4 font-mono text-xs sm:text-sm flex items-center justify-between ${project.metaClass}`}>
@@ -923,7 +927,7 @@ function ProjectsListPage({
 
                     {/* Title & Arrow */}
                     <div className="mt-6 flex items-center justify-between gap-4">
-                      <h3 className="text-[clamp(2rem,6vw,4rem)] font-light leading-none tracking-tight">
+                      <h3 className="text-[clamp(2rem,6vw,3.8rem)] font-light leading-none tracking-tight">
                         {project.name}
                       </h3>
                       <div className="flex h-10 w-10 sm:h-14 sm:w-14 items-center justify-center transition-transform duration-500 group-hover:rotate-45">
@@ -942,12 +946,12 @@ function ProjectsListPage({
                   </div>
                 </div>
 
-                {/* Column 7 to 8: Description Block (Desktop) */}
-                <div className="col-span-8 md:col-start-7 md:col-span-2 md:pl-8 flex flex-col gap-2">
+                {/* Description Block */}
+                <div className="md:col-span-4 flex flex-col gap-3 md:pt-4">
                   <p className="font-mono text-xs sm:text-sm leading-relaxed tracking-wider text-[#ff5900] uppercase font-semibold">
                     {project.category}
                   </p>
-                  <p className="font-sans text-sm sm:text-base leading-relaxed text-neutral-400 font-light">
+                  <p className="font-sans text-sm sm:text-base leading-relaxed text-neutral-300 font-light max-w-prose">
                     {desc}
                   </p>
                 </div>
@@ -997,33 +1001,22 @@ function FocusListPage({
   const listItems = items.slice(1)
 
   return (
-    <div className="relative bg-transparent min-h-screen text-white pt-[140px] pb-24 overflow-hidden font-sans">
-      <div className="relative z-10 px-6 sm:px-8 lg:px-[8.5vw] flex flex-col gap-16">
+    <div className="relative bg-transparent min-h-screen text-white pt-[110px] sm:pt-[130px] pb-20 sm:pb-24 lg:pb-28 overflow-hidden font-sans">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-12 sm:gap-16">
         
         {/* Title Block */}
-        <div className="grid grid-cols-8 w-full gap-y-6 relative">
-          <div className="col-span-8 lg:col-span-6 flex flex-col gap-6">
-            <h1 className="text-[clamp(4.2rem,10vw,8.5rem)] font-light tracking-[-0.05em] text-white select-none leading-none">
-              focus
-            </h1>
-          </div>
-          
-          {/* Decorative crosshair target at the top right header area */}
-          <div className="absolute right-0 top-1/2 hidden md:flex items-center justify-center pointer-events-none transform translate-x-1/2 -translate-y-1/2">
-            <svg width="24" height="24" viewBox="0 0 24 24" className="text-white/20">
-              <line x1="12" y1="0" x2="12" y2="24" stroke="currentColor" strokeWidth="0.5" />
-              <line x1="0" y1="12" x2="24" y2="12" stroke="currentColor" strokeWidth="0.5" />
-              <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="0.5" />
-            </svg>
-          </div>
+        <div className="flex flex-col gap-6 w-full relative">
+          <h1 className="text-[clamp(3.5rem,9vw,7.5rem)] font-light tracking-[-0.05em] text-white select-none leading-none">
+            focus
+          </h1>
         </div>
 
         {/* Featured Item (AI Workforce Insights) */}
-        <div className="grid grid-cols-8 w-full gap-y-6 relative border-b border-white/5 pb-16">
+        <div className="flex flex-col gap-6 relative border-b border-white/10 pb-16">
           {/* Cover Image */}
           <div 
             onClick={() => onSelectItem(featuredItem.id)}
-            className="col-span-8 md:col-span-6 aspect-[16/9] w-full overflow-hidden rounded-xl border border-white/10 bg-neutral-900 cursor-pointer group"
+            className="aspect-[16/9] w-full overflow-hidden rounded-xl border border-white/10 bg-neutral-900 cursor-pointer group focus-visible:ring-2 focus-visible:ring-[#00ff84]"
           >
             <img
               src={featuredItem.image}
@@ -1032,33 +1025,15 @@ function FocusListPage({
             />
           </div>
 
-          {/* "latest post" label on the right (desktop only) */}
-          <div className="hidden md:flex col-span-2 pl-8 flex-col justify-start pt-4 relative">
-            {/* Horizontal line extending from the left to cross the grid line */}
-            <div className="absolute top-[28px] left-0 right-1/2 h-px bg-white/20" />
-            <span className="font-mono text-xs text-white/45 tracking-wider lowercase pt-1.5 pl-6 self-start whitespace-nowrap">
-              latest post
-            </span>
-            
-            {/* Decorative crosshair target aligned with horizontal marker */}
-            <div className="absolute right-0 top-[28px] flex items-center justify-center pointer-events-none transform translate-x-1/2 -translate-y-1/2">
-              <svg width="24" height="24" viewBox="0 0 24 24" className="text-white/20">
-                <line x1="12" y1="0" x2="12" y2="24" stroke="currentColor" strokeWidth="0.5" />
-                <line x1="0" y1="12" x2="24" y2="12" stroke="currentColor" strokeWidth="0.5" />
-                <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="0.5" />
-              </svg>
-            </div>
-          </div>
-
           {/* Title and Date below image */}
-          <div className="col-span-8 md:col-span-6 flex flex-col gap-3 mt-4">
+          <div className="flex flex-col gap-2 mt-2">
             <h2 
               onClick={() => onSelectItem(featuredItem.id)}
-              className="text-[clamp(1.8rem,4vw,3.2rem)] font-light leading-snug tracking-tight text-white cursor-pointer hover:text-neutral-300 transition-colors duration-300"
+              className="text-[clamp(1.8rem,4vw,3.2rem)] font-light leading-snug tracking-tight text-white cursor-pointer hover:text-[#00ff84] transition-colors duration-300"
             >
               {featuredItem.title}
             </h2>
-            <span className="font-mono text-xs lowercase text-white/45">
+            <span className="font-mono text-xs lowercase text-white/70">
               {featuredItem.date}
             </span>
           </div>
@@ -1069,12 +1044,12 @@ function FocusListPage({
           {listItems.map((item) => (
             <div 
               key={item.id}
-              className="grid grid-cols-8 w-full gap-y-8 items-start border-b border-white/5 pb-16 last:border-b-0 relative"
+              className="grid grid-cols-1 md:grid-cols-12 w-full gap-6 items-start border-b border-white/10 pb-16 last:border-b-0 relative"
             >
-              {/* Image: Column 1 to 3 */}
+              {/* Image */}
               <div 
                 onClick={() => onSelectItem(item.id)}
-                className="col-span-8 md:col-span-3 aspect-[16/10] w-full overflow-hidden rounded-lg border border-white/10 bg-neutral-900 cursor-pointer group"
+                className="md:col-span-5 aspect-[16/10] w-full overflow-hidden rounded-lg border border-white/10 bg-neutral-900 cursor-pointer group focus-visible:ring-2 focus-visible:ring-[#00ff84]"
               >
                 <img
                   src={item.image}
@@ -1083,26 +1058,20 @@ function FocusListPage({
                 />
               </div>
 
-              {/* Title & Date: Column 5 to 8 */}
-              <div className="col-span-8 md:col-start-5 md:col-span-4 flex flex-col gap-3 md:pt-4">
+              {/* Title & Date */}
+              <div className="md:col-span-7 flex flex-col gap-3 md:pt-4">
                 <h3 
                   onClick={() => onSelectItem(item.id)}
-                  className="text-[clamp(1.5rem,3vw,2.2rem)] font-light leading-snug tracking-tight text-white cursor-pointer hover:text-neutral-300 transition-colors duration-300"
+                  className="text-[clamp(1.5rem,3vw,2.2rem)] font-light leading-snug tracking-tight text-white cursor-pointer hover:text-[#00ff84] transition-colors duration-300"
                 >
                   {item.title}
                 </h3>
-                <span className="font-mono text-xs lowercase text-white/45">
+                <p className="text-sm sm:text-base text-neutral-300 font-light max-w-prose leading-relaxed">
+                  {item.subtitle}
+                </p>
+                <span className="font-mono text-xs lowercase text-white/70">
                   {item.date}
                 </span>
-              </div>
-
-              {/* Decorative crosshair target on the divider intersection */}
-              <div className="absolute right-0 bottom-0 hidden md:flex items-center justify-center pointer-events-none transform translate-x-1/2 translate-y-1/2">
-                <svg width="24" height="24" viewBox="0 0 24 24" className="text-white/20">
-                  <line x1="12" y1="0" x2="12" y2="24" stroke="currentColor" strokeWidth="0.5" />
-                  <line x1="0" y1="12" x2="24" y2="12" stroke="currentColor" strokeWidth="0.5" />
-                  <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="0.5" />
-                </svg>
               </div>
             </div>
           ))}
@@ -1113,274 +1082,100 @@ function FocusListPage({
   )
 }
 
-interface DetailPageData {
-  title: string
-  subtitle: string
-  image: string
-  date: string
-  readingTime: string
-  sections: Array<
-    | { type: 'text'; title: string; paragraphs: string[] }
-    | { type: 'bullets'; title: string; items: string[]; bulletChar?: string }
-    | { type: 'highlight'; title: string; text: string }
-  >
-  seeAlso: Array<{ title: string; subtitle: string; image: string }>
-}
-
-const detailPagesData: Record<'design-systems' | 'employee-retention' | 'ai-workforce', DetailPageData> = {
-  'design-systems': {
-    title: 'Design Systems',
-    subtitle: 'Building scalable interfaces through consistency.',
-    image: '/work/design-systems.png',
-    date: 'June 26, 2026',
-    readingTime: '3 min',
-    sections: [
-      {
-        type: 'text',
-        title: 'Why Design Systems Matter',
-        paragraphs: [
-          'As products grow, maintaining consistency becomes increasingly challenging.',
-          'Design systems provide reusable foundations that improve collaboration between designers and developers.'
-        ]
-      },
-      {
-        type: 'bullets',
-        title: 'What I Explored',
-        items: [
-          'Design Tokens',
-          'Component Libraries',
-          'Typography Systems',
-          'Layout Principles',
-          'Reusable Patterns'
-        ],
-        bulletChar: '•'
-      },
-      {
-        type: 'highlight',
-        title: 'Key Learning',
-        text: 'Strong design systems are not collections of components. They are frameworks that help teams design, build and scale products efficiently.'
-      }
-    ],
-    seeAlso: [
-      {
-        title: 'AI Workforce Insights',
-        subtitle: 'Exploring proactive workforce management',
-        image: '/work/ai-workforce-insights.jpg'
-      },
-      {
-        title: 'Design Trade-offs',
-        subtitle: 'Balancing user needs with business goals through real-world product observations.',
-        image: '/work/design-tradeoffs.png'
-      }
-    ]
-  },
-  'employee-retention': {
-    title: 'Design Trade-offs',
-    subtitle: 'Balancing user needs with business goals through real-world product observations.',
-    image: '/work/design-tradeoffs.png',
-    date: 'June 26, 2026',
-    readingTime: '3 min',
-    sections: [
-      {
-        type: 'text',
-        title: 'Looking beyond the interface',
-        paragraphs: [
-          'While working at a coworking space, I witnessed an interesting product decision that changed the way I think about UX.'
-        ]
-      },
-      {
-        type: 'text',
-        title: 'The Observation',
-        paragraphs: [
-          'A visitor purchased a day pass through the booking app, but when they arrived, every desk was already occupied.',
-          'The customer expected a guaranteed seat because the booking had been confirmed, which led to frustration and a difficult conversation with the staff.',
-          'This made me wonder: Why didn\'t the app simply show that the workspace was full before allowing the booking?'
-        ]
-      },
-      {
-        type: 'text',
-        title: 'Looking Beyond UX',
-        paragraphs: [
-          'At first, the answer seemed obvious—showing "Fully Booked" would prevent a poor user experience.',
-          'But after exploring the problem from a business perspective, I realized there could be another side to the decision.',
-          'Some customers don\'t occupy their reserved seats, some leave early, and managers can often rearrange seating or allocate alternative workspaces.',
-          'Keeping bookings open may increase occupancy and revenue while giving operations teams flexibility to manage availability manually.'
-        ]
-      },
-      {
-        type: 'bullets',
-        title: 'Better User Experience',
-        items: [
-          'Clear seat availability',
-          'Fewer booking surprises',
-          'Higher user trust'
-        ],
-        bulletChar: '•'
-      },
-      {
-        type: 'bullets',
-        title: 'Business Flexibility',
-        items: [
-          'Better occupancy utilization',
-          'More booking opportunities',
-          'Manual seat allocation when possible'
-        ],
-        bulletChar: '•'
-      },
-      {
-        type: 'highlight',
-        title: 'My Takeaway',
-        text: 'This experience taught me that product design isn\'t always about choosing the best user experience in isolation. Great products balance user needs, business goals, and operational realities. Instead of asking, "Is this good UX?", I now ask, "Why might the product team have made this decision?"'
-      }
-    ],
-    seeAlso: [
-      {
-        title: 'AI Workforce Insights',
-        subtitle: 'Exploring proactive workforce management',
-        image: '/work/ai-workforce-insights.jpg'
-      },
-      {
-        title: 'Design Systems',
-        subtitle: 'Building scalable SaaS interfaces inspired by Untitled UI',
-        image: '/work/design-systems.png'
-      }
-    ]
-  },
-  'ai-workforce': {
-    title: 'AI Workforce Insights',
-    subtitle: 'Turning workforce data into proactive decisions.',
-    image: '/work/ai-workforce-insights.jpg',
-    date: 'June 26, 2026',
-    readingTime: '3 min',
-    sections: [
-      {
-        type: 'text',
-        title: 'The Problem',
-        paragraphs: [
-          'Managers often receive large amounts of workforce data but lack actionable insights.',
-          'Attendance records, grievances, overtime logs and employee activities are available, but identifying patterns requires manual analysis.',
-          'This results in delayed decisions, higher employee attrition and operational inefficiencies.'
-        ]
-      },
-      {
-        type: 'text',
-        title: 'Opportunity',
-        paragraphs: [
-          'What if the system could identify risks automatically?',
-          'Instead of presenting raw data, workforce platforms can surface meaningful insights, helping managers take action before issues escalate.'
-        ]
-      },
-      {
-        type: 'text',
-        title: 'Proposed Solution',
-        paragraphs: [
-          'An AI-powered insights layer that continuously analyzes attendance trends, grievances and workforce behavior.',
-          'The system highlights anomalies, predicts risks and recommends actions that improve workforce efficiency.'
-        ]
-      },
-      {
-        type: 'bullets',
-        title: 'Potential Outcomes',
-        items: [
-          'Faster decision making',
-          'Reduced absenteeism',
-          'Improved employee satisfaction',
-          'Better workforce planning'
-        ],
-        bulletChar: '✓'
-      }
-    ],
-    seeAlso: [
-      {
-        title: 'Design Trade-offs',
-        subtitle: 'Balancing user needs with business goals through real-world product observations.',
-        image: '/work/design-tradeoffs.png'
-      },
-      {
-        title: 'Design Systems',
-        subtitle: 'Building scalable SaaS interfaces inspired by Untitled UI',
-        image: '/work/design-systems.png'
-      }
-    ]
-  }
-}
-
 function FocusDetailPage({
-  itemId,
-  onGoHome
+  data,
+  onGoHome,
+  hoveredSeeAlsoIndex,
+  setHoveredSeeAlsoIndex
 }: {
-  itemId: 'design-systems' | 'employee-retention' | 'ai-workforce'
+  data: {
+    title: string
+    subtitle: string
+    date: string
+    readingTime: string
+    image: string
+    sections: Array<{
+      type: string
+      title?: string
+      paragraphs?: string[]
+      items?: string[]
+      text?: string
+      bulletChar?: string
+    }>
+    seeAlso: Array<{
+      title: string
+      subtitle: string
+      image: string
+    }>
+  }
   onGoHome: (target?: string) => void
+  hoveredSeeAlsoIndex: number | null
+  setHoveredSeeAlsoIndex: (index: number | null) => void
 }) {
   useEffect(() => {
     window.scrollTo(0, 0)
-  }, [itemId])
-
-  const [hoveredSeeAlsoIndex, setHoveredSeeAlsoIndex] = useState<number | null>(null)
-  const data = detailPagesData[itemId]
+  }, [])
 
   return (
-    <div className="relative bg-transparent min-h-screen text-white pt-[140px] pb-24 overflow-hidden font-sans">
-
-      <div className="relative z-10 px-6 sm:px-8 lg:px-[8.5vw] flex flex-col gap-16">
+    <div className="relative bg-transparent min-h-screen text-white pt-[110px] sm:pt-[130px] pb-20 sm:pb-24 lg:pb-28 overflow-hidden font-sans">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-12 sm:gap-16">
         
         {/* Title Block */}
-        <div className="grid grid-cols-8 w-full gap-y-6">
-          <div className="col-span-8 lg:col-span-6 flex flex-col gap-6">
-            <h1 className="text-[clamp(2.5rem,6vw,5.5rem)] font-light leading-[1.05] tracking-tight">
-              {data.title}
-            </h1>
-            <p className="text-[clamp(1.2rem,2.5vw,1.8rem)] text-neutral-400 font-light leading-relaxed max-w-[90%]">
-              {data.subtitle}
-            </p>
-            
-            {/* Outlined Badge */}
-            <div className="mt-2">
-              <span className="inline-flex items-center gap-1.5 px-4 py-2 border border-white/20 text-xs font-mono lowercase text-white/60 tracking-wider">
-                in focus ↗
-              </span>
-            </div>
+        <div className="flex flex-col gap-6 max-w-4xl">
+          <h1 className="text-[clamp(2.2rem,5vw,4.8rem)] font-light leading-[1.08] tracking-tight">
+            {data.title}
+          </h1>
+          <p className="text-lg sm:text-xl text-neutral-300 font-light leading-relaxed max-w-3xl">
+            {data.subtitle}
+          </p>
+          
+          {/* Outlined Badge */}
+          <div>
+            <span className="inline-flex items-center gap-1.5 px-4 py-2 border border-white/20 text-xs font-mono lowercase text-white/70 tracking-wider rounded-sm">
+              in focus ↗
+            </span>
           </div>
         </div>
 
         {/* Hero Image */}
-        <div className="grid grid-cols-8 w-full">
-          <div className="col-span-8 md:col-start-3 md:col-span-6 aspect-[16/9] w-full overflow-hidden rounded-xl border border-white/10 bg-neutral-900">
-            <img
-              src={data.image}
-              alt={`${data.title} Cover`}
-              className="w-full h-full object-cover"
-            />
-          </div>
+        <div className="w-full max-w-5xl mx-auto aspect-[16/9] overflow-hidden rounded-xl border border-white/10 bg-neutral-900 shadow-2xl">
+          <img
+            src={data.image}
+            alt={`${data.title} Cover`}
+            className="w-full h-full object-cover"
+          />
         </div>
 
         {/* Article Body + Metadata columns */}
-        <div className="grid grid-cols-8 w-full gap-y-12 pt-6">
-          {/* Main Article Content: spans columns 1-8 on mobile, cols 3-6 on desktop */}
-          <div className="col-span-8 md:col-start-3 md:col-span-4 flex flex-col gap-12 text-neutral-300 font-light text-base sm:text-lg leading-relaxed">
-            
+        <div className="grid grid-cols-1 lg:grid-cols-12 w-full gap-12 pt-6 max-w-5xl mx-auto">
+          {/* Main Article Content */}
+          <div className="lg:col-span-8 flex flex-col gap-10 text-neutral-300 font-light text-base sm:text-lg leading-relaxed max-w-3xl">
             {data.sections.map((sec, idx) => {
               if (sec.type === 'text') {
                 return (
                   <div key={idx} className="flex flex-col gap-4">
-                    <h2 className="text-xl sm:text-2xl font-normal text-white tracking-tight">
-                      {sec.title}
-                    </h2>
-                    {sec.paragraphs.map((p, pIdx) => (
-                      <p key={pIdx}>{p}</p>
+                    {sec.title && (
+                      <h2 className="text-xl sm:text-2xl font-normal text-white tracking-tight">
+                        {sec.title}
+                      </h2>
+                    )}
+                    {sec.paragraphs?.map((p, pIdx) => (
+                      <p key={pIdx} className="leading-relaxed">{p}</p>
                     ))}
                   </div>
                 )
               } else if (sec.type === 'bullets') {
                 return (
                   <div key={idx} className="flex flex-col gap-4">
-                    <h2 className="text-xl sm:text-2xl font-normal text-white tracking-tight">
-                      {sec.title}
-                    </h2>
-                    <ul className="flex flex-col gap-3 font-mono text-sm tracking-wider text-neutral-400">
-                      {sec.items.map((item, itemIdx) => (
+                    {sec.title && (
+                      <h2 className="text-xl sm:text-2xl font-normal text-white tracking-tight">
+                        {sec.title}
+                      </h2>
+                    )}
+                    <ul className="flex flex-col gap-3 font-mono text-sm tracking-wider text-neutral-300">
+                      {sec.items?.map((item, itemIdx) => (
                         <li key={itemIdx} className="flex items-center gap-2">
-                          <span className="text-white/60 mr-1">{sec.bulletChar || '•'}</span>
+                          <span className="text-[#00ff84] mr-1">{sec.bulletChar || '•'}</span>
                           {item}
                         </li>
                       ))}
@@ -1389,11 +1184,13 @@ function FocusDetailPage({
                 )
               } else if (sec.type === 'highlight') {
                 return (
-                  <div key={idx} className="flex flex-col gap-4 p-6 sm:p-8 bg-white/[0.02] border border-white/5 rounded-none">
-                    <h2 className="text-lg font-normal text-white tracking-tight">
-                      {sec.title}
-                    </h2>
-                    <p className="italic text-neutral-400">
+                  <div key={idx} className="flex flex-col gap-4 p-6 sm:p-8 bg-white/[0.03] border border-white/10 rounded-lg">
+                    {sec.title && (
+                      <h2 className="text-lg font-normal text-white tracking-tight">
+                        {sec.title}
+                      </h2>
+                    )}
+                    <p className="italic text-neutral-200 font-light">
                       "{sec.text}"
                     </p>
                   </div>
@@ -1401,30 +1198,29 @@ function FocusDetailPage({
               }
               return null
             })}
-
           </div>
 
-          {/* Metadata Block: spans columns 1-8 on mobile, cols 7-8 on desktop */}
-          <div className="col-span-8 md:col-start-7 md:col-span-2 flex flex-row md:flex-col gap-8 md:gap-6 border-t md:border-t-0 md:border-l border-white/10 pt-8 md:pt-0 md:pl-8">
+          {/* Metadata Block */}
+          <div className="lg:col-span-4 flex flex-row lg:flex-col gap-8 lg:gap-6 border-t lg:border-t-0 lg:border-l border-white/10 pt-8 lg:pt-0 lg:pl-8">
             <div className="flex flex-col gap-1">
-              <span className="font-mono text-xs text-white/40 lowercase">date published</span>
-              <span className="text-sm font-medium text-white/80">{data.date}</span>
+              <span className="font-mono text-xs text-white/70 lowercase">date published</span>
+              <span className="text-sm font-medium text-white/90">{data.date}</span>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="font-mono text-xs text-white/40 lowercase">reading time</span>
-              <span className="text-sm font-medium text-white/80">{data.readingTime}</span>
+              <span className="font-mono text-xs text-white/70 lowercase">reading time</span>
+              <span className="text-sm font-medium text-white/90">{data.readingTime}</span>
             </div>
           </div>
         </div>
 
         {/* See Also Divider & Header */}
-        <div className="flex items-center gap-4 w-full mt-12">
-          <span className="font-mono text-xs lowercase text-white/45 shrink-0">.see also</span>
-          <div className="h-px bg-white/10 flex-grow" />
+        <div className="flex items-center gap-4 w-full mt-12 max-w-5xl mx-auto">
+          <span className="font-mono text-xs lowercase text-white/70 shrink-0">.see also</span>
+          <div className="h-px bg-white/15 flex-grow" />
         </div>
 
         {/* See Also List */}
-        <div className="flex flex-col relative z-10 w-full mb-12">
+        <div className="flex flex-col w-full max-w-5xl mx-auto mb-12">
           {data.seeAlso.map((item, index) => {
             const isHovered = hoveredSeeAlsoIndex === index
             const isDimmed = hoveredSeeAlsoIndex !== null && !isHovered
@@ -1447,81 +1243,38 @@ function FocusDetailPage({
                 }}
                 onMouseEnter={() => setHoveredSeeAlsoIndex(index)}
                 onMouseLeave={() => setHoveredSeeAlsoIndex(null)}
-                className="group relative grid grid-cols-8 items-center py-12 border-b border-white/10 cursor-pointer select-none transition-opacity duration-300"
+                className="group relative flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-8 border-b border-white/10 cursor-pointer select-none transition-opacity duration-300 focus-visible:ring-2 focus-visible:ring-[#00ff84]"
                 style={{
                   opacity: isDimmed ? 0.6 : 1
                 }}
               >
-                {/* Title & Subtitle: Column 1 to 4 */}
-                <div className="col-span-4 flex flex-col gap-2">
+                <div className="flex flex-col gap-1 max-w-xl">
                   <h3
-                    className="text-[clamp(1.5rem,3.2vw,2.5rem)] font-light tracking-tight transition-colors duration-300 leading-tight"
+                    className="text-xl sm:text-2xl font-light tracking-tight transition-colors duration-300"
                     style={{
                       color: isHovered ? '#ffffff' : '#a3a3a3'
                     }}
                   >
                     {item.title}
                   </h3>
-                  
-                  {/* Subtitle animated reveal */}
-                  <motion.p
-                    initial={false}
-                    animate={{
-                      height: isHovered ? 'auto' : 0,
-                      opacity: isHovered ? 1 : 0,
-                      marginTop: isHovered ? 8 : 0
-                    }}
-                    transition={{
-                      duration: 0.6,
-                      ease: [0.22, 1, 0.36, 1]
-                    }}
-                    className="text-xs sm:text-sm text-neutral-400 font-light overflow-hidden pr-4"
-                  >
+                  <p className="text-xs sm:text-sm text-neutral-400 font-light">
                     {item.subtitle}
-                  </motion.p>
+                  </p>
                 </div>
 
-                {/* Column 5: Empty */}
-                <div className="col-span-1" />
-
-                {/* Column 6 & 7: Slide-in Preview Image */}
-                <div className="col-span-2 relative aspect-[3/2] w-full overflow-visible flex items-center justify-center">
-                  <AnimatePresence>
-                    {isHovered && (
-                      <motion.div
-                        initial={{ opacity: 0, x: '-50%', scale: 0.95 }}
-                        animate={{ opacity: 1, x: 0, scale: 1 }}
-                        exit={{ opacity: 0, x: '-50%', scale: 0.95 }}
-                        transition={{
-                          duration: 0.6,
-                          ease: [0.22, 1, 0.36, 1]
-                        }}
-                        className="absolute inset-0 w-full h-full rounded-lg overflow-hidden border border-white/10 bg-neutral-900 shadow-2xl"
-                      >
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-
-                {/* Column 8: Arrow Icon */}
-                <div className="col-span-1 flex justify-end">
+                <div className="flex items-center gap-4">
+                  <div className="w-24 aspect-[3/2] overflow-hidden rounded border border-white/10 bg-neutral-900">
+                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                  </div>
                   <motion.div
                     animate={{
                       rotate: isHovered ? 0 : -45,
-                      x: isHovered ? 8 : 0,
+                      x: isHovered ? 4 : 0,
                       color: isHovered ? '#ffffff' : '#525252'
                     }}
-                    transition={{
-                      duration: 0.6,
-                      ease: [0.22, 1, 0.36, 1]
-                    }}
+                    transition={{ duration: 0.3 }}
                   >
-                    <ArrowRight className="h-6 w-6 sm:h-8 sm:w-8" />
+                    <ArrowRight className="h-6 w-6" />
                   </motion.div>
                 </div>
               </a>
@@ -1537,14 +1290,45 @@ function App() {
   const { scrollY, scrollYProgress } = useScroll()
   const [sectionTop, setSectionTop] = useState(0)
   const [pendingAnchor, setPendingAnchor] = useState<string | null>(null)
+  const [activeHomeSection, setActiveHomeSection] = useState<string>('')
   
   const containerRef = useRef<HTMLDivElement>(null)
   const pinWrapperRef = useRef<HTMLDivElement>(null)
   const [activeProject, setActiveProject] = useState<typeof projects[number] | null>(null)
   const [currentPage, setCurrentPage] = useState<'home' | 'project-details' | 'design-systems-detail' | 'employee-retention-detail' | 'ai-workforce-detail' | 'projects-list' | 'focus-list' | 'contact-page'>('home')
 
+  useEffect(() => {
+    if (currentPage !== 'home') return
+
+    const handleScroll = () => {
+      const sectionIds = ['projects', 'about', 'focus', 'contact']
+      const scrollPos = window.scrollY + 220
+
+      for (const id of sectionIds) {
+        const el = document.getElementById(id)
+        if (el) {
+          const top = el.offsetTop
+          const height = el.offsetHeight
+          if (scrollPos >= top && scrollPos < top + height) {
+            setActiveHomeSection(id)
+            return
+          }
+        }
+      }
+      if (window.scrollY < 300) {
+        setActiveHomeSection('')
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [currentPage])
+
   let activeLabel = ''
-  if (currentPage === 'projects-list' || currentPage === 'project-details') {
+  if (currentPage === 'home') {
+    activeLabel = activeHomeSection
+  } else if (currentPage === 'projects-list' || currentPage === 'project-details') {
     activeLabel = 'projects'
   } else if (currentPage === 'contact-page') {
     activeLabel = 'contact'
@@ -1650,7 +1434,7 @@ function App() {
           `step-${i}`
         )
 
-        // 2. Current card starts animating only when the next card is halfway (duration 0.5, start at step-${i}+=0.5)
+        // 2. Current card starts animating only when the next card is halfway
         tl.fromTo(currentCard,
           { y: 0, scale: 1, pointerEvents: 'auto' },
           {
@@ -1664,7 +1448,7 @@ function App() {
         )
 
         if (followingCard) {
-          // Following card starts coming up from off-screen (duration 1)
+          // Following card starts coming up from off-screen
           tl.fromTo(followingCard,
             { y: () => window.innerHeight + followingCard.offsetHeight, pointerEvents: 'none' },
             {
@@ -1741,15 +1525,15 @@ function App() {
 
       {currentPage === 'home' ? (
         <>
-          <section className='relative min-h-screen overflow-hidden bg-transparent px-6 pb-8 pt-[96px] text-white sm:px-8 sm:pt-[90px] lg:px-[8.5vw]'>
+          <section className='relative min-h-screen overflow-hidden bg-transparent px-6 pb-12 pt-[104px] text-white sm:px-8 sm:pt-[110px] lg:px-[8.5vw]'>
 
-            <div className='relative z-10 flex min-h-[calc(100vh-96px)] flex-col sm:min-h-[calc(100vh-96px)]'>
-              <div className='flex items-center justify-between gap-5 pt-3 font-mono text-[clamp(0.75rem,2.6vw,1.35rem)] leading-none text-white/45 sm:items-start sm:pt-3 sm:text-base sm:text-white/55'>
+            <div className='relative z-10 flex min-h-[calc(100vh-104px)] flex-col justify-between'>
+              <div className='flex items-center justify-between gap-5 pt-2 font-mono text-sm leading-none text-white/70 sm:items-start sm:text-base sm:text-white/80'>
                 <motion.p
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15, duration: 0.55 }}
-                  className='shrink-0 whitespace-nowrap'
+                  className='shrink-0 whitespace-nowrap font-medium text-white'
                 >
                   Hey, I&apos;m Giri
                 </motion.p>
@@ -1758,9 +1542,12 @@ function App() {
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.25, duration: 0.55 }}
-                  className='flex min-w-0 items-center gap-2 whitespace-nowrap sm:gap-3'
+                  className='flex min-w-0 items-center gap-2.5 whitespace-nowrap text-xs sm:text-sm font-medium tracking-wide text-neutral-300'
                 >
-                  <span className='h-3 w-3 shrink-0 rounded-full bg-[#00ff84] sm:h-2 sm:w-2' />
+                  <span className='relative flex h-2.5 w-2.5 shrink-0'>
+                    <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00ff84] opacity-75'></span>
+                    <span className='relative inline-flex rounded-full h-2.5 w-2.5 bg-[#00ff84]'></span>
+                  </span>
                   available for new projects
                 </motion.p>
               </div>
@@ -1769,12 +1556,21 @@ function App() {
                 initial={{ opacity: 0, y: 36 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.75, delay: 0.2 }}
-                className='mt-16 sm:mt-auto pb-[16vh] sm:pb-[13vh] pt-12 sm:pt-24 md:pt-36 lg:pb-[15vh]'
+                className='my-auto py-12 sm:py-20 lg:py-24'
               >
-                <h1 className='max-w-[1060px] text-[clamp(3.2rem,12vw,8.75rem)] font-light leading-[1.06] tracking-[-0.07em] text-white sm:leading-[0.94] sm:tracking-normal'>
+                <h1 className='max-w-[1100px] text-[clamp(2.8rem,9.5vw,7.8rem)] font-light leading-[1.04] tracking-[-0.04em] text-white sm:leading-[0.96] sm:tracking-tight'>
                   A UI/UX designer focused on
                   <RotatingWord words={heroFocusItems} />
                 </h1>
+
+                <motion.p 
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                  className='mt-6 sm:mt-8 max-w-2xl text-base sm:text-lg text-neutral-300 font-light leading-relaxed'
+                >
+                  Crafting high-impact SaaS platforms, digital systems, and enterprise tools that turn complex workflows into intuitive web experiences.
+                </motion.p>
               </motion.div>
 
               <div className='pointer-events-none absolute bottom-[14%] right-[-2vw] hidden h-8 w-20 items-center justify-center opacity-35 lg:flex'>
