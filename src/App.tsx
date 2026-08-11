@@ -34,18 +34,6 @@ const heroFocusItems = [
   'design systems'
 ]
 
-const marqueeImages = [
-  '/work/login-default.png',
-  '/work/super-admin-manage-schools.png',
-  '/work/school-admin-alumni-directory.png',
-  '/work/referee-01.png',
-  '/work/referee-02.png'
-]
-
-const topMarqueeImages = marqueeImages.slice(0, 3)
-const bottomMarqueeImages = marqueeImages.slice(3)
-const repeatMarqueeImages = (images: string[]) => [...images, ...images, ...images, ...images]
-
 const siteNavLinks = [
   { label: 'projects', href: '#projects' },
   { label: 'about', href: '#about' },
@@ -1466,16 +1454,6 @@ function App() {
     return () => ctx.revert()
   }, [currentPage])
 
-  const row1X = useTransform(scrollY, (value) => {
-    const offset = (value - sectionTop + (typeof window !== 'undefined' ? window.innerHeight : 0)) * 0.3
-    return offset - 200
-  })
-
-  const row2X = useTransform(scrollY, (value) => {
-    const offset = (value - sectionTop + (typeof window !== 'undefined' ? window.innerHeight : 0)) * 0.3
-    return -((offset - 200))
-  })
-
   const goHome = (anchor?: string) => {
     setCurrentPage('home')
     setActiveProject(null)
@@ -1578,21 +1556,6 @@ function App() {
                 <span className='absolute h-full w-px bg-white' />
                 <span className='h-6 w-6 rounded-full border border-white' />
               </div>
-            </div>
-          </section>
-
-          <section id='marquee-section' className='bg-[#0C0C0C] pb-6 pt-16 sm:pt-20 md:pt-24'>
-            <div className='flex flex-col gap-3'>
-              <motion.div style={{ x: row1X }} className='flex w-max gap-3 will-change-transform'>
-                {repeatMarqueeImages(topMarqueeImages).map((src, index) => (
-                  <img key={`row1-${index}`} src={src} alt='' loading='lazy' className='h-[clamp(230px,22vw,330px)] w-[clamp(360px,48vw,640px)] rounded-2xl border border-white/10 bg-white/5 object-cover' />
-                ))}
-              </motion.div>
-              <motion.div style={{ x: row2X }} className='flex w-max gap-3 will-change-transform'>
-                {repeatMarqueeImages(bottomMarqueeImages).map((src, index) => (
-                  <img key={`row2-${index}`} src={src} alt='' loading='lazy' className='h-[clamp(230px,22vw,330px)] w-[clamp(360px,48vw,640px)] rounded-2xl border border-white/10 bg-white/5 object-cover' />
-                ))}
-              </motion.div>
             </div>
           </section>
 
