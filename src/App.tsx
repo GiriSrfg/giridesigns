@@ -19,7 +19,30 @@ import {
   Layers,
   Sparkles,
   TrendingUp,
-  Award
+  Award,
+  Search,
+  Lightbulb,
+  Palette,
+  ShieldCheck,
+  UserCheck,
+  Calendar,
+  Trophy,
+  ChevronRight,
+  ChevronLeft,
+  Sliders,
+  Layout,
+  Lock,
+  Eye,
+  CheckCircle2,
+  Star,
+  Target,
+  Zap,
+  FileText,
+  CheckCircle,
+  XCircle,
+  Play,
+  SlidersHorizontal,
+  RefreshCw
 } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -132,7 +155,7 @@ function SiteHeader({
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55 }}
-          className='text-2xl font-light leading-none tracking-[-0.03em] text-white transition hover:text-white/80 focus-visible:ring-2 focus-visible:ring-[#00ff84]'
+          className='type-heading-lg font-light leading-none tracking-[-0.03em] text-white transition hover:text-white/80 focus-visible:ring-2 focus-visible:ring-[#00ff84]'
         >
           Portfolio
         </motion.a>
@@ -142,13 +165,13 @@ function SiteHeader({
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={isMenuOpen}
           onClick={() => setIsMenuOpen((current) => !current)}
-          className='inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-3 text-xl font-light leading-none tracking-[-0.03em] text-white/80 hover:text-white md:hidden focus-visible:ring-2 focus-visible:ring-[#00ff84]'
+          className='inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-3 type-heading-md font-light leading-none tracking-[-0.03em] text-white/80 hover:text-white md:hidden focus-visible:ring-2 focus-visible:ring-[#00ff84]'
         >
           <span>{isMenuOpen ? 'close' : 'menu'}</span>
           {isMenuOpen ? <X size={28} strokeWidth={1.7} /> : <Menu size={28} strokeWidth={1.6} />}
         </button>
 
-        <div className='hidden items-center gap-8 text-base font-light lowercase text-white/70 md:flex xl:gap-12'>
+        <div className='hidden items-center gap-8 type-body-lg font-light lowercase text-white/70 md:flex xl:gap-12'>
           {siteNavLinks.map((item, index) => {
             const isActive = activeLabel === item.label
             return (
@@ -404,7 +427,7 @@ function CurrentFocusSection({
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex items-center gap-4 w-full mb-10 sm:mb-12">
-          <span className="font-mono text-xs lowercase text-white/70 shrink-0">.current focus</span>
+          <span className="font-mono type-label lowercase text-white/70 shrink-0">.current focus</span>
           <div className="h-px bg-white/15 flex-grow" />
         </div>
 
@@ -430,7 +453,7 @@ function CurrentFocusSection({
                 {/* Title & Subtitle: Column 1 to 4 */}
                 <div className="col-span-4 flex flex-col gap-2">
                   <h3
-                    className="text-[clamp(1.5rem,3.2vw,2.5rem)] font-light tracking-tight transition-colors duration-300 leading-tight"
+                    className="type-heading-lg font-light tracking-tight transition-colors duration-300 leading-tight"
                     style={{
                       color: isHovered ? '#ffffff' : '#d4d4d4'
                     }}
@@ -450,7 +473,7 @@ function CurrentFocusSection({
                       duration: 0.5,
                       ease: [0.22, 1, 0.36, 1]
                     }}
-                    className="text-xs sm:text-sm text-neutral-300 font-light overflow-hidden pr-4"
+                    className="type-label text-neutral-300 font-light overflow-hidden pr-4"
                   >
                     {item.subtitle}
                   </motion.p>
@@ -526,7 +549,7 @@ function ContactSection({ onContactClick }: { onContactClick?: () => void }) {
         {/* Content & Button */}
         <div className="flex flex-col gap-10 sm:gap-14">
           {/* Large Title Text */}
-          <h2 className="text-[clamp(1.5rem,3.4vw,2.75rem)] font-light leading-[1.25] tracking-tight max-w-4xl font-sans text-neutral-100">
+          <h2 className="type-heading-lg font-light leading-[1.25] tracking-tight max-w-4xl font-sans text-neutral-100">
             Have an idea, product, or design challenge?
             <br className="hidden sm:block" />
             Let's discuss how thoughtful design can create better experiences.
@@ -564,7 +587,7 @@ function ContactSection({ onContactClick }: { onContactClick?: () => void }) {
                 />
 
                 {/* Button Text & Arrow */}
-                <div className="relative z-10 flex items-center gap-3 font-mono text-sm tracking-wider uppercase">
+                <div className="relative z-10 flex items-center gap-3 font-mono type-body tracking-wider uppercase">
                   <motion.span
                     animate={{
                       color: isHovered ? '#000000' : '#ffffff'
@@ -636,14 +659,14 @@ function SiteFooter({
                 e.preventDefault()
                 if (onLinkClick) onLinkClick('#')
               }}
-              className="font-mono text-sm tracking-widest text-neutral-400 hover:text-white transition-colors duration-300 uppercase"
+              className="font-mono type-body tracking-widest text-neutral-400 hover:text-white transition-colors duration-300 uppercase"
             >
               giri.design
             </a>
           </div>
 
           {/* Center: Links */}
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 font-sans text-sm lowercase">
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 font-sans type-body lowercase">
             {footerLinks.map((item) => (
               <a
                 key={item.label}
@@ -738,10 +761,10 @@ function SocialMediaRow({ item }: { item: { title: string; handle: string; url: 
         </div>
       </div>
       <div className="flex flex-col gap-0.5">
-        <span className="text-base font-medium text-neutral-300 group-hover:text-white transition duration-300 lowercase">
+        <span className="type-body-lg font-medium text-neutral-300 group-hover:text-white transition duration-300 lowercase">
           {item.title}
         </span>
-        <span className="font-mono text-xs text-neutral-500">
+        <span className="font-mono type-label text-neutral-500">
           {item.handle}
         </span>
       </div>
@@ -787,12 +810,12 @@ function ContactPage() {
         {/* Hero Title Block */}
         <div className="flex flex-col gap-6 w-full">
           <div>
-            <h1 className="text-[clamp(2.5rem,8vw,5.5rem)] font-light leading-none tracking-tight text-white font-sans">
+            <h1 className="type-display font-light leading-none tracking-tight text-white font-sans">
               say hello
             </h1>
           </div>
           <div className="max-w-3xl">
-            <h2 className="text-[clamp(1.4rem,3.2vw,2.5rem)] font-light leading-snug tracking-tight text-neutral-200 font-sans">
+            <h2 className="type-heading-lg font-light leading-snug tracking-tight text-neutral-200 font-sans">
               let&apos;s collaborate. feel free to drop me a line about your project or follow me on social networks
             </h2>
           </div>
@@ -846,7 +869,7 @@ function ContactPage() {
 
           {/* Socials Container */}
           <div className="md:col-span-5 flex flex-col gap-6 md:border-l md:border-white/10 md:pl-10">
-            <span className="font-mono text-xs text-white/70 lowercase mb-2">social channels</span>
+            <span className="font-mono type-label text-white/70 lowercase mb-2">social channels</span>
             <div className="flex flex-col gap-3 w-full">
               {socialMedia.map((item) => (
                 <SocialMediaRow key={item.title} item={item} />
@@ -879,13 +902,13 @@ function ProjectsListPage({
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-12 sm:gap-16">
         {/* Header Block */}
         <div className="flex items-center gap-4 w-full mt-2">
-          <span className="font-mono text-xs lowercase text-white/70 shrink-0">.projects</span>
+          <span className="font-mono type-label lowercase text-white/70 shrink-0">.projects</span>
           <div className="h-px bg-white/15 flex-grow" />
         </div>
 
         {/* Hero Title Block */}
         <div className="max-w-4xl">
-          <h1 className="text-[clamp(1.8rem,4vw,3.2rem)] font-light leading-snug tracking-tight text-white font-sans">
+          <h1 className="type-heading-lg font-light leading-snug tracking-tight text-white font-sans">
             Designing smarter workforce experiences through data-driven insights, proactive decision making, and human-centered design.
           </h1>
         </div>
@@ -908,14 +931,14 @@ function ProjectsListPage({
                     className={`group cursor-pointer rounded-xl p-6 sm:p-9 shadow-2xl transition-transform duration-500 hover:-translate-y-1 focus-visible:ring-2 focus-visible:ring-[#00ff84] ${project.cardClass}`}
                   >
                     {/* Meta info */}
-                    <div className={`border-b pb-4 font-mono text-xs sm:text-sm flex items-center justify-between ${project.metaClass}`}>
+                    <div className={`border-b pb-4 font-mono type-label flex items-center justify-between ${project.metaClass}`}>
                       <span>{project.year}</span>
                       <span>{project.category}</span>
                     </div>
 
                     {/* Title & Arrow */}
                     <div className="mt-6 flex items-center justify-between gap-4">
-                      <h3 className="text-[clamp(2rem,6vw,3.8rem)] font-light leading-none tracking-tight">
+                      <h3 className="type-display font-light leading-none tracking-tight">
                         {project.name}
                       </h3>
                       <div className="flex h-10 w-10 sm:h-14 sm:w-14 items-center justify-center transition-transform duration-500 group-hover:rotate-45">
@@ -924,11 +947,11 @@ function ProjectsListPage({
                     </div>
 
                     {/* Image */}
-                    <div className="mt-8 overflow-hidden rounded-lg bg-black/10 aspect-[16/10] w-full">
+                    <div className="mt-6 sm:mt-8 overflow-hidden rounded-lg bg-black/20 p-1 sm:p-2 flex items-center justify-center border border-white/5 w-full">
                       <img
                         src={imageSrc}
                         alt={project.name}
-                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                        className="w-full h-auto max-h-[55vh] object-contain rounded-md transition-transform duration-700 ease-out group-hover:scale-[1.015]"
                       />
                     </div>
                   </div>
@@ -936,10 +959,10 @@ function ProjectsListPage({
 
                 {/* Description Block */}
                 <div className="md:col-span-4 flex flex-col gap-3 md:pt-4">
-                  <p className="font-mono text-xs sm:text-sm leading-relaxed tracking-wider text-[#ff5900] uppercase font-semibold">
+                  <p className="font-mono type-label leading-relaxed tracking-wider text-[#ff5900] uppercase font-semibold">
                     {project.category}
                   </p>
-                  <p className="font-sans text-sm sm:text-base leading-relaxed text-neutral-300 font-light max-w-prose">
+                  <p className="font-sans type-body-lg leading-relaxed text-neutral-300 font-light max-w-prose">
                     {desc}
                   </p>
                 </div>
@@ -1376,7 +1399,10 @@ function App() {
       if (cards.length === 0) return
 
       const getPeekY = (card: HTMLElement) => {
-        return 0.38 * window.innerHeight + card.offsetHeight / 2
+        const isMobile = window.innerWidth < 640
+        return isMobile
+          ? 0.15 * window.innerHeight + card.offsetHeight / 2
+          : 0.38 * window.innerHeight + card.offsetHeight / 2
       }
 
       // Initial state
@@ -1391,12 +1417,15 @@ function App() {
         })
       }
 
+      const isMobile = window.innerWidth < 640
+      const scrollMultiplier = isMobile ? 0.55 : 0.95
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container,
           pin: pinWrapper,
           start: 'top top',
-          end: () => `+=${window.innerHeight * (cards.length - 1) * 0.95}`,
+          end: () => `+=${window.innerHeight * (cards.length - 1) * scrollMultiplier}`,
           scrub: 1.2,
           invalidateOnRefresh: true,
         }
@@ -1503,9 +1532,9 @@ function App() {
 
       {currentPage === 'home' ? (
         <>
-          <section className='relative min-h-screen overflow-hidden bg-transparent px-6 pb-12 pt-[104px] text-white sm:px-8 sm:pt-[110px] lg:px-[8.5vw]'>
+          <section className='relative min-h-0 sm:min-h-screen overflow-hidden bg-transparent px-6 pb-6 pt-[85px] sm:pt-[110px] text-white sm:px-8 lg:px-[8.5vw]'>
 
-            <div className='relative z-10 flex min-h-[calc(100vh-104px)] flex-col justify-between'>
+            <div className='relative z-10 flex flex-col justify-start sm:min-h-[calc(100vh-104px)] sm:justify-between'>
               <div className='flex items-center justify-between gap-5 pt-2 font-mono text-sm leading-none text-white/70 sm:items-start sm:text-base sm:text-white/80'>
                 <motion.p
                   initial={{ opacity: 0, y: 12 }}
@@ -1534,7 +1563,7 @@ function App() {
                 initial={{ opacity: 0, y: 36 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.75, delay: 0.2 }}
-                className='my-auto py-12 sm:py-20 lg:py-24'
+                className='py-4 sm:my-auto sm:py-20 lg:py-24'
               >
                 <h1 className='max-w-[1100px] text-[clamp(2.8rem,9.5vw,7.8rem)] font-light leading-[1.04] tracking-[-0.04em] text-white sm:leading-[0.96] sm:tracking-tight'>
                   A UI/UX designer focused on
@@ -1559,28 +1588,27 @@ function App() {
             </div>
           </section>
 
-          <section id='about' className='relative min-h-[70vh] md:min-h-screen px-5 py-12 sm:py-16 md:px-10'>
+          <section id='about' className='relative px-4 py-10 sm:py-16 md:px-10 overflow-hidden sm:overflow-visible'>
             <FadeIn delay={0.1} x={-80} y={0} duration={0.9}>
-              <img src='https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/moon_icon.11395d36.png' alt='' className='absolute left-[1%] top-[8%] sm:top-[6%] md:top-[4%] w-[120px] sm:left-[2%] sm:w-[160px] md:left-[4%] md:w-[210px]' />
+              <img src='https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/moon_icon.11395d36.png' alt='' className='absolute top-2 left-2 sm:top-[6%] sm:left-[2%] md:top-[4%] md:left-[4%] w-[48px] xs:w-[60px] sm:w-[140px] md:w-[170px] lg:w-[210px] pointer-events-none select-none' />
             </FadeIn>
             <FadeIn delay={0.25} x={-80} y={0} duration={0.9}>
-              <img src='https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/p59_1.4659672e.png' alt='' className='absolute bottom-[14%] sm:bottom-[11%] md:bottom-[8%] left-[3%] w-[100px] sm:left-[6%] sm:w-[140px] md:left-[10%] md:w-[180px]' />
+              <img src='https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/p59_1.4659672e.png' alt='' className='absolute bottom-2 left-2 sm:bottom-[11%] sm:left-[6%] md:bottom-[8%] md:left-[10%] w-[42px] xs:w-[52px] sm:w-[120px] md:w-[150px] lg:w-[180px] pointer-events-none select-none' />
             </FadeIn>
             <FadeIn delay={0.15} x={80} y={0} duration={0.9}>
-              <img src='https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/lego_icon-1.703bb594.png' alt='' className='absolute right-[1%] top-[8%] sm:top-[6%] md:top-[4%] w-[120px] sm:right-[2%] sm:w-[160px] md:right-[4%] md:w-[210px]' />
+              <img src='https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/lego_icon-1.703bb594.png' alt='' className='absolute top-2 right-2 sm:top-[6%] sm:right-[2%] md:top-[4%] md:right-[4%] w-[48px] xs:w-[60px] sm:w-[140px] md:w-[170px] lg:w-[210px] pointer-events-none select-none' />
             </FadeIn>
             <FadeIn delay={0.3} x={80} y={0} duration={0.9}>
-              <img src='https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png' alt='' className='absolute bottom-[14%] sm:bottom-[11%] md:bottom-[8%] right-[3%] w-[130px] sm:right-[6%] sm:w-[170px] md:right-[10%] md:w-[220px]' />
+              <img src='https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png' alt='' className='absolute bottom-2 right-2 sm:bottom-[11%] sm:right-[6%] md:bottom-[8%] md:right-[10%] w-[52px] xs:w-[65px] sm:w-[130px] md:w-[170px] lg:w-[220px] pointer-events-none select-none' />
             </FadeIn>
 
-            <div className='flex min-h-[50vh] md:min-h-[60vh] flex-col items-center justify-center gap-8 sm:gap-12 md:gap-14'>
+            <div className='relative z-10 flex flex-col items-center justify-center gap-4 sm:gap-12 md:gap-14 py-4 sm:py-8 px-10 sm:px-0'>
               <FadeIn delay={0} y={40} duration={0.8}>
-                <h2 className='hero-heading text-center text-[clamp(3rem,12vw,160px)] font-black uppercase leading-none tracking-tight'>About me</h2>
+                <h2 className='hero-heading text-center text-[clamp(2.4rem,10vw,160px)] font-black uppercase leading-none tracking-tight'>About me</h2>
               </FadeIn>
               <div className='max-w-[560px] text-center'>
                 <AnimatedText text="I'm a UI/UX designer passionate about creating simple, intuitive, and user-friendly digital experiences. I enjoy turning ideas into clean interfaces that solve real problems and create meaningful experiences." />
               </div>
-
             </div>
           </section>
 
@@ -1719,7 +1747,7 @@ function ProjectCard({
         onClick()
       }}
       style={{ zIndex: index + 1 }}
-      className={`project-card group col-start-1 row-start-1 mx-auto w-[82vw] max-w-[330px] cursor-pointer rounded-md p-2.5 shadow-[0_24px_80px_rgba(0,0,0,0.45)] will-change-transform sm:w-[94vw] sm:max-w-none sm:rounded-[12px] sm:p-6 md:p-9 lg:w-[87.5vw] ${project.cardClass}`}
+      className={`project-card group col-start-1 row-start-1 mx-auto w-[92vw] max-w-[94vw] cursor-pointer rounded-md p-3.5 shadow-[0_24px_80px_rgba(0,0,0,0.45)] will-change-transform sm:w-[94vw] sm:max-w-none sm:rounded-[12px] sm:p-6 md:p-9 lg:w-[87.5vw] ${project.cardClass}`}
     >
       <div className={`border-b pb-2 font-mono text-[11px] tracking-normal sm:pb-3 sm:text-base sm:tracking-[0.08em] md:text-[1.45rem] ${project.metaClass}`}>
         <div className='flex items-center justify-between gap-4'>
@@ -1729,7 +1757,7 @@ function ProjectCard({
       </div>
 
       <div className='mt-5 grid grid-cols-[1fr_auto] gap-3 sm:mt-[clamp(1.8rem,4.4vh,3.2rem)] sm:gap-5 lg:grid-cols-[1fr_auto] lg:items-start'>
-        <h3 className='max-w-[10ch] text-[clamp(3.25rem,14vw,4.8rem)] font-light leading-[0.98] tracking-[-0.08em] sm:max-w-none sm:text-[clamp(4rem,8.9vw,7.9rem)] sm:leading-[0.86] sm:tracking-normal'>
+        <h3 className='max-w-[10ch] text-[clamp(2.4rem,10vw,4.8rem)] font-light leading-[0.98] tracking-[-0.08em] sm:max-w-none sm:text-[clamp(4rem,8.9vw,7.9rem)] sm:leading-[0.86] sm:tracking-normal'>
           {project.name}
         </h3>
 
@@ -1738,11 +1766,11 @@ function ProjectCard({
         </div>
       </div>
 
-      <div className='mt-5 overflow-hidden bg-black/10 sm:mt-[clamp(1.6rem,4vh,3rem)]'>
+      <div className='mt-4 sm:mt-[clamp(1.6rem,4vh,3rem)] overflow-hidden rounded-lg bg-black/20 p-1 sm:p-2 flex items-center justify-center border border-white/5'>
         <img
           src={imageSrc}
           alt={`${project.name} project preview`}
-          className='h-[clamp(300px,58vh,430px)] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025] sm:h-[clamp(26rem,42vh,34rem)]'
+          className='w-full h-auto max-h-[58vh] sm:max-h-[62vh] object-contain rounded-md transition-transform duration-500 ease-out group-hover:scale-[1.015]'
         />
       </div>
     </div>
@@ -1810,6 +1838,227 @@ function RelatedProjects({
   )
 }
 
+interface MobileScreenItem {
+  src: string
+  alt: string
+  title?: string
+}
+
+interface MobileScreenSet {
+  id: number
+  title?: string
+  screens: MobileScreenItem[]
+}
+
+function DesktopResponsiveShowcase() {
+  const [activeSlide, setActiveSlide] = useState(0)
+
+  const slides = [
+    {
+      id: 1,
+      title: "Member's Success Story",
+      src: "/work/ff-members-story.png",
+      alt: "Future Fitness Member's Success Story Showcase"
+    },
+    {
+      id: 2,
+      title: "Fitness Shop",
+      src: "/work/ff-shop-products.png",
+      alt: "Future Fitness Shop Products Showcase"
+    }
+  ]
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % slides.length)
+    }, 4000)
+    return () => clearInterval(timer)
+  }, [slides.length])
+
+  const currentSlide = slides[activeSlide]
+
+  return (
+    <div className="w-full flex justify-center pt-6">
+      {/* Outer Showcase Card Container Box (Matching Reference Light Styling) */}
+      <div className="w-full max-w-[1280px] rounded-[2rem] sm:rounded-[2.5rem] bg-[#f4f6f8] text-neutral-900 p-6 sm:p-10 md:p-14 shadow-2xl relative overflow-hidden">
+        {/* Slide Title Above Screen (Matching Reference Image Layout) */}
+        <div className="w-full text-center mb-6 sm:mb-8">
+          <h3 className="text-xl sm:text-2xl font-bold text-[#00a854] tracking-wide font-sans">
+            {currentSlide.title}
+          </h3>
+        </div>
+
+        {/* Navigation Arrow Left */}
+        <button
+          type="button"
+          onClick={() => setActiveSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1))}
+          aria-label="Previous slide"
+          className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-white/95 text-neutral-800 shadow-xl border border-neutral-200 flex items-center justify-center hover:bg-white hover:scale-105 transition-all duration-300"
+        >
+          <ChevronLeft size={24} />
+        </button>
+
+        {/* Navigation Arrow Right */}
+        <button
+          type="button"
+          onClick={() => setActiveSlide((prev) => (prev + 1) % slides.length)}
+          aria-label="Next slide"
+          className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-white/95 text-neutral-800 shadow-xl border border-neutral-200 flex items-center justify-center hover:bg-white hover:scale-105 transition-all duration-300"
+        >
+          <ChevronRight size={24} />
+        </button>
+
+        {/* Active Desktop Slide Image Frame */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeSlide}
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -30 }}
+            transition={{ duration: 0.45, ease: 'easeInOut' }}
+            className="w-full rounded-xl sm:rounded-2xl overflow-hidden border border-neutral-200 bg-black shadow-2xl"
+          >
+            <img
+              src={currentSlide.src}
+              alt={currentSlide.alt}
+              className="w-full h-auto rounded-xl sm:rounded-2xl block object-contain"
+            />
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Pagination Dots at Bottom Center */}
+        <div className="flex items-center justify-center gap-2 mt-8 sm:mt-10">
+          {slides.map((slide, idx) => (
+            <button
+              key={slide.id}
+              onClick={() => setActiveSlide(idx)}
+              className={`h-2.5 rounded-full transition-all duration-300 ${
+                activeSlide === idx ? 'w-8 bg-neutral-900' : 'w-2.5 bg-neutral-400/60'
+              }`}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function MobileResponsiveShowcase({
+  sets,
+  caption = 'Mobile Responsive'
+}: {
+  sets: MobileScreenSet[]
+  caption?: string
+}) {
+  const [activeSet, setActiveSet] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveSet((prev) => (prev + 1) % sets.length)
+    }, 4000)
+    return () => clearInterval(timer)
+  }, [sets.length])
+
+  const currentSet = sets[activeSet]
+
+  return (
+    <div className="w-full flex flex-col items-center pt-8 pb-4">
+      {/* Outer Showcase Container Card Box (Matching Reference Image 2 Layout) */}
+      <div className="w-full max-w-[1280px] rounded-[1.5rem] sm:rounded-[2.5rem] bg-[#f4f6f8] text-neutral-900 p-3 xs:p-5 sm:p-10 md:p-14 shadow-2xl relative overflow-hidden">
+        {/* Set Header Title (e.g. Onboarding / Member Stories / Shop) */}
+        {currentSet?.title && (
+          <div className="w-full text-center mb-8">
+            <h3 className="text-xl sm:text-2xl font-bold text-[#00a854] tracking-wide font-sans">
+              {currentSet.title}
+            </h3>
+          </div>
+        )}
+
+        {/* Navigation Arrow Left */}
+        <button
+          type="button"
+          onClick={() => setActiveSet((prev) => (prev === 0 ? sets.length - 1 : prev - 1))}
+          aria-label="Previous set"
+          className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-white/95 text-neutral-800 shadow-xl border border-neutral-200 flex items-center justify-center hover:bg-white hover:scale-105 transition-all duration-300"
+        >
+          <ChevronLeft size={24} />
+        </button>
+
+        {/* Navigation Arrow Right */}
+        <button
+          type="button"
+          onClick={() => setActiveSet((prev) => (prev + 1) % sets.length)}
+          aria-label="Next set"
+          className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-white/95 text-neutral-800 shadow-xl border border-neutral-200 flex items-center justify-center hover:bg-white hover:scale-105 transition-all duration-300"
+        >
+          <ChevronRight size={24} />
+        </button>
+
+        {/* 3 Mobile Frames ALWAYS in 1 Row (3 Columns across mobile & desktop) */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeSet}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.4, ease: 'easeInOut' }}
+            className="grid grid-cols-3 gap-1.5 xs:gap-3 sm:gap-6 lg:gap-10 items-start justify-items-center max-w-[1050px] mx-auto px-1 sm:px-4"
+          >
+            {currentSet.screens.map((screen, idx) => (
+              <div key={idx} className="w-full flex flex-col items-center gap-1 sm:gap-3">
+                {/* Title Label Above Screen (Matching Reference Image) */}
+                {screen.title && (
+                  <span className="text-[9px] xs:text-xs sm:text-base md:text-lg font-bold text-[#00a854] tracking-tight sm:tracking-wide font-sans text-center truncate max-w-full px-0.5">
+                    {screen.title}
+                  </span>
+                )}
+                
+                {/* Mobile Device Frame */}
+                <div className="w-full max-w-[100px] xs:max-w-[130px] sm:max-w-[240px] md:max-w-[280px] aspect-[9/19.5] rounded-[14px] xs:rounded-[18px] sm:rounded-[36px] md:rounded-[42px] border-[3px] xs:border-[4px] sm:border-[8px] md:border-[10px] border-[#18181b] bg-black shadow-[0_10px_30px_rgba(0,0,0,0.25)] sm:shadow-[0_20px_50px_rgba(0,0,0,0.25)] relative overflow-hidden transition-transform duration-500 hover:scale-[1.02]">
+                  {/* Dynamic Island / Notch */}
+                  <div className="absolute top-1 sm:top-2.5 left-1/2 -translate-x-1/2 w-8 xs:w-12 sm:w-20 h-1.5 sm:h-4 rounded-full bg-[#18181b] z-20 flex items-center justify-between px-1 sm:px-3">
+                    <span className="w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg-neutral-800" />
+                    <span className="w-1.5 sm:w-2 h-0.5 sm:h-1 rounded-full bg-neutral-800" />
+                  </div>
+
+                  {/* Mobile Screen Image */}
+                  <img
+                    src={screen.src}
+                    alt={screen.alt}
+                    className="w-full h-full object-cover rounded-[10px] xs:rounded-[14px] sm:rounded-[26px] md:rounded-[32px]"
+                  />
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Pagination Dots at Bottom Center */}
+        <div className="flex items-center justify-center gap-2 mt-8 sm:mt-10">
+          {sets.map((set, idx) => (
+            <button
+              key={set.id}
+              onClick={() => setActiveSet(idx)}
+              className={`h-2.5 rounded-full transition-all duration-300 ${
+                activeSet === idx ? 'w-8 bg-neutral-900' : 'w-2.5 bg-neutral-400/60'
+              }`}
+              aria-label={`Go to set ${idx + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Caption Below Container */}
+      {caption && (
+        <span className="font-sans type-heading-sm font-medium text-neutral-400 mt-4 tracking-wide text-center">
+          {caption}
+        </span>
+      )}
+    </div>
+  )
+}
+
 function FutureFitnessDetailsPage({
   project,
   onSelectProject
@@ -1817,354 +2066,1236 @@ function FutureFitnessDetailsPage({
   project: typeof projects[number]
   onSelectProject: (project: typeof projects[number]) => void
 }) {
+  const [activeTab, setActiveTab] = useState<'services' | 'memberships' | 'trainers' | 'locations'>('services')
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
-    <div className="min-h-screen bg-[#050505] text-white pt-[90px] pb-24 overflow-x-hidden relative font-sans selection:bg-[#76b82a] selection:text-black">
-      {/* Background vertical grid lines */}
-      <div className="pointer-events-none absolute inset-y-[90px] left-5 right-5 opacity-[0.03] sm:left-8 sm:right-8 lg:left-[8.5vw] lg:right-[8.5vw] z-0">
-        <div className="h-full w-full bg-[linear-gradient(90deg,rgba(255,255,255,0.16)_1px,transparent_1px)] bg-[length:12.5%_100%]" />
-      </div>
+    <div className="min-h-screen bg-[#0a0d10] text-white pt-[75px] sm:pt-[90px] pb-24 overflow-x-hidden relative font-sans selection:bg-[#00ff84] selection:text-black">
+      {/* Background dot grid pattern matching Sports ERP case study */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          backgroundColor: '#0a0d10',
+          backgroundImage: 'radial-gradient(rgba(255,255,255,0.12) 0.8px, transparent 0.9px)',
+          backgroundSize: '18px 18px',
+          backgroundPosition: 'center',
+          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.5) 8%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0.5) 92%, rgba(0,0,0,0.12) 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.5) 8%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0.5) 92%, rgba(0,0,0,0.12) 100%)'
+        }}
+      />
 
-      <div className="relative z-10 mx-auto w-[90vw] lg:w-[83vw] space-y-32 pt-16">
-        {/* ========================================== */}
-        {/* 1. HERO SECTION */}
-        {/* ========================================== */}
-        <section className="text-center space-y-8 max-w-[850px] mx-auto">
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#76b82a] font-semibold block">
-            Featured UI/UX Case Study
-          </span>
-          <h1 className="text-[clamp(2.5rem,7.5vw,6rem)] font-light leading-[1.05] tracking-tight uppercase text-white">
-            Future Fitness<br />
-            <span className="font-semibold text-[#76b82a]">Gym Website</span>
-          </h1>
-          <p className="text-lg sm:text-xl font-light text-white/60 leading-relaxed max-w-[620px] mx-auto">
-            Fitness platform experience designed to improve membership conversion and user engagement
-          </p>
-
-          {/* Premium Logo Showcase & Glow */}
-          <div className="pt-12 relative flex justify-center items-center">
-            {/* Soft Radial Ambient Glow */}
-            <div className="absolute w-[45vw] h-[45vw] rounded-full bg-[#76b82a]/5 blur-[100px] pointer-events-none" />
-
-            {/* Apple-style Desktop Browser Mockup */}
-            <div className="relative max-w-[900px] w-full rounded-2xl border border-white/10 bg-[#0f0f0f] shadow-[0_30px_100px_rgba(0,0,0,0.8),0_0_120px_rgba(118,184,42,0.06)] overflow-hidden transition-all duration-700 hover:scale-[1.015] hover:border-white/15">
-              <div className="flex items-center gap-2 px-5 py-3.5 bg-[#080808] border-b border-white/5">
-                <div className="flex gap-1.5">
-                  <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
-                  <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-                  <span className="w-3 h-3 rounded-full bg-[#27c93f]" />
-                </div>
-                <div className="flex-1 max-w-[450px] mx-auto flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-[#141414] border border-white/5 text-white/50 text-[11px] font-mono select-none">
-                  <span className="opacity-40">https://</span>
-                  <span>futurefitnessgymnellore.com</span>
-                </div>
-              </div>
-              <div className="relative aspect-[16/10] bg-[#0c0c0c] overflow-hidden flex flex-col items-center justify-center p-6">
-                <div className="absolute inset-0 opacity-15 bg-[radial-gradient(circle_at_center,rgba(118,184,42,0.12),transparent_60%)]" />
-                <img 
-                  src="/work/future-fitness-logo.png" 
-                  alt="Future Fitness Logo" 
-                  className="h-32 sm:h-40 w-auto object-contain z-10 drop-shadow-[0_0_40px_rgba(118,184,42,0.25)]"
-                />
-                <h2 className="text-xl sm:text-2xl font-light tracking-[0.25em] text-[#76b82a] uppercase mt-8 z-10">A Complete Family Gym</h2>
-                <p className="text-white/40 text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.35em] mt-4 z-10">Nellore, Andhra Pradesh</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ========================================== */}
-        {/* 2. OVERVIEW SECTION */}
-        {/* ========================================== */}
-        <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 border-t border-white/10 pt-16">
-          <div className="lg:col-span-4">
-            <h2 className="text-[clamp(2.2rem,4.5vw,4rem)] font-bold leading-none tracking-tight uppercase">
-              Project<br />Goal
-            </h2>
-          </div>
-          <div className="lg:col-span-8 flex flex-col justify-between gap-12">
-            <p className="text-xl sm:text-2xl lg:text-3xl font-light leading-relaxed text-white/80 max-w-[700px]">
-              Presenting a digital layout for Nellore's premier fitness platform. The goal is to optimize local gym discovery, present certified trainer credentials, highlight pricing options, and display localized training zones to boost conversion and engagement.
-            </p>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6 border-t border-white/5">
-              <div>
-                <span className="font-mono text-[10px] uppercase text-white/40 tracking-wider">Duration</span>
-                <p className="text-sm font-medium mt-1 text-white/90">4 Weeks (2025)</p>
-              </div>
-              <div>
-                <span className="font-mono text-[10px] uppercase text-white/40 tracking-wider">Services</span>
-                <p className="text-sm font-medium mt-1 text-white/90">UI/UX & Showcase</p>
-              </div>
-              <div>
-                <span className="font-mono text-[10px] uppercase text-white/40 tracking-wider">Brand Color</span>
-                <p className="text-sm font-medium mt-1 text-[#76b82a] flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#76b82a]" /> Neon Green
-                </p>
-              </div>
-              <div>
-                <span className="font-mono text-[10px] uppercase text-white/40 tracking-wider">Website URL</span>
-                <a 
-                  href="https://futurefitnessgymnellore.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium mt-1 text-white/90 underline hover:text-[#76b82a] flex items-center gap-1"
-                >
-                  Visit Site <ArrowUpRight size={14} />
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ========================================== */}
-        {/* 3. CASE STUDY PILLARS */}
-        {/* ========================================== */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-10 border-t border-white/10 pt-16">
-          <div className="space-y-4">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[#76b82a]">01 / Design Process</span>
-            <h3 className="text-xl font-bold uppercase tracking-wide">Research & Audit</h3>
-            <p className="text-sm text-white/50 leading-relaxed font-light">
-              Auditing local competitor offerings and mapping the typical user decision journey to discover plans, trainers, and locations within seconds.
-            </p>
-          </div>
-          <div className="space-y-4">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[#76b82a]">02 / UX Decisions</span>
-            <h3 className="text-xl font-bold uppercase tracking-wide">Conversion Funnel</h3>
-            <p className="text-sm text-white/50 leading-relaxed font-light">
-              Structuring training schedules and subscription tiers transparently to minimize friction and convert casual visitors into active gym members.
-            </p>
-          </div>
-          <div className="space-y-4">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[#76b82a]">03 / Visual System</span>
-            <h3 className="text-xl font-bold uppercase tracking-wide">High-Energy Aesthetics</h3>
-            <p className="text-sm text-white/50 leading-relaxed font-light">
-              Blending high-contrast dark tones with vibrant neon green accents to capture the high-intensity atmosphere of a modern, elite training environment.
-            </p>
-          </div>
-        </section>
-
-        {/* ========================================== */}
-        {/* 4. VISUAL SYSTEM COLOR PALETTE */}
-        {/* ========================================== */}
-        <section className="border-t border-white/10 pt-16 space-y-12">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <h2 className="text-3xl font-bold uppercase tracking-wide">Visual System</h2>
-            <p className="text-sm text-white/50 max-w-[450px] font-light">
-              A carefully balanced system engineered for dark screen presentation, matching high-end Apple-style guidelines.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Color chips */}
-            <div className="rounded-xl border border-white/10 bg-[#080808] p-6 space-y-6">
-              <div className="h-16 rounded bg-[#76b82a] shadow-[0_0_20px_rgba(118,184,42,0.35)]" />
-              <div>
-                <span className="font-mono text-[10px] text-white/40">Brand Accent</span>
-                <p className="text-sm font-bold uppercase">Neon Green</p>
-                <p className="text-xs text-white/50 font-mono">#76B82A</p>
-              </div>
-            </div>
-            <div className="rounded-xl border border-white/10 bg-[#080808] p-6 space-y-6">
-              <div className="h-16 rounded bg-[#050505] border border-white/10" />
-              <div>
-                <span className="font-mono text-[10px] text-white/40">Background</span>
-                <p className="text-sm font-bold uppercase">Pure Black</p>
-                <p className="text-xs text-white/50 font-mono">#050505</p>
-              </div>
-            </div>
-            <div className="rounded-xl border border-white/10 bg-[#080808] p-6 space-y-6">
-              <div className="h-16 rounded bg-[#121212] border border-white/5" />
-              <div>
-                <span className="font-mono text-[10px] text-white/40">Cards & UI Elements</span>
-                <p className="text-sm font-bold uppercase">Charcoal Grey</p>
-                <p className="text-xs text-white/50 font-mono">#121212</p>
-              </div>
-            </div>
-            <div className="rounded-xl border border-white/10 bg-[#080808] p-6 space-y-6">
-              <div className="h-16 rounded bg-white" />
-              <div>
-                <span className="font-mono text-[10px] text-white/40">Typography</span>
-                <p className="text-sm font-bold uppercase">Soft White</p>
-                <p className="text-xs text-white/50 font-mono">#FFFFFF</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ========================================== */}
-        {/* 5. INTERFACE PRESENTATION (GRID LAYOUT) */}
-        {/* ========================================== */}
-        <section className="border-t border-white/10 pt-16 space-y-16">
-          <div className="text-center space-y-4 max-w-[600px] mx-auto">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[#76b82a]">04 / Interface Audit</span>
-            <h2 className="text-3xl sm:text-4xl font-bold uppercase tracking-wide">Showcase Grid</h2>
-            <p className="text-sm text-white/50 font-light">
-              Premium layouts displaying the core sections of the website. Hover on cards to view in detailed perspective.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-8">
-            {/* Card 1: Locations */}
-            <div className="group relative rounded-2xl border border-white/10 bg-[#0f0f0f] p-4 flex flex-col justify-between overflow-hidden shadow-2xl transition-all duration-500 hover:border-[#76b82a]/30">
-              <div className="pb-4 border-b border-white/5 mb-6">
-                <span className="font-mono text-[10px] uppercase text-[#76b82a]">Stonehousepet • Harinathpuram • Vanamthopu</span>
-                <h3 className="text-lg font-bold uppercase mt-1">Training Zones</h3>
-              </div>
-              <div className="relative rounded-lg overflow-hidden bg-black aspect-[4/3] border border-white/5 flex items-center justify-center">
-                <img 
-                  src="/work/future-fitness-locations.png" 
-                  alt="Training Zones Screen" 
-                  className="w-full h-full object-cover grayscale opacity-85 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 group-hover:scale-105"
-                />
-              </div>
-              <p className="text-xs text-white/40 mt-6 leading-relaxed">
-                Clean and responsive location-based grid displaying center details, timings, phone numbers, and direct map link navigation.
-              </p>
+      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-[16px] md:px-[64px] border-0 e2e-layout-box space-y-8 sm:space-y-12">
+        {/* ========================================================================= */}
+        {/* 1. FLOATING CAPSULE HEADER PILL (Visually following screenshot) */}
+        {/* ========================================================================= */}
+        <div className="w-full flex justify-center pt-2 sm:pt-4">
+          <div className="w-full max-w-[960px] rounded-full border border-emerald-500/20 bg-white/95 px-4 py-2.5 sm:px-8 sm:py-3.5 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.4),0_0_25px_rgba(0,255,132,0.15)] flex items-center justify-between gap-4 transition-all duration-300">
+            {/* Left section: Icon + Brand title */}
+            <div className="flex items-center gap-3">
+              <span className="inline-flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#00e599] text-black shadow-md">
+                <Zap size={20} strokeWidth={2.5} className="fill-black text-black" />
+              </span>
+              <span className="text-base sm:text-lg font-bold tracking-tight text-neutral-900 font-sans">
+                Future Fitness
+              </span>
             </div>
 
-            {/* Card 2: Trainers */}
-            <div className="group relative rounded-2xl border border-white/10 bg-[#0f0f0f] p-4 flex flex-col justify-between overflow-hidden shadow-2xl transition-all duration-500 hover:border-[#76b82a]/30">
-              <div className="pb-4 border-b border-white/5 mb-6">
-                <span className="font-mono text-[10px] uppercase text-[#76b82a]">Expert Personal Guidance</span>
-                <h3 className="text-lg font-bold uppercase mt-1">Our Trainers</h3>
-              </div>
-              <div className="relative rounded-lg overflow-hidden bg-black aspect-[4/3] border border-white/5 flex items-center justify-center">
-                <img 
-                  src="/work/future-fitness-trainers.png" 
-                  alt="Our Trainers Screen" 
-                  className="w-full h-full object-cover grayscale opacity-85 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 group-hover:scale-105"
-                />
-              </div>
-              <p className="text-xs text-white/40 mt-6 leading-relaxed">
-                Recruiter-friendly profile views showcasing certified local coaches to build user trust and elevate conversion rates.
-              </p>
-            </div>
+            {/* Center blurred glow aura inside capsule */}
+            <div className="hidden sm:block h-6 w-32 rounded-full bg-[#00e599]/20 blur-md pointer-events-none" />
 
-            {/* Card 3: Shop */}
-            <div className="group relative rounded-2xl border border-white/10 bg-[#0f0f0f] p-4 flex flex-col justify-between overflow-hidden shadow-2xl transition-all duration-500 hover:border-[#76b82a]/30">
-              <div className="pb-4 border-b border-white/5 mb-6">
-                <span className="font-mono text-[10px] uppercase text-[#76b82a]">Gym Supplement Shop</span>
-                <h3 className="text-lg font-bold uppercase mt-1">Fitness Shop</h3>
-              </div>
-              <div className="relative rounded-lg overflow-hidden bg-black aspect-[4/3] border border-white/5 flex items-center justify-center">
-                <img 
-                  src="/work/future-fitness-shop.png" 
-                  alt="Fitness Shop Screen" 
-                  className="w-full h-full object-cover grayscale opacity-85 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 group-hover:scale-105"
-                />
-              </div>
-              <p className="text-xs text-white/40 mt-6 leading-relaxed">
-                An integrated e-commerce segment highlighting key products, pricing structures, whey proteins, and pre-workouts.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ========================================== */}
-        {/* 6. PERSPECTIVE DEVICE PRESENTATION */}
-        {/* ========================================== */}
-        <section className="border-t border-white/10 pt-16 space-y-12">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <div className="space-y-2">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-[#76b82a]">05 / Mockup Studio</span>
-              <h2 className="text-3xl font-bold uppercase tracking-wide">Responsive Presentation</h2>
-            </div>
-            <p className="text-sm text-white/50 max-w-[450px] font-light">
-              Showcasing fluid adaptive screens matching pixel-perfect responsive guidelines across mobile phone and desktop viewports.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pt-8 bg-gradient-to-br from-[#0c0c0c] to-[#040404] rounded-3xl p-8 lg:p-16 border border-white/5 relative overflow-hidden">
-            {/* Ambient Background Glow */}
-            <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 rounded-full bg-[#76b82a]/5 blur-[120px] pointer-events-none" />
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-[#76b82a]/3 blur-[120px] pointer-events-none" />
-
-            {/* Left: Mobile device */}
-            <div className="lg:col-span-4 flex justify-center">
-              <div className="relative group transition-all duration-500 hover:scale-[1.03] hover:rotate-3">
-                <div className="relative w-[230px] h-[460px] rounded-[36px] border-[6px] border-[#222] bg-[#050505] shadow-2xl overflow-hidden">
-                  {/* Dynamic Island */}
-                  <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-24 h-4.5 rounded-full bg-black z-20 flex items-center justify-between px-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-neutral-900" />
-                    <span className="w-2.5 h-1 rounded-full bg-neutral-850" />
-                  </div>
-                  {/* Screen Content */}
-                  <div className="w-full h-full pt-8 overflow-hidden relative">
-                    <img 
-                      src="/work/future-fitness-trainers.png" 
-                      alt="Mobile UI View" 
-                      className="w-full h-[120%] object-cover object-top filter grayscale group-hover:grayscale-0 transition duration-500"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right: Desktop 3D tilted browser */}
-            <div className="lg:col-span-8">
-              <div className="relative group transition-all duration-700 hover:scale-[1.01]">
-                {/* 3D Browser Container */}
-                <div className="w-full rounded-xl border border-white/10 bg-[#0f0f0f] shadow-2xl overflow-hidden transition-all duration-500 hover:border-[#76b82a]/20">
-                  {/* Browser Top bar */}
-                  <div className="flex items-center gap-2 px-4 py-2.5 bg-[#080808] border-b border-white/5">
-                    <div className="flex gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
-                    </div>
-                    <div className="flex-1 max-w-[280px] mx-auto text-center py-0.5 rounded bg-[#161616] border border-white/5 text-white/30 text-[9px] font-mono">
-                      futurefitnessgymnellore.com/shop
-                    </div>
-                  </div>
-                  {/* Browser Content */}
-                  <div className="relative bg-[#080808] aspect-[16/10] overflow-hidden">
-                    <img 
-                      src="/work/future-fitness-shop.png" 
-                      alt="Desktop UI View" 
-                      className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition duration-500"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ========================================== */}
-        {/* 7. FINAL OUTCOME SECTION */}
-        {/* ========================================== */}
-        <section className="border-t border-white/10 pt-16 pb-24 space-y-10">
-          <div className="max-w-[700px] space-y-6">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[#76b82a]">06 / Final Outcome</span>
-            <h2 className="text-3xl sm:text-5xl font-bold uppercase tracking-wide leading-none">
-              A Recruiter-friendly Portfolio Redesign
-            </h2>
-            <p className="text-lg lg:text-xl font-light text-white/70 leading-relaxed">
-              By preserving the original layout structure of Future Fitness and presenting it inside modern luxury web mockups, the case study highlights user-centered design thinking, visual consistency, and a high-performance identity.
-            </p>
-          </div>
-
-          <div className="pt-6 flex flex-wrap gap-4">
-            <a 
-              href="https://futurefitnessgymnellore.com/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-white text-black font-semibold px-8 py-3.5 text-xs uppercase tracking-widest hover:bg-[#76b82a] hover:text-white transition duration-300 shadow-[0_4px_20px_rgba(255,255,255,0.08)]"
-            >
-              Launch Live Website <ArrowUpRight className="ml-2" size={16} />
-            </a>
-            <button 
+            {/* Right section: Close button */}
+            <button
+              type="button"
               onClick={() => onSelectProject(projects[0])}
-              className="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent text-white font-semibold px-8 py-3.5 text-xs uppercase tracking-widest hover:border-white hover:bg-white/5 transition duration-300"
+              aria-label="Close case study"
+              className="inline-flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#262626] text-white shadow-md hover:bg-neutral-800 transition focus-visible:ring-2 focus-visible:ring-[#00ff84]"
             >
-              Next Project <ArrowRight className="ml-2" size={16} />
+              <X size={18} strokeWidth={2} />
             </button>
           </div>
-        </section>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* 2. MAIN TITLE & SUBTITLE SECTION */}
+        {/* ========================================================================= */}
+        <header className="pt-4 sm:pt-6 space-y-2 border-0 px-[16px] md:px-[64px]">
+          <h1 className="text-[36px] sm:text-[56px] md:text-[72px] leading-[1.0] font-bold text-white tracking-tight font-sans">
+            FUTURE FITNESS GYM
+          </h1>
+          <p className="text-xl sm:text-2xl text-neutral-400 font-light tracking-tight">
+            Website Design &amp; Development
+          </p>
+        </header>
+
+        {/* ========================================================================= */}
+        {/* 3. HORIZONTAL DIVIDER LINE (Matching screenshot) */}
+        {/* ========================================================================= */}
+        <div className="border-t border-white/15 my-6 sm:my-8" />
+
+        {/* ========================================================================= */}
+        {/* 4. TWO-COLUMN METADATA HEADER (MY ROLE & ABOUT CLIENT - Matching screenshot) */}
+        {/* ========================================================================= */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start border-0 px-[16px] md:px-[64px] relative">
+          {/* Left Column: My Role */}
+          <div className="md:col-span-4 space-y-2">
+            <p className="text-sm sm:text-base font-medium text-neutral-400">My Role</p>
+            <p className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+              Freelance Product Designer - Frontend Developer
+            </p>
+          </div>
+
+          {/* Right Column: About the Client */}
+          <div className="md:col-span-7 space-y-2">
+            <p className="text-sm sm:text-base font-medium text-neutral-400">About the Client</p>
+            <p className="text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/90 text-e2e-body">
+              Future Fitness is a fitness brand focused on helping people build strength, improve their fitness, and maintain a healthier lifestyle. I was brought in to design and develop a website that could showcase their services, memberships, trainers, and locations while making it easier for potential members to get started.
+            </p>
+          </div>
+
+          {/* Right side floating send/cursor arrow icon (Matching screenshot right edge) */}
+          <div className="hidden md:flex md:col-span-1 justify-end pt-2">
+            <div className="p-3 rounded-full border border-white/15 bg-white/5 text-white/80 hover:text-[#00ff84] hover:border-[#00ff84]/50 transition duration-300">
+              <ArrowUpRight size={24} />
+            </div>
+          </div>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* 5. LARGE WEBSITE WALKTHROUGH VIDEO (Padded Card Showcase Box - Matching Reference) */}
+        {/* ========================================================================= */}
+        <div className="w-full flex justify-center my-8 sm:my-12 lg:my-16">
+          {/* Outer Card Container Box */}
+          <div className="w-full max-w-[1280px] rounded-[2rem] sm:rounded-[2.5rem] bg-[#0b111e] border border-white/10 p-4 sm:p-7 md:p-10 lg:p-12 shadow-[0_30px_90px_rgba(0,0,0,0.8),0_0_60px_rgba(0,255,132,0.06)] overflow-hidden transition-all duration-500">
+            {/* Padded Inner Video Frame */}
+            <div className="w-full rounded-xl sm:rounded-2xl overflow-hidden bg-black shadow-2xl flex items-center justify-center">
+              <video
+                src="/work/Future Fitness - Overview( Record).mp4"
+                autoPlay
+                muted
+                playsInline
+                loop
+                controls={false}
+                className="w-full h-auto rounded-xl sm:rounded-2xl block object-contain"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* 6. OVERVIEW & THE RESULT SECTION (Matching Reference Image Layout) */}
+        {/* ========================================================================= */}
+        <div className="mt-12 sm:mt-16 space-y-8 border-t border-white/10 pt-10 sm:pt-14 px-[16px] md:px-[64px] border-0">
+          <div className="max-w-[900px] space-y-6">
+            <h2 className="text-[28px] sm:text-[40px] md:text-[48px] leading-[1.2] font-bold text-white tracking-tight">
+              Overview
+            </h2>
+
+            <p className="text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/90 text-e2e-body">
+              Future Fitness approached me to create a modern digital experience that could represent their gym beyond the physical space.
+            </p>
+
+            <p className="text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/90 text-e2e-body">
+              I designed and developed a responsive website that brings their services, trainers, memberships, locations, and member stories together in one clear experience — helping potential members discover the gym and take the next step with confidence.
+            </p>
+
+            <div className="pt-4 space-y-4">
+              <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                The result
+              </h3>
+
+              <p className="text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/90 text-e2e-body font-semibold">
+                A responsive fitness website that brings discovery, trust, membership exploration, and enquiries into one seamless experience.
+              </p>
+            </div>
+          </div>
+
+          {/* Padded Showcase Card Box holding future-fitness-shop.png */}
+          <div className="w-full flex justify-center pt-6 pb-4">
+            <div className="w-full max-w-[1140px] rounded-[1.8rem] sm:rounded-[2.5rem] bg-[#0b111e] border border-white/10 p-3 sm:p-6 md:p-8 shadow-[0_30px_90px_rgba(0,0,0,0.8),0_0_60px_rgba(0,255,132,0.06)] overflow-hidden transition-all duration-500">
+              <div className="w-full rounded-xl sm:rounded-2xl overflow-hidden bg-black shadow-2xl flex items-center justify-center">
+                <img
+                  src="/work/future-fitness-shop.png"
+                  alt="Future Fitness Digital Experience Showcase"
+                  className="w-full max-h-[66vh] h-auto rounded-xl sm:rounded-2xl block object-contain"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* SECTION 3 — FUTURE FITNESS WEBSITE SHOWCASE (Editorial Multi-Screen Collage) */}
+        {/* ========================================================================= */}
+        <div className="mt-16 sm:mt-24 space-y-8 border-t border-white/10 pt-12 sm:pt-16 px-[16px] md:px-[64px] border-0">
+          {/* Main Heading, Subheading & Body Copy */}
+          <div className="max-w-[850px] space-y-4">
+            <h2 className="text-[36px] sm:text-[48px] md:text-[56px] leading-[1.1] font-bold text-white tracking-tight font-sans">
+              Future Fitness <span className="text-[#00ff84]">Website</span>
+            </h2>
+            <p className="text-xl sm:text-2xl text-neutral-400 font-light tracking-tight">
+              A digital experience built to turn interest into action.
+            </p>
+            <div className="pt-2 space-y-4 text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/90 text-e2e-body">
+              <p>
+                A gym website shouldn't just showcase the space — it should help people understand what they can achieve there.
+              </p>
+              <p>
+                I designed the experience to bring together Future Fitness's training programs, trainers, memberships, locations, and success stories, giving potential members a clear path from discovering the gym to getting started.
+              </p>
+            </div>
+          </div>
+
+          {/* Large Multi-Screen Visual Showcase Collage Container (Matching Reference Layout) */}
+          <div className="w-full flex justify-center pt-6">
+            <div className="w-full max-w-[1280px] rounded-[2rem] sm:rounded-[2.5rem] bg-[#0c0f14] border border-white/10 p-4 sm:p-6 md:p-8 lg:p-10 shadow-2xl overflow-hidden space-y-4 sm:space-y-6">
+              {/* 1. Dominant Visual: Homepage / Hero */}
+              <div className="w-full rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-black shadow-lg">
+                <img
+                  src="/work/ff-hero.png"
+                  alt="Future Fitness Homepage Hero"
+                  className="w-full h-auto rounded-xl sm:rounded-2xl block object-contain"
+                />
+              </div>
+
+              {/* 2. Supporting Visual: Services Section */}
+              <div className="w-full rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-black shadow-lg">
+                <img
+                  src="/work/ff-services.png"
+                  alt="Future Fitness Services Section"
+                  className="w-full h-auto rounded-xl sm:rounded-2xl block object-contain"
+                />
+              </div>
+
+              {/* 3. Bottom Row: Membership/Shop + Locations Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                <div className="w-full rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-black shadow-lg">
+                  <img
+                    src="/work/ff-shop.png"
+                    alt="Future Fitness Shop & Memberships"
+                    className="w-full h-auto rounded-xl sm:rounded-2xl block object-contain"
+                  />
+                </div>
+                <div className="w-full rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-black shadow-lg">
+                  <img
+                    src="/work/ff-locations.png"
+                    alt="Future Fitness Training Zones & Locations"
+                    className="w-full h-auto rounded-xl sm:rounded-2xl block object-contain"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Prominent Pill CTA Button (Positioned Lower-Left) */}
+          <div className="pt-4 flex justify-start">
+            <a
+              href="https://futurefitnessgymnellore.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[#161c18] border border-[#00ff84]/40 px-8 py-3.5 text-base sm:text-lg font-semibold text-white shadow-xl hover:bg-[#00ff84] hover:text-black transition-all duration-300 group"
+            >
+              <span>Visit Website</span>
+              <ArrowUpRight size={20} className="text-[#00ff84] group-hover:text-black transition-colors" />
+            </a>
+          </div>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* RESPONSIVE WEB APP SECTION (Matching Reference Card Showcase Layout) */}
+        {/* ========================================================================= */}
+        <div className="mt-16 sm:mt-24 space-y-8 border-t border-white/10 pt-12 sm:pt-16 px-[16px] md:px-[64px] border-0">
+          {/* Main Heading, Subheading & Body Copy */}
+          <div className="max-w-[850px] space-y-4">
+            <h2 className="text-[36px] sm:text-[48px] md:text-[56px] leading-[1.1] font-bold text-white tracking-tight font-sans">
+              Responsive Web App
+            </h2>
+            <p className="text-xl sm:text-2xl text-neutral-400 font-light tracking-tight">
+              Built to feel just as seamless on every screen.
+            </p>
+            <div className="pt-2 space-y-4 text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/90 text-e2e-body">
+              <p>
+                The experience needed to work beyond the desktop. I designed the website to adapt across screen sizes while keeping the core visual identity, content hierarchy, and key actions consistent.
+              </p>
+              <p>
+                From exploring training programs to checking memberships and finding a location, the experience remains simple and accessible whether someone visits from a desktop or mobile device.
+              </p>
+            </div>
+          </div>
+
+          {/* Auto-switching 4s Desktop Showcase Carousel Slider */}
+          <DesktopResponsiveShowcase />
+
+          {/* 3 Mobile Frames Auto-switching Carousel (Matching Reference Image 1) */}
+          <MobileResponsiveShowcase
+            sets={[
+              {
+                id: 1,
+                title: 'Onboarding & Exploration',
+                screens: [
+                  { src: '/work/ff-mobile-hero.png', alt: 'Future Fitness Mobile Hero', title: 'Hero Experience' },
+                  { src: '/work/ff-mobile-trainers.png', alt: 'Future Fitness Mobile Trainers', title: 'Our Trainers' },
+                  { src: '/work/ff-mobile-shop.png', alt: 'Future Fitness Mobile Shop', title: 'Fitness Shop' }
+                ]
+              },
+              {
+                id: 2,
+                title: 'Locations & Member Portal',
+                screens: [
+                  { src: '/work/ff-mobile-connect.png', alt: 'Future Fitness Mobile Contact Form', title: 'Contact & Booking' },
+                  { src: '/work/ff-mobile-expert-trainers.png', alt: 'Future Fitness Mobile Expert Trainers Stats', title: 'Trainer Metrics' },
+                  { src: '/work/ff-mobile-shop-categories.png', alt: 'Future Fitness Mobile Shop Categories', title: 'Shop Categories' }
+                ]
+              }
+            ]}
+          />
+        </div>
+
+        {/* ========================================================================= */}
+        {/* PROJECT CONCLUSION SECTION (Portfolio Typography & Layout) */}
+        {/* ========================================================================= */}
+        <div className="mt-16 sm:mt-24 space-y-8 border-t border-white/10 pt-12 sm:pt-16 pb-16 px-[16px] md:px-[64px] border-0">
+          <div className="max-w-[850px] space-y-4">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#00ff84]">Project Conclusion</span>
+            <h2 className="text-[36px] sm:text-[48px] md:text-[56px] leading-[1.1] font-bold text-white tracking-tight font-sans">
+              Launch Live <span className="text-[#00ff84]">Website</span>
+            </h2>
+            <div className="pt-2 space-y-4 text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/90 text-e2e-body">
+              <p>
+                Explore the live digital website for Future Fitness Gym in Nellore to see the high-performance design, responsive layouts, and conversion architecture in action.
+              </p>
+            </div>
+          </div>
+
+          <div className="pt-4 flex flex-wrap gap-4 items-center">
+            <a
+              href="https://futurefitnessgymnellore.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[#161c18] border border-[#00ff84]/40 px-8 py-3.5 text-base sm:text-lg font-semibold text-white shadow-xl hover:bg-[#00ff84] hover:text-black transition-all duration-300 group"
+            >
+              <span>Launch Live Website</span>
+              <ArrowUpRight size={20} className="text-[#00ff84] group-hover:text-black transition-colors" />
+            </a>
+            <button
+              onClick={() => onSelectProject(projects[0])}
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-transparent px-8 py-3.5 text-base sm:text-lg font-semibold text-white hover:border-white hover:bg-white/5 transition-all duration-300"
+            >
+              <span>Next Project</span>
+              <ArrowRight size={20} className="text-white" />
+            </button>
+          </div>
+        </div>
 
         {/* Related Projects at the bottom */}
         <RelatedProjects currentProject={project} onSelectProject={onSelectProject} />
       </div>
+    </div>
+  )
+}
+
+function ResearchShowcaseSection() {
+  const [currentSlide, setCurrentSlide] = useState(0)
+
+  const slides = [
+    {
+      id: '01',
+      tag: '01 — Athlete Persona',
+      title: 'Evangeline Bhuvana — National Level Athlete',
+      subtitle: '200m Dash (PB: 26.56s) • Bengaluru',
+      type: 'Athlete Profile & Pain Points',
+      image: '/work/athlete-interview-card.png',
+      quote: '"60% of performance comes from diet, recovery and consistency - not just training."',
+      badgeText: 'National Athlete Interview',
+      detailText: 'In-depth 1-on-1 interview revealing daily training records, recovery routines, and scheduling friction.'
+    },
+    {
+      id: '02',
+      tag: '02 — Interview Questions',
+      title: 'Actual Questions Prepared',
+      subtitle: 'Semi-Structured Field Research Guide',
+      type: 'Question Framework & Methodology',
+      quote: '1. How do you currently receive match schedule updates?\n2. Where do you log daily soreness & injury notes?\n3. What happens when a field venue changes last-minute?',
+      badgeText: 'Field Research Framework',
+      detailText: 'Structured 12-question interview guide utilized across 120+ field study sessions.'
+    },
+    {
+      id: '03',
+      tag: '03 — Real Conversation',
+      title: 'Audio Transcript (18:32)',
+      subtitle: 'Live Recording Session Notes',
+      type: 'Real Athlete & Coach Voice',
+      quote: '"So many athletes are managing everything on 3 different spreadsheets, WhatsApp groups, and paper notebooks. It creates total chaos before big tournaments."',
+      badgeText: 'Audio Record • 18:32',
+      detailText: 'Verified voice recording quote highlighting communication breakdown during multi-team tournaments.'
+    }
+  ]
+
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length)
+  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
+
+  return (
+    <div className='mt-14 sm:mt-24 space-y-10 sm:space-y-12 border-t border-white/10 pt-10 sm:pt-16 px-[16px] md:px-[64px] border-0'>
+      {/* 03 - RESEARCH Header */}
+      <div className='max-w-[850px] space-y-4'>
+        <span className='inline-block font-mono text-xs font-semibold uppercase tracking-widest text-[#15a854] bg-[#15a854]/10 border border-[#15a854]/30 px-3.5 py-1.5 rounded-full'>
+          03 — RESEARCH
+        </span>
+        <h2 className='text-3xl sm:text-5xl font-bold text-white tracking-tight leading-tight'>
+          Understanding the people<br className='hidden sm:inline' /> behind the problem
+        </h2>
+        <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/90 text-e2e-body pt-2'>
+          Research helped me move beyond assumptions and understand how athletes, coaches, and tournament directors actually handle information day-to-day.
+        </p>
+        <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/85 text-e2e-body'>
+          I conducted one-to-one interviews with competitive athletes, head coaches, and regional tournament officials to map real-world friction.
+        </p>
+      </div>
+
+      {/* Down Arrow Indicator */}
+      <div className='flex justify-center my-4 sm:my-6'>
+        <span className='text-2xl text-[#15a854] animate-bounce font-mono'>↓</span>
+      </div>
+
+      {/* What I wanted to understand Subheading & 2x2 Grid */}
+      <div className='space-y-6'>
+        <h3 className='text-2xl sm:text-3xl font-bold text-white tracking-tight'>
+          What I wanted to understand
+        </h3>
+
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6'>
+          {[
+            { num: '01', title: 'Training & progress', desc: 'How athletes log workout reps, sprint PRs, and daily training milestones.' },
+            { num: '02', title: 'Competition updates', desc: 'How match draw brackets, court times, and last-minute changes reach teams.' },
+            { num: '03', title: 'Competition readiness', desc: 'How coaches evaluate team health, active rosters, and starting lineups.' },
+            { num: '04', title: 'Recovery & fatigue', desc: 'How player injuries, soreness levels, and medical clearances are tracked.' }
+          ].map((item) => (
+            <div key={item.num} className='rounded-2xl border border-white/10 bg-[#0c1512] p-5 sm:p-6 space-y-3 relative overflow-hidden group hover:border-[#15a854]/40 transition-all'>
+              <span className='text-xs font-mono font-bold text-[#15a854] block'>{item.num}</span>
+              <h4 className='text-lg font-bold text-[#dfe5eb]'>{item.title}</h4>
+              <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-neutral-300 text-e2e-body'>
+                {item.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Down Arrow Indicator */}
+      <div className='flex justify-center my-4 sm:my-6'>
+        <span className='text-2xl text-[#15a854] animate-bounce font-mono'>↓</span>
+      </div>
+
+      {/* Interactive Research Showcase Container (Matching attached mobile screenshot layout!) */}
+      <div className='rounded-[2rem] sm:rounded-[2.5rem] bg-[#09120e] border border-white/10 p-4 sm:p-8 lg:p-12 shadow-2xl relative space-y-6 sm:space-y-8 max-w-[1000px] mx-auto'>
+        {/* Top Centered Green Label */}
+        <div className='text-center'>
+          <span className='inline-block font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-[#15a854]'>
+            USER RESEARCH
+          </span>
+        </div>
+
+        {/* Central Mockup Viewer with Arrow Controls */}
+        <div className='relative flex items-center justify-center py-2 sm:py-4 px-1 sm:px-10'>
+          {/* Left Arrow Button */}
+          <button
+            type='button'
+            onClick={prevSlide}
+            aria-label='Previous slide'
+            className='absolute -left-2 sm:left-1 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/15 hover:bg-[#15a854] hover:text-black border border-white/20 text-white flex items-center justify-center transition-all shadow-xl backdrop-blur-md'
+          >
+            <ArrowLeft size={18} />
+          </button>
+
+          {/* Active Card Frame (Pure Image Showcase matching reference screenshot layout) */}
+          <div className='w-full max-w-[780px] rounded-2xl border border-white/15 bg-[#050b08] p-2 sm:p-4 shadow-2xl transition-all duration-300 mx-6 sm:mx-0 overflow-hidden flex justify-center items-center'>
+            {slides[currentSlide].image ? (
+              <img
+                src={slides[currentSlide].image}
+                alt={slides[currentSlide].title}
+                className='w-full h-auto max-h-[550px] object-contain rounded-xl shadow-2xl transition-transform duration-300'
+              />
+            ) : (
+              <div className='w-full p-6 sm:p-8 space-y-4 text-center'>
+                <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal italic text-[#e3f5ea] text-e2e-body whitespace-pre-line'>
+                  {slides[currentSlide].quote}
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Right Arrow Button */}
+          <button
+            type='button'
+            onClick={nextSlide}
+            aria-label='Next slide'
+            className='absolute -right-2 sm:right-1 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/15 hover:bg-[#15a854] hover:text-black border border-white/20 text-white flex items-center justify-center transition-all shadow-xl backdrop-blur-md'
+          >
+            <ArrowRight size={18} />
+          </button>
+        </div>
+
+        {/* Bottom Pagination Dots (Matching screenshot) */}
+        <div className='flex justify-center items-center gap-2 pt-1 sm:pt-2'>
+          {slides.map((_, idx) => (
+            <button
+              key={idx}
+              type='button'
+              onClick={() => setCurrentSlide(idx)}
+              aria-label={`Go to slide ${idx + 1}`}
+              className={`h-2 sm:h-2.5 rounded-full transition-all ${
+                currentSlide === idx ? 'w-6 sm:w-8 bg-[#15a854]' : 'w-2 sm:w-2.5 bg-white/20 hover:bg-white/40'
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Bottom Caption (Matching Onboarding Screens caption in screenshot) */}
+        <div className='text-center pt-2 border-t border-white/5'>
+          <p className='text-xs sm:text-sm font-mono text-neutral-400'>
+            One-to-one interviews with athletes, coaches, and organisers
+          </p>
+        </div>
+      </div>
+
+      {/* Summary Line */}
+      <div className='text-center max-w-[700px] mx-auto space-y-4 pt-2 sm:pt-4'>
+        <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/90 text-e2e-body'>
+          The conversations revealed a few recurring patterns.
+        </p>
+      </div>
+
+      {/* Down Arrow Indicator */}
+      <div className='flex justify-center my-4 sm:my-6'>
+        <span className='text-2xl text-[#15a854] animate-bounce font-mono'>↓</span>
+      </div>
+
+      {/* 04 - INSIGHT Header */}
+      <div className='max-w-[850px] space-y-3 pt-2 sm:pt-4'>
+        <span className='inline-block font-mono text-xs font-semibold uppercase tracking-widest text-[#15a854] bg-[#15a854]/10 border border-[#15a854]/30 px-3.5 py-1.5 rounded-full'>
+          04 — INSIGHT
+        </span>
+        <h2 className='text-3xl sm:text-4xl font-bold text-white tracking-tight'>
+          What I heard
+        </h2>
+      </div>
+    </div>
+  )
+}
+
+function EndToEndProductDesignSuite() {
+  const [activeStage, setActiveStage] = useState<'research' | 'ideation' | 'ui' | 'workflows'>('research')
+  const [selectedPersona, setSelectedPersona] = useState<number>(0)
+  const [activeRole, setActiveRole] = useState<'admin' | 'coach' | 'athlete' | 'official'>('admin')
+  const [selectedFeature, setSelectedFeature] = useState<number>(0)
+  const [activeCanvasView, setActiveCanvasView] = useState<'dashboard' | 'tournaments' | 'roster' | 'analytics'>('dashboard')
+
+  const stages = [
+    { id: 'research', label: '01. User Research', icon: Search, tag: 'Discovery & Personas' },
+    { id: 'ideation', label: '02. Feature Ideation', icon: Lightbulb, tag: 'RICE Prioritization' },
+    { id: 'ui', label: '03. UI & Design System', icon: Palette, tag: 'Tokens & Sandbox' },
+    { id: 'workflows', label: '04. Role-Based Workflows', icon: Layers, tag: 'Role Switcher' }
+  ] as const
+
+  const personas = [
+    {
+      title: 'Head Athletic Coach',
+      name: 'Coach Marcus Vance',
+      role: 'Head of Athletics (Track & Field)',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+      quote: 'I used to spend 3 hours every Sunday compiling paper rosters and WhatsApp RSVPs. I need instant 1-tap attendance and health logs.',
+      goals: ['Instant attendance tracking', 'Real-time injury reporting', 'Automated practice change notifications'],
+      frustrations: ['Paper spreadsheet clutter', 'Last-minute schedule changes lost in chats', 'No historical athlete PR trends'],
+      keyMetrics: ['45 Athletes Managed', '12 Weekly Sessions', '98% Attendance Log Accuracy']
+    },
+    {
+      title: 'Sports Director / Admin',
+      name: 'Director Elena Rostova',
+      role: 'District Sports Administrator',
+      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
+      quote: 'Managing 14 schools across 8 sports requires strict role permissions, budget transparency, and centralized venue booking.',
+      goals: ['Unified multi-sport tournament calendar', 'Role-based access security', 'Instant venue booking conflict alerts'],
+      frustrations: ['Overlapping field reservations', 'Unverified scores submitted by email', 'Compliance audit headaches'],
+      keyMetrics: ['14 Regional Schools', '8 Active Sports', '120+ Monthly Tournaments']
+    },
+    {
+      title: 'Student Athlete',
+      name: 'Jordan Chen',
+      role: 'Varsity Basketball Captain',
+      avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80',
+      quote: 'I want to see my personal records, team game times, and trainer notes right on my phone without asking my coach daily.',
+      goals: ['Personal performance timeline', 'Instant practice change alerts', 'Digital player ID & health pass'],
+      frustrations: ['Missing game updates buried in chats', 'No central place to view individual PR metrics'],
+      keyMetrics: ['24.2 PPG Avg', '15 Matches Played', '100% Attendance Rate']
+    },
+    {
+      title: 'Tournament Official / Referee',
+      name: 'David K. Miller',
+      role: 'Senior Regional Referee',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+      quote: 'Submitting live scores and foul records needs to be foolproof from a tablet right at the court sidelines.',
+      goals: ['Offline-ready score logging', 'One-tap foul & penalty input', 'Instant bracket progression sync'],
+      frustrations: ['Paper scorecards damaged on field', 'Disputed match final scores due to manual typos'],
+      keyMetrics: ['32 Matches Officiated', '100% Score Accuracy', '< 30s Bracket Sync']
+    }
+  ]
+
+  const riceFeatures = [
+    {
+      name: 'Multi-Role Access Control (RBAC)',
+      reach: 10, impact: 9, confidence: 95, effort: 3, riceScore: 95.0,
+      status: 'Phase 1 Core',
+      desc: 'Role-customized security permissions preventing unauthorized score editing while empowering coaches with real-time roster control.',
+      userStory: 'As an Administrator, I want granular role permissions so that referees log match scores without accessing financial records.'
+    },
+    {
+      name: 'Automated Tournament Bracket Engine',
+      reach: 9, impact: 9, confidence: 90, effort: 4, riceScore: 91.1,
+      status: 'Phase 1 Core',
+      desc: 'Algorithmic single/double elimination and round-robin generator with automated facility court allocation.',
+      userStory: 'As an Event Coordinator, I want automated bracket creation to eliminate 6 hours of manual seed draw preparation.'
+    },
+    {
+      name: 'Real-Time Scoreboard & Live Sync',
+      reach: 10, impact: 8, confidence: 90, effort: 3, riceScore: 88.0,
+      status: 'Phase 1 Core',
+      desc: 'Sideline tablet scorekeeper console broadcasting updates instantly to spectator web apps and live event screens.',
+      userStory: 'As a Referee, I want offline score recording so match statistics sync automatically when wireless connectivity restores.'
+    },
+    {
+      name: 'Athlete Performance & Medical Diagnostics',
+      reach: 8, impact: 8, confidence: 85, effort: 4, riceScore: 84.5,
+      status: 'Phase 2 Live',
+      desc: 'Biometric tracking, sprint velocity trends, injury recovery tracking, and encrypted medical clearance release forms.',
+      userStory: 'As a Head Coach, I want visual fatigue trends so I can adjust practice intensity and prevent player overtraining.'
+    }
+  ]
+
+  const roleWorkflows = {
+    admin: {
+      roleTitle: 'Sports Administrator Workflow',
+      badge: 'Level 4 System Access',
+      tagline: 'High-level operational oversight, institutional reporting, and global tournament governance.',
+      metrics: [
+        { label: 'Total Sports Programs', value: '14 Active' },
+        { label: 'Registered Athletes', value: '2,480' },
+        { label: 'Venue Utilization', value: '94.2%' },
+        { label: 'System Health', value: '100% Operational' }
+      ],
+      permissions: [
+        { action: 'Create & Publish Tournaments', allowed: true },
+        { action: 'Manage User Roles & Access Keys', allowed: true },
+        { action: 'Override Referee Scores', allowed: true },
+        { action: 'Direct Player Roster Editing', allowed: false }
+      ],
+      flowSteps: [
+        { title: '1. Season Architecture', detail: 'Defines season dates, facility availability, and assigns Head Coaches to sports programs.' },
+        { title: '2. Access Authorization', detail: 'Issues secure role keys to officials, coaches, and medical response teams.' },
+        { title: '3. Analytics Oversight', detail: 'Monitors district participation metrics, venue density, and compliance reports.' }
+      ],
+      previewHeadline: 'Admin Operations Tower',
+      previewContent: 'Global Multi-Sport Dashboard with Facility Conflict Detection & Compliance Auditing'
+    },
+    coach: {
+      roleTitle: 'Head Coach Workflow',
+      badge: 'Team Operations Focus',
+      tagline: 'Roster curation, tactical practice planning, attendance tracking, and athlete readiness analytics.',
+      metrics: [
+        { label: 'Active Roster Size', value: '38 Athletes' },
+        { label: 'Avg Attendance', value: '96.8%' },
+        { label: 'Upcoming Matches', value: '3 This Week' },
+        { label: 'Ready for Play', value: '35 / 38' }
+      ],
+      permissions: [
+        { action: 'Create & Publish Tournaments', allowed: false },
+        { action: 'Manage Team Roster & Lineups', allowed: true },
+        { action: 'Log Daily Attendance & Drills', allowed: true },
+        { action: 'Submit Player Medical Logs', allowed: true }
+      ],
+      flowSteps: [
+        { title: '1. Rapid Attendance Check', detail: 'Opens team mobile app, scans athlete QR codes for instant 1-tap attendance logging.' },
+        { title: '2. Lineup Optimization', detail: 'Drags and drops starting lineups based on weekly sprint performance and fatigue scores.' },
+        { title: '3. Post-Match Roster Review', detail: 'Reviews game statistics, flags injured players for trainer evaluation, and sends team notifications.' }
+      ],
+      previewHeadline: 'Coach Operations Portal',
+      previewContent: 'Live Roster Matrix, Readiness Indicators & Tactical Drill Builder'
+    },
+    athlete: {
+      roleTitle: 'Student Athlete Workflow',
+      badge: 'Personal Growth & Schedule',
+      tagline: 'Personalized schedule timeline, performance milestone tracking, and direct team announcements.',
+      metrics: [
+        { label: 'Personal PR Record', value: '10.84s (100m)' },
+        { label: 'Season Points', value: '184 Total' },
+        { label: 'Next Match in', value: '18h 42m' },
+        { label: 'Health Clearance', value: 'Verified' }
+      ],
+      permissions: [
+        { action: 'View Personal Stats & Schedule', allowed: true },
+        { action: 'RSVP to Practice & Matches', allowed: true },
+        { action: 'Modify Game Scores', allowed: false },
+        { action: 'View Other Athletes Medical Logs', allowed: false }
+      ],
+      flowSteps: [
+        { title: '1. Daily Practice Check', detail: 'Receives automated push notification with practice location and required team gear.' },
+        { title: '2. Performance Logging', detail: 'Logs personal workout reps, hydration index, and post-session soreness ratings.' },
+        { title: '3. Game Day Hub', detail: 'Accesses digital player pass, live tournament bracket position, and team bus schedule.' }
+      ],
+      previewHeadline: 'Athlete Personal Hub',
+      previewContent: 'Performance Timeline, Practice RSVP & Digital Player ID Card'
+    },
+    official: {
+      roleTitle: 'Tournament Official Workflow',
+      badge: 'Live Scoring & Fair Play',
+      tagline: 'Sideline rapid score recording, penalty logging, official timekeeper controls, and match verification.',
+      metrics: [
+        { label: 'Assigned Match', value: 'Court #3 (Finals)' },
+        { label: 'Match Clock', value: '14:22 Q3' },
+        { label: 'Fouls Recorded', value: '12 Total' },
+        { label: 'Sync Status', value: 'Live Offline-Ready' }
+      ],
+      permissions: [
+        { action: 'Enter & Verify Match Scores', allowed: true },
+        { action: 'Log Fouls & Disqualifications', allowed: true },
+        { action: 'Sign Off Match Transcript', allowed: true },
+        { action: 'Edit Team Roster Names', allowed: false }
+      ],
+      flowSteps: [
+        { title: '1. Sideline Tablet Lock', detail: 'Locks tablet into High-Contrast Sideline Mode with large tap targets for glare visibility.' },
+        { title: '2. Real-Time Score Input', detail: 'Taps team points or foul buttons; system updates digital scoreboard with <0.5s latency.' },
+        { title: '3. Official Verification', detail: 'Captures digital signature after full time; bracket advances winning team automatically.' }
+      ],
+      previewHeadline: 'Official Sideline Terminal',
+      previewContent: 'High-Contrast Scorekeeper Console & Digital Signature Verification'
+    }
+  }
+
+  return (
+    <div className='mt-16 space-y-12 border-t border-white/10 pt-12'>
+      {/* Header Banner */}
+      <div className='rounded-3xl border border-white/10 bg-[#0f1715]/80 p-8 lg:p-10 backdrop-blur-xl shadow-2xl'>
+        <div className='flex flex-wrap items-center justify-between gap-6'>
+          <div>
+            <span className='inline-flex items-center gap-2 rounded-full border border-[#69d483]/30 bg-[#69d483]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#69d483]'>
+              <Sparkles size={14} /> End-to-End Product Design Suite
+            </span>
+            <h2 className='mt-4 text-3xl sm:text-4xl font-bold tracking-tight text-white'>
+              Interactive Product Architecture
+            </h2>
+          </div>
+          {/* Typography Spec Badge */}
+          <div className='rounded-2xl border border-white/10 bg-[#0a0d10] px-5 py-3 text-xs text-neutral-300'>
+            <div className='font-mono text-[#69d483] font-semibold mb-1'>Typography Spec Enforced:</div>
+            <div className='font-mono text-white/80'>font-size: <span className='text-white font-bold'>19px</span> | line-height: <span className='text-white font-bold'>30.7px</span> | letter-spacing: <span className='text-white font-bold'>0px</span></div>
+          </div>
+        </div>
+
+        <p className='mt-6 max-w-[900px] text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/85 text-e2e-body'>
+          End-to-end product design — from user research and feature ideation to UI design and role-based workflows. Explore each phase below to see how discovery insights directly influenced our design system primitives and multi-role permission architecture.
+        </p>
+
+        {/* 4-Stage Switcher Tabs */}
+        <div className='mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3'>
+          {stages.map((stage) => {
+            const Icon = stage.icon
+            const isActive = activeStage === stage.id
+            return (
+              <button
+                key={stage.id}
+                type='button'
+                onClick={() => setActiveStage(stage.id as any)}
+                className={`group relative flex flex-col items-start p-4 rounded-2xl border text-left transition-all duration-300 ${
+                  isActive
+                    ? 'border-[#69d483] bg-[#69d483]/10 shadow-[0_0_25px_rgba(105,212,131,0.2)]'
+                    : 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10'
+                }`}
+              >
+                <div className='flex items-center justify-between w-full'>
+                  <span className={`inline-flex h-9 w-9 items-center justify-center rounded-xl transition-colors ${
+                    isActive ? 'bg-[#69d483] text-[#0a0d10]' : 'bg-white/10 text-white group-hover:bg-white/20'
+                  }`}>
+                    <Icon size={18} />
+                  </span>
+                  <span className={`text-[11px] font-mono uppercase tracking-wider ${
+                    isActive ? 'text-[#69d483]' : 'text-neutral-400'
+                  }`}>
+                    {stage.tag}
+                  </span>
+                </div>
+                <p className={`mt-3 text-sm font-semibold ${isActive ? 'text-white' : 'text-neutral-300'}`}>
+                  {stage.label}
+                </p>
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Stage 1: User Research */}
+      {activeStage === 'research' && (
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35 }}
+          className='space-y-10'
+        >
+          {/* Research Impact Numbers */}
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'>
+            {[
+              { label: 'Field Interviews', val: '120+', detail: 'Across 14 regional sports academies & schools' },
+              { label: 'Admin Time Saved', val: '84%', detail: 'Reduction in scheduling conflicts & paperwork' },
+              { label: 'Score Sync Latency', val: '< 0.5s', detail: 'Real-time sideline update speed' },
+              { label: 'User Satisfaction', val: '4.9 / 5', detail: 'Rated by coaches and tournament referees' }
+            ].map((stat, idx) => (
+              <div key={idx} className='rounded-2xl border border-white/10 bg-black/40 p-6 backdrop-blur-md'>
+                <p className='text-3xl font-bold text-[#69d483] font-mono'>{stat.val}</p>
+                <p className='mt-2 text-sm font-semibold text-white'>{stat.label}</p>
+                <p className='mt-2 text-[19px] leading-[30.7px] tracking-[0px] font-normal text-neutral-400 text-e2e-body'>
+                  {stat.detail}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* User Persona Selector */}
+          <div className='rounded-3xl border border-white/10 bg-[#0c1512] p-8 lg:p-10'>
+            <div className='flex items-center justify-between mb-8'>
+              <div>
+                <span className='font-mono text-xs text-[#69d483] uppercase tracking-widest'>User Discovery</span>
+                <h3 className='text-2xl sm:text-3xl font-bold text-white mt-1'>User Personas & Pain Point Mapping</h3>
+              </div>
+              <p className='text-xs font-mono text-neutral-400 hidden sm:block'>Select a persona to view discovery insights</p>
+            </div>
+
+            {/* Persona Selector Buttons */}
+            <div className='flex flex-wrap gap-3 mb-8'>
+              {personas.map((p, idx) => (
+                <button
+                  key={idx}
+                  type='button'
+                  onClick={() => setSelectedPersona(idx)}
+                  className={`flex items-center gap-3 px-5 py-2.5 rounded-full border text-xs font-medium transition-all ${
+                    selectedPersona === idx
+                      ? 'border-[#69d483] bg-[#69d483] text-black font-semibold shadow-[0_0_15px_rgba(105,212,131,0.3)]'
+                      : 'border-white/15 bg-white/5 text-neutral-300 hover:bg-white/10'
+                  }`}
+                >
+                  <img src={p.avatar} alt={p.name} className='w-6 h-6 rounded-full object-cover border border-white/20' />
+                  {p.title}
+                </button>
+              ))}
+            </div>
+
+            {/* Selected Persona Card */}
+            {(() => {
+              const p = personas[selectedPersona]
+              return (
+                <div className='grid grid-cols-1 lg:grid-cols-12 gap-8 items-start rounded-2xl border border-white/10 bg-black/60 p-6 lg:p-8'>
+                  <div className='lg:col-span-4 space-y-4 text-center sm:text-left'>
+                    <div className='relative inline-block'>
+                      <img src={p.avatar} alt={p.name} className='w-24 h-24 rounded-2xl object-cover border-2 border-[#69d483]/50 shadow-xl' />
+                      <span className='absolute -bottom-2 -right-2 bg-[#69d483] text-black p-1.5 rounded-xl text-xs'>
+                        <UserCheck size={14} />
+                      </span>
+                    </div>
+                    <div>
+                      <h4 className='text-xl font-bold text-white'>{p.name}</h4>
+                      <p className='text-xs font-mono text-[#69d483] mt-1'>{p.role}</p>
+                    </div>
+
+                    <div className='border-t border-white/10 pt-4 space-y-2'>
+                      <p className='text-xs uppercase font-mono text-neutral-400 tracking-wider'>Key Metrics</p>
+                      {p.keyMetrics.map((km, i) => (
+                        <div key={i} className='flex items-center gap-2 text-xs text-neutral-200'>
+                          <CheckCircle size={14} className='text-[#69d483]' /> {km}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className='lg:col-span-8 space-y-6'>
+                    {/* Persona Rationale Quote */}
+                    <div className='rounded-2xl border border-[#69d483]/20 bg-[#69d483]/5 p-6 relative'>
+                      <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal italic text-[#e6f4ea] text-e2e-body'>
+                        "{p.quote}"
+                      </p>
+                    </div>
+
+                    <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
+                      {/* Core Goals */}
+                      <div className='rounded-xl border border-white/10 bg-white/5 p-5 space-y-3'>
+                        <p className='text-xs font-mono uppercase tracking-wider text-[#69d483] font-semibold flex items-center gap-2'>
+                          <Target size={14} /> User Goals
+                        </p>
+                        <ul className='space-y-2'>
+                          {p.goals.map((g, i) => (
+                            <li key={i} className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/90 text-e2e-body flex items-start gap-2'>
+                              <span className='text-[#69d483] mt-1'>•</span> {g}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Key Frustrations */}
+                      <div className='rounded-xl border border-white/10 bg-white/5 p-5 space-y-3'>
+                        <p className='text-xs font-mono uppercase tracking-wider text-rose-400 font-semibold flex items-center gap-2'>
+                          <XCircle size={14} /> Critical Frustrations
+                        </p>
+                        <ul className='space-y-2'>
+                          {p.frustrations.map((f, i) => (
+                            <li key={i} className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/90 text-e2e-body flex items-start gap-2'>
+                              <span className='text-rose-400 mt-1'>•</span> {f}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            })()}
+          </div>
+        </motion.div>
+      )}
+
+      {/* Stage 2: Feature Ideation & RICE Matrix */}
+      {activeStage === 'ideation' && (
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35 }}
+          className='space-y-10'
+        >
+          <div className='rounded-3xl border border-white/10 bg-[#0c1512] p-8 lg:p-10'>
+            <div className='flex flex-wrap items-center justify-between gap-4 mb-8'>
+              <div>
+                <span className='font-mono text-xs text-[#69d483] uppercase tracking-widest'>Ideation & Roadmap</span>
+                <h3 className='text-2xl sm:text-3xl font-bold text-white mt-1'>RICE Prioritization Matrix</h3>
+              </div>
+              <span className='text-xs font-mono text-neutral-400 border border-white/10 bg-white/5 px-4 py-2 rounded-full'>
+                RICE Score = (Reach × Impact × Confidence) / Effort
+              </span>
+            </div>
+
+            {/* RICE Matrix Table */}
+            <div className='overflow-x-auto rounded-2xl border border-white/10 bg-black/60'>
+              <table className='w-full text-left border-collapse'>
+                <thead>
+                  <tr className='border-b border-white/10 bg-white/5 font-mono text-xs text-neutral-400 uppercase tracking-wider'>
+                    <th className='py-4 px-6'>Feature Module</th>
+                    <th className='py-4 px-3 text-center'>Reach (1-10)</th>
+                    <th className='py-4 px-3 text-center'>Impact (1-10)</th>
+                    <th className='py-4 px-3 text-center'>Confidence %</th>
+                    <th className='py-4 px-3 text-center'>Effort (1-5)</th>
+                    <th className='py-4 px-4 text-center text-[#69d483]'>RICE Score</th>
+                    <th className='py-4 px-6 text-right'>Status</th>
+                  </tr>
+                </thead>
+                <tbody className='divide-y divide-white/5 text-sm'>
+                  {riceFeatures.map((f, idx) => (
+                    <tr
+                      key={idx}
+                      onClick={() => setSelectedFeature(idx)}
+                      className={`cursor-pointer transition-colors hover:bg-white/5 ${
+                        selectedFeature === idx ? 'bg-[#69d483]/10' : ''
+                      }`}
+                    >
+                      <td className='py-4 px-6 font-semibold text-white flex items-center gap-3'>
+                        <span className={`w-2 h-2 rounded-full ${selectedFeature === idx ? 'bg-[#69d483]' : 'bg-neutral-600'}`} />
+                        {f.name}
+                      </td>
+                      <td className='py-4 px-3 text-center font-mono text-neutral-300'>{f.reach}</td>
+                      <td className='py-4 px-3 text-center font-mono text-neutral-300'>{f.impact}</td>
+                      <td className='py-4 px-3 text-center font-mono text-neutral-300'>{f.confidence}%</td>
+                      <td className='py-4 px-3 text-center font-mono text-neutral-300'>{f.effort}</td>
+                      <td className='py-4 px-4 text-center font-mono font-bold text-[#69d483] text-base'>{f.riceScore}</td>
+                      <td className='py-4 px-6 text-right'>
+                        <span className='inline-block px-3 py-1 rounded-full text-xs font-mono bg-white/10 text-neutral-200 border border-white/10'>
+                          {f.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Active Feature Detail Rationale */}
+            {(() => {
+              const feat = riceFeatures[selectedFeature]
+              return (
+                <div className='mt-8 rounded-2xl border border-white/10 bg-black/40 p-6 lg:p-8 space-y-4'>
+                  <div className='flex items-center justify-between'>
+                    <h4 className='text-xl font-bold text-white flex items-center gap-3'>
+                      <Zap className='text-[#69d483]' size={20} /> {feat.name} Rationale
+                    </h4>
+                    <span className='text-xs font-mono text-[#69d483] bg-[#69d483]/10 border border-[#69d483]/30 px-3 py-1 rounded-full'>
+                      Selected Feature
+                    </span>
+                  </div>
+
+                  <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/90 text-e2e-body'>
+                    {feat.desc}
+                  </p>
+
+                  <div className='rounded-xl border border-white/10 bg-white/5 p-4 mt-3'>
+                    <span className='text-xs font-mono uppercase text-neutral-400 tracking-wider font-semibold block mb-2'>User Story Specification</span>
+                    <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-emerald-200 italic text-e2e-body'>
+                      "{feat.userStory}"
+                    </p>
+                  </div>
+                </div>
+              )
+            })()}
+          </div>
+        </motion.div>
+      )}
+
+      {/* Stage 3: UI & Design System */}
+      {activeStage === 'ui' && (
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35 }}
+          className='space-y-10'
+        >
+          {/* Design System Primitives */}
+          <div className='rounded-3xl border border-white/10 bg-[#0c1512] p-8 lg:p-10 space-y-10'>
+            <div>
+              <span className='font-mono text-xs text-[#69d483] uppercase tracking-widest'>Design System Tokens</span>
+              <h3 className='text-2xl sm:text-3xl font-bold text-white mt-1'>Color Palette & Typography Engine</h3>
+            </div>
+
+            {/* Colors */}
+            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'>
+              {[
+                { name: 'Emerald Prime', hex: '#69D483', role: 'Primary Accent & Key Actions', bg: 'bg-[#69d483]', text: 'text-black' },
+                { name: 'Obsidian Pitch', hex: '#0A0D10', role: 'Dark Surface & Canvas BG', bg: 'bg-[#0a0d10]', text: 'text-white border border-white/20' },
+                { name: 'Ice Silver', hex: '#DFE5EB', role: 'Primary Headings & Text', bg: 'bg-[#dfe5eb]', text: 'text-black' },
+                { name: 'Slate Subdued', hex: '#8A92A0', role: 'Secondary Metadata & Borders', bg: 'bg-[#8a92a0]', text: 'text-black' }
+              ].map((c, idx) => (
+                <div key={idx} className='rounded-2xl border border-white/10 bg-black/60 p-5 space-y-3'>
+                  <div className={`h-20 w-full rounded-xl ${c.bg} flex items-end p-3 font-mono text-xs font-bold ${c.text}`}>
+                    {c.hex}
+                  </div>
+                  <div>
+                    <p className='text-base font-bold text-white'>{c.name}</p>
+                    <p className='text-xs text-neutral-400 mt-1'>{c.role}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Typography Spec Box */}
+            <div className='rounded-2xl border border-[#69d483]/30 bg-[#69d483]/5 p-6 lg:p-8 space-y-4'>
+              <div className='flex items-center justify-between'>
+                <span className='font-mono text-xs uppercase tracking-widest text-[#69d483] font-bold'>Typography System Rule</span>
+                <span className='text-xs font-mono text-neutral-400'>CSS Standard: .text-e2e-body</span>
+              </div>
+              <div className='grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-sm border-y border-white/10 py-4'>
+                <div><span className='text-neutral-400'>Font Size:</span> <span className='text-white font-bold text-base'>19px</span></div>
+                <div><span className='text-neutral-400'>Line Height:</span> <span className='text-white font-bold text-base'>30.7px</span></div>
+                <div><span className='text-neutral-400'>Letter Spacing:</span> <span className='text-white font-bold text-base'>0px</span></div>
+              </div>
+              <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/90 text-e2e-body'>
+                "This explicit typography standard guarantees high legibility across dark interfaces, ensuring long-form case study content, role descriptions, and research notes are rendered with optimal vertical rhythm and zero letter distortion."
+              </p>
+            </div>
+
+            {/* Live Interactive UI Prototype Preview */}
+            <div className='rounded-2xl border border-white/15 bg-[#0a0d10] p-6 lg:p-8 space-y-6'>
+              <div className='flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4'>
+                <div className='flex items-center gap-3'>
+                  <span className='w-3 h-3 rounded-full bg-[#ff5f56]' />
+                  <span className='w-3 h-3 rounded-full bg-[#ffbd2e]' />
+                  <span className='w-3 h-3 rounded-full bg-[#27c93f]' />
+                  <span className='text-xs font-mono text-neutral-400 ml-2'>Sports ERP Live UI Sandbox</span>
+                </div>
+                <div className='flex items-center gap-2'>
+                  {(['dashboard', 'tournaments', 'roster', 'analytics'] as const).map((v) => (
+                    <button
+                      key={v}
+                      type='button'
+                      onClick={() => setActiveCanvasView(v)}
+                      className={`px-3 py-1 rounded-lg text-xs font-mono capitalize transition-all ${
+                        activeCanvasView === v
+                          ? 'bg-[#69d483] text-black font-bold'
+                          : 'bg-white/5 text-neutral-400 hover:text-white'
+                      }`}
+                    >
+                      {v}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Sandbox View Content */}
+              <div className='bg-[#05080a] rounded-xl p-6 border border-white/5 space-y-6'>
+                <div className='flex items-center justify-between'>
+                  <div>
+                    <h5 className='text-xl font-bold text-white capitalize'>{activeCanvasView} Overview</h5>
+                    <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-neutral-400 text-e2e-body mt-1'>
+                      Live preview of sports organization data rendered through our design system primitives.
+                    </p>
+                  </div>
+                  <span className='px-3 py-1 rounded-full bg-[#69d483]/10 text-[#69d483] font-mono text-xs border border-[#69d483]/30'>
+                    Live State
+                  </span>
+                </div>
+
+                <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
+                  <div className='bg-white/5 p-4 rounded-xl border border-white/10'>
+                    <span className='text-xs text-neutral-400 block'>Active Competitions</span>
+                    <span className='text-2xl font-bold text-white font-mono mt-1 block'>28 Leagues</span>
+                  </div>
+                  <div className='bg-white/5 p-4 rounded-xl border border-white/10'>
+                    <span className='text-xs text-neutral-400 block'>System Sync Latency</span>
+                    <span className='text-2xl font-bold text-[#69d483] font-mono mt-1 block'>14ms</span>
+                  </div>
+                  <div className='bg-white/5 p-4 rounded-xl border border-white/10'>
+                    <span className='text-xs text-neutral-400 block'>Role Auth Tokens</span>
+                    <span className='text-2xl font-bold text-emerald-300 font-mono mt-1 block'>100% Encrypted</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Stage 4: Role-Based Workflows */}
+      {activeStage === 'workflows' && (
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35 }}
+          className='space-y-10'
+        >
+          <div className='rounded-3xl border border-white/10 bg-[#0c1512] p-8 lg:p-10 space-y-8'>
+            <div>
+              <span className='font-mono text-xs text-[#69d483] uppercase tracking-widest'>Role-Based Architecture</span>
+              <h3 className='text-2xl sm:text-3xl font-bold text-white mt-1'>Interactive Role Switcher Simulator</h3>
+              <p className='mt-2 text-[19px] leading-[30.7px] tracking-[0px] font-normal text-neutral-300 text-e2e-body'>
+                Sports ERP tailors interface views, actions, and security permissions dynamically based on the active user role.
+              </p>
+            </div>
+
+            {/* Role Switcher Tabs */}
+            <div className='flex flex-wrap gap-3'>
+              {[
+                { id: 'admin', label: 'Sports Administrator', icon: ShieldCheck },
+                { id: 'coach', label: 'Head Coach', icon: Users },
+                { id: 'athlete', label: 'Student Athlete', icon: Activity },
+                { id: 'official', label: 'Tournament Official', icon: Award }
+              ].map((r) => {
+                const Icon = r.icon
+                const isSelected = activeRole === r.id
+                return (
+                  <button
+                    key={r.id}
+                    type='button'
+                    onClick={() => setActiveRole(r.id as any)}
+                    className={`flex items-center gap-3 px-6 py-3 rounded-2xl border text-sm font-semibold transition-all ${
+                      isSelected
+                        ? 'border-[#69d483] bg-[#69d483] text-black shadow-[0_0_20px_rgba(105,212,131,0.3)]'
+                        : 'border-white/15 bg-white/5 text-neutral-300 hover:bg-white/10'
+                    }`}
+                  >
+                    <Icon size={18} />
+                    {r.label}
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Role Simulator Display */}
+            {(() => {
+              const rw = roleWorkflows[activeRole]
+              return (
+                <div className='space-y-8 rounded-2xl border border-white/10 bg-black/60 p-6 lg:p-8'>
+                  <div className='flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-6'>
+                    <div>
+                      <span className='px-3 py-1 rounded-full text-xs font-mono bg-[#69d483]/10 text-[#69d483] border border-[#69d483]/30'>
+                        {rw.badge}
+                      </span>
+                      <h4 className='text-2xl font-bold text-white mt-2'>{rw.roleTitle}</h4>
+                      <p className='mt-2 text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/80 text-e2e-body'>
+                        {rw.tagline}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Role Key Metrics */}
+                  <div className='grid grid-cols-2 sm:grid-cols-4 gap-4'>
+                    {rw.metrics.map((m, i) => (
+                      <div key={i} className='bg-white/5 p-4 rounded-xl border border-white/10'>
+                        <span className='text-xs text-neutral-400 block font-mono'>{m.label}</span>
+                        <span className='text-lg font-bold text-white font-mono mt-1 block'>{m.value}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Permission Matrix & Flow Steps */}
+                  <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+                    {/* Permissions */}
+                    <div className='rounded-xl border border-white/10 bg-white/5 p-6 space-y-4'>
+                      <h5 className='text-base font-bold text-white flex items-center gap-2'>
+                        <Lock size={16} className='text-[#69d483]' /> Security & Permission Matrix
+                      </h5>
+                      <div className='space-y-3'>
+                        {rw.permissions.map((p, i) => (
+                          <div key={i} className='flex items-center justify-between p-3 rounded-lg bg-black/40 border border-white/5'>
+                            <span className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-neutral-200 text-e2e-body'>
+                              {p.action}
+                            </span>
+                            {p.allowed ? (
+                              <span className='px-2.5 py-1 rounded-full text-xs font-mono bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center gap-1'>
+                                <CheckCircle size={12} /> Granted
+                              </span>
+                            ) : (
+                              <span className='px-2.5 py-1 rounded-full text-xs font-mono bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center gap-1'>
+                                <XCircle size={12} /> Restricted
+                              </span>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Step-by-Step Flow */}
+                    <div className='rounded-xl border border-white/10 bg-white/5 p-6 space-y-4'>
+                      <h5 className='text-base font-bold text-white flex items-center gap-2'>
+                        <Play size={16} className='text-[#69d483]' /> Workflow Execution Steps
+                      </h5>
+                      <div className='space-y-4'>
+                        {rw.flowSteps.map((s, i) => (
+                          <div key={i} className='space-y-1 p-3 rounded-lg bg-black/40 border border-white/5'>
+                            <p className='text-sm font-bold text-[#69d483]'>{s.title}</p>
+                            <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-neutral-300 text-e2e-body'>
+                              {s.detail}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Tailored UI Preview Banner */}
+                  <div className='rounded-xl border border-[#69d483]/30 bg-[#69d483]/10 p-6 text-center space-y-2'>
+                    <span className='text-xs font-mono text-[#69d483] uppercase tracking-wider font-bold'>Active Role Screen View</span>
+                    <h5 className='text-xl font-bold text-white'>{rw.previewHeadline}</h5>
+                    <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-emerald-200 text-e2e-body max-w-[750px] mx-auto'>
+                      {rw.previewContent}
+                    </p>
+                  </div>
+                </div>
+              )
+            })()}
+          </div>
+        </motion.div>
+      )}
     </div>
   )
 }
@@ -2196,21 +3327,147 @@ function ProjectDetailsPage({
 
   if (isSportsERP) {
     return (
-      <div className={`min-h-screen ${getBgColor()} text-white pt-[90px] pb-24 overflow-x-hidden relative font-sans selection:bg-orange-500 selection:text-white`}>
-        {/* Background vertical grid lines */}
-        <div className='pointer-events-none absolute inset-y-[90px] left-5 right-5 opacity-10 sm:left-8 sm:right-8 lg:left-[8.5vw] lg:right-[8.5vw] z-0'>
-          <div className='h-full w-full bg-[linear-gradient(90deg,rgba(255,255,255,0.16)_1px,transparent_1px)] bg-[length:12.5%_100%]' />
+      <div className={`min-h-screen ${getBgColor()} text-white pt-[90px] pb-24 overflow-x-hidden relative font-sans selection:bg-[#00ff84] selection:text-black`}>
+        <div
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{
+            backgroundColor: '#0a0d10',
+            backgroundImage: 'radial-gradient(rgba(255,255,255,0.12) 0.8px, transparent 0.9px)',
+            backgroundSize: '18px 18px',
+            backgroundPosition: 'center',
+            maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.5) 8%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0.5) 92%, rgba(0,0,0,0.12) 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.5) 8%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0.5) 92%, rgba(0,0,0,0.12) 100%)'
+          }}
+        />
+
+        <div className='relative z-10 mx-auto w-full max-w-[1280px] px-[16px] md:px-[64px] border-0 e2e-layout-box space-y-6 sm:space-y-10'>
+          {/* Top Pill Navigation Bar (Matching reference pill layout) */}
+          <div className='w-full rounded-full border-0 bg-white/5 px-[16px] py-3 md:px-[64px] backdrop-blur-xl shadow-xl flex items-center justify-between gap-4'>
+            <div className='flex items-center gap-3'>
+              <span className='inline-flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#15a854] text-[0.75rem] font-bold uppercase tracking-wider text-white shadow-md'>
+                ERP
+              </span>
+              <span className='text-base sm:text-lg font-bold tracking-tight text-white'>Sports ERP</span>
+            </div>
+            <button
+              type='button'
+              aria-label='Close case study'
+              className='inline-flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#27272a] text-white text-lg font-light shadow-md hover:bg-neutral-700 transition'
+            >
+              <X size={18} />
+            </button>
+          </div>
+
+          {/* Large Hero Banner Card */}
+          <div className='w-full rounded-[2rem] sm:rounded-[2.5rem] bg-[#15a854] py-10 sm:py-14 md:py-16 px-[16px] md:px-[64px] border-0 flex items-center justify-center shadow-[0_20px_50px_rgba(21,168,84,0.25)]'>
+            <div className='flex items-center gap-2.5 rounded-full bg-[#15a854] px-8 py-3.5 shadow-inner border-0'>
+              <span className='text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight font-sans'>
+                Sports ERP
+              </span>
+              <span className='rounded-full bg-white/25 px-2.5 py-0.5 text-xs font-bold text-white font-mono uppercase'>
+                v1
+              </span>
+            </div>
+          </div>
+
+          {/* Main Title Heading */}
+          <header className='pt-2 sm:pt-4 border-0 px-[16px] md:px-[64px]'>
+            <h1 className='text-[28px] sm:text-[40px] md:text-[48px] leading-[1.2] font-bold text-white tracking-tight max-w-[1180px]'>
+              Building a unified sports management platform for schools &amp; sports organisations
+            </h1>
+          </header>
+
+          {/* Horizontal Divider Line */}
+          <div className='border-t border-white/10 my-6 sm:my-8' />
+
+          {/* Metadata Section: Desktop 2-column grid & Mobile 1-column stack */}
+          <div className='mt-8 grid grid-cols-1 gap-y-8 md:grid-cols-[minmax(220px,0.72fr)_minmax(0,1.9fr)] md:gap-x-12 lg:gap-x-16 border-0 px-[16px] md:px-[64px]'>
+            {/* Left Column: My Role & Scope of work */}
+            <div className='space-y-8'>
+              <div className='space-y-2'>
+                <p className='text-sm sm:text-base font-medium text-neutral-400'>My Role</p>
+                <p className='text-base sm:text-lg font-semibold text-white'>Product Designer (UI/UX)</p>
+              </div>
+
+              <div className='space-y-2'>
+                <p className='text-sm sm:text-base font-medium text-neutral-400'>Scope of work</p>
+                <p className='mt-3 max-w-[28ch] text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/90 text-e2e-body'>
+                  End-to-end product design — from user research and feature ideation to UI design and role-based workflows.
+                </p>
+              </div>
+            </div>
+
+            {/* Right Column: About the Product */}
+            <div className='space-y-6'>
+              <div className='space-y-2'>
+                <p className='text-sm sm:text-base font-medium text-neutral-400'>About the Product</p>
+                <p className='max-w-[760px] text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/85 text-e2e-body'>
+                  Sports ERP is a role-based web platform that brings athletes, coaches, officials, coordinators, and administrators into one connected system. It replaces spreadsheets, notebooks, WhatsApp groups, and manual processes with a single platform for managing athletes, events, results, training, and performance analytics.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Why Sports Management Section (Updated Content with #D6A85F Highlights & Reference Visual Format) */}
+          <div className='mt-12 sm:mt-16 space-y-8 border-t border-white/10 pt-10 sm:pt-14 px-[16px] md:px-[64px] border-0'>
+            <div className='max-w-[850px] space-y-6'>
+              <h2 className='text-3xl sm:text-4xl font-bold text-white tracking-tight'>
+                Why Sports Management?
+              </h2>
+
+              <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/90 text-e2e-body'>
+                The problem wasn't a lack of information. It was where that information lived.
+              </p>
+
+              <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/85 text-e2e-body'>
+                Sports operations still depend on{' '}
+                <span className='text-[#D6A85F] font-semibold'>spreadsheets</span>,{' '}
+                <span className='text-[#D6A85F] font-semibold'>notebooks</span>, and{' '}
+                <span className='text-[#D6A85F] font-semibold'>scattered group chats</span> to manage athletes, competitions, and performance.
+              </p>
+
+              <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/85 text-e2e-body'>
+                As the number of athletes and events grows, these disconnected tools create{' '}
+                <span className='text-[#D6A85F] font-semibold'>duplicate work</span>,{' '}
+                <span className='text-[#D6A85F] font-semibold'>communication gaps</span>, and{' '}
+                <span className='text-[#D6A85F] font-semibold'>poor visibility</span> across the sporting journey.
+              </p>
+
+              <p className='text-xl font-bold text-white pt-2'>
+                And..
+              </p>
+
+              <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/85 text-e2e-body'>
+                Athletes can't easily access their complete journey in one place, while coaches and organisers have to{' '}
+                <span className='text-[#D6A85F] font-semibold'>manage information across multiple systems</span>.
+              </p>
+
+              <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/85 text-e2e-body'>
+                Important parts of the experience — from{' '}
+                <span className='text-[#D6A85F] font-semibold'>registration and event updates to results, training, and recovery</span> — remain fragmented.
+              </p>
+
+              {/* Opportunity Header & Platform Rationale */}
+              <div className='pt-6 space-y-6'>
+                <h3 className='text-2xl sm:text-3xl font-bold text-white tracking-tight'>
+                  This created a clear opportunity for a connected sports system
+                </h3>
+
+                <p className='text-[19px] leading-[30.7px] tracking-[0px] font-normal text-white/90 text-e2e-body'>
+                  Instead of adding another tool to the workflow, I wanted to bring the important parts of the sports journey into one role-based platform — designed around how athletes, coaches, officials, and organisers actually work.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Research Showcase Section (03 - RESEARCH & 04 - INSIGHT matching reference visual layout) */}
+          <ResearchShowcaseSection />
+
+          {/* Interactive End-to-End Product Design Suite */}
+          <EndToEndProductDesignSuite />
         </div>
 
         <div className='relative z-10 mx-auto w-full'>
-          {/* Case Study Image Container - Edge to Edge on Mobile, Centered on Desktop */}
-          <div className='w-full max-w-[1400px] mx-auto px-0 md:px-6 pb-12'>
-            <img 
-              src='/work/sports-erp-case-study.png' 
-              alt='Sports ERP Case Study' 
-              className='w-full h-auto object-contain md:rounded-xl shadow-[0_20px_80px_rgba(0,0,0,0.65)] border-0 md:border border-white/5'
-            />
-          </div>
           <RelatedProjects currentProject={project} onSelectProject={onSelectProject} />
         </div>
       </div>
@@ -2379,7 +3636,7 @@ function ProjectDetailsPage({
                   <h3 className='font-bold text-white text-lg tracking-wide'>The Problem</h3>
                   <p className='text-sm text-white/60 font-light leading-relaxed'>
                     {isSportsERP
-                      ? "Many sports operations still depend on spreadsheets, notebooks and scattered communication channels. Athletes struggle to access their complete journey in one place, while organizers and coaches manage information across multiple systems."
+                      ? "The problem wasn't a lack of information. It was where that information lived. Sports operations still depend on spreadsheets, notebooks, and scattered group chats to manage athletes, competitions, and performance. As the number of athletes and events grows, these disconnected tools create duplicate work, communication gaps, and poor visibility across the sporting journey."
                       : isQuickNotes
                       ? "Traditional notepad applications are either overly complex with bloated features, or too basic, making it difficult to keep ideas clean and search them swiftly during high-pressure work."
                       : "Athletes struggle to get real-time feedback on their workout sets and performance metrics, relying on manual logs that are often forgotten or yield no insights."}
@@ -2470,7 +3727,7 @@ function ProjectDetailsPage({
                   <h3 className='font-bold text-white text-lg tracking-wide'>Research Insights</h3>
                   <p className='text-sm text-white/60 font-light leading-relaxed'>
                     {isSportsERP
-                      ? "Through one-to-one interviews with district, state and national-level athletes, we discovered recurring pain points around manual tracking, event communication and performance visibility."
+                      ? "Athletes can't easily access their complete journey in one place, while coaches and organisers have to manage information across multiple systems. Important parts of the experience — from registration and event updates to results, training, and recovery — remain fragmented."
                       : isQuickNotes
                       ? "Users need instant note-creation buttons, rapid keyboard shortcut integration, and seamless offline saving to guarantee thoughts are captured before fading away."
                       : "Interviews with coaches and gym trainers highlight the need for a simple tracker that athletes actually use consistently without interrupting their flow."}
@@ -2482,7 +3739,7 @@ function ProjectDetailsPage({
                   <h3 className='font-bold text-white text-lg tracking-wide'>The Solution</h3>
                   <p className='text-sm text-white/60 font-light leading-relaxed'>
                     {isSportsERP
-                      ? "Sports ERP centralizes athlete data, event management, training logs, analytics and result workflows into one role-based platform."
+                      ? "This created a clear opportunity for a connected sports system. Instead of adding another tool to the workflow, I wanted to bring the important parts of the sports journey into one role-based platform — designed around how athletes, coaches, officials, and organisers actually work."
                       : isQuickNotes
                       ? "A streamlined markdown-based notes app with instant syncing, lightning-fast text-search indexes, and a simple categorizing drawer."
                       : "A custom fitness hub featuring automated performance analysis, progress visualizers, and simplified workout sheets."}
